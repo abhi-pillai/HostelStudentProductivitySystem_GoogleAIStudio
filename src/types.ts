@@ -57,6 +57,7 @@ export interface LightsOutData {
 
 export interface DailyRecord {
   date: string; // YYYY-MM-DD
+  dailyFocusGoal?: string; // The single most important objective for the day
   hardStart: HardStartData;
   organize: OrganizeData;
   smallSessions: SmallSessionsData;

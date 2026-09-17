@@ -28,6 +28,7 @@ export function formatDateDisplay(dateStr: string): string {
 export function getDefaultRecord(date: string = getTodayDateString()): DailyRecord {
   return {
     date,
+    dailyFocusGoal: '',
     hardStart: {
       wakeNoPhone: false,
       waterFreshen: false,

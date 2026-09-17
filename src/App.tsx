@@ -17,6 +17,7 @@ import {
   syncLocalRecordsToFirestore,
 } from './services/firestoreService';
 import { Header } from './components/Header';
+import { DailyFocusGoal } from './components/DailyFocusGoal';
 import { ScoreBanner } from './components/ScoreBanner';
 import { HardStartSection } from './components/HardStartSection';
 import { OrganizeSection } from './components/OrganizeSection';
@@ -126,6 +127,7 @@ export const App: React.FC = () => {
   const handlePrefillSample = () => {
     const sample: DailyRecord = {
       date: currentDate,
+      dailyFocusGoal: 'Crush the Dynamic Programming module and master LeetCode tree problems',
       hardStart: {
         wakeNoPhone: true,
         waterFreshen: true,
@@ -228,6 +230,12 @@ export const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
+        {/* Daily Focus Goal */}
+        <DailyFocusGoal
+          value={record.dailyFocusGoal || ''}
+          onChange={(goal) => handleUpdateRecord({ ...record, dailyFocusGoal: goal })}
+        />
+
         {/* Score Banner */}
         <ScoreBanner scoreBreakdown={scoreBreakdown} onJumpToSection={jumpToSection} />
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../lib/firebase';
 
@@ -9,7 +9,7 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
-  const { signInWithGoogle, signInWithEmail, signUpWithEmail, authError, clearAuthError } = useAuth();
+  const { signInWithGoogle, signInWithEmail, signUpWithEmail, authError, clearAuthError, isFirebaseConfigured } = useAuth();
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -112,6 +112,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <span className="font-bold">Persistent Cloud Sync:</span> Log in to automatically back up your daily H.O.S.T.E.L. execution scores, notes, and streaks to Firebase Firestore.
           </div>
         </div>
+
+        {/* Configuration Notice if not set up */}
+        {!isFirebaseConfigured && (
+          <div className="mt-3 p-3 bg-amber-50 border border-amber-300/80 rounded-xl flex items-start gap-2 text-xs text-amber-900">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              Firebase credentials are read from <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">.env</code>. Set <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_API_KEY</code> and <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_PROJECT_ID</code> to enable cloud sign-in.
+            </div>
+          </div>
+        )}
 
         {/* Error Alert */}
         {authError && (

@@ -8,12 +8,13 @@ import {
   updateProfile,
   signOut as fbSignOut,
 } from 'firebase/auth';
-import { auth, googleProvider } from '../lib/firebase';
+import { auth, googleProvider, isFirebaseConfigured } from '../lib/firebase';
 import { saveUserProfileToFirestore } from '../services/firestoreService';
 
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
+  isFirebaseConfigured: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, pass: string) => Promise<void>;
   signUpWithEmail: (email: string, pass: string, displayName?: string) => Promise<void>;
@@ -30,6 +31,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setLoading(false);
@@ -54,6 +60,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signInWithGoogle = async () => {
     setAuthError(null);
+    if (!isFirebaseConfigured) {
+      setAuthError('Firebase environment variables (.env) are not configured yet.');
+      return;
+    }
     try {
       const result = await signInWithPopup(auth, googleProvider);
       if (result.user) {
@@ -93,6 +103,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signInWithEmail = async (email: string, pass: string) => {
     setAuthError(null);
+    if (!isFirebaseConfigured) {
+      setAuthError('Firebase environment variables (.env) are not configured yet.');
+      return;
+    }
     try {
       const result = await signInWithEmailAndPassword(auth, email.trim(), pass);
       if (result.user) {
@@ -122,6 +136,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signUpWithEmail = async (email: string, pass: string, displayName?: string) => {
     setAuthError(null);
+    if (!isFirebaseConfigured) {
+      setAuthError('Firebase environment variables (.env) are not configured yet.');
+      return;
+    }
     try {
       const result = await createUserWithEmailAndPassword(auth, email.trim(), pass);
       if (result.user && displayName) {
@@ -151,7 +169,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signOut = async () => {
     setAuthError(null);
     try {
-      await fbSignOut(auth);
+      if (isFirebaseConfigured) {
+        await fbSignOut(auth);
+      } else {
+        setCurrentUser(null);
+      }
     } catch (err: any) {
       console.error('Sign out error:', err);
       setAuthError(err.message || 'Failed to sign out');
@@ -164,6 +186,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         currentUser,
         loading,
+        isFirebaseConfigured,
         signInWithGoogle,
         signInWithEmail,
         signUpWithEmail,

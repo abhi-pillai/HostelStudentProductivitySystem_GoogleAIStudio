@@ -20,6 +20,7 @@
       "type": "object",
       "properties": {
         "date": { "type": "string", "description": "Date in YYYY-MM-DD format" },
+        "dailyFocusGoal": { "type": "string", "description": "Single most important objective for the day" },
         "hardStart": { "type": "object", "description": "Morning hard start data" },
         "organize": { "type": "object", "description": "Daily 3 priorities organization" },
         "smallSessions": { "type": "object", "description": "Micro-sessions during college" },
