@@ -1,0 +1,6 @@
+{
+  "name": "Hostel Student Productivity System",
+  "description": "Interactive daily execution tracker and habit loop for hostel students based on the H.O.S.T.E.L. framework.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
