@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
+import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { auth } from '../lib/firebase';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -24,11 +25,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   const handleGoogleSignIn = async () => {
     setSubmitting(true);
+    clearAuthError();
     try {
       await signInWithGoogle();
-      handleClose();
-    } catch {
-      // Handled in AuthContext
+      if (auth.currentUser) {
+        handleClose();
+      }
     } finally {
       setSubmitting(false);
     }
@@ -38,15 +40,36 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     if (!email || !password) return;
     setSubmitting(true);
+    clearAuthError();
     try {
       if (mode === 'signin') {
         await signInWithEmail(email, password);
       } else {
         await signUpWithEmail(email, password, name);
       }
-      handleClose();
-    } catch {
-      // Handled in AuthContext
+      if (auth.currentUser) {
+        handleClose();
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleQuickDemoSignIn = async () => {
+    setSubmitting(true);
+    clearAuthError();
+    const demoEmail = 'student.demo@hostelapp.internal';
+    const demoPass = 'hostelPass123!';
+    try {
+      // Attempt sign in first
+      await signInWithEmail(demoEmail, demoPass);
+      if (!auth.currentUser) {
+        // If account doesn't exist, create it
+        await signUpWithEmail(demoEmail, demoPass, 'Hostel Scholar (Demo)');
+      }
+      if (auth.currentUser) {
+        handleClose();
+      }
     } finally {
       setSubmitting(false);
     }
@@ -220,7 +243,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </form>
 
         {/* Mode Toggle Footer */}
-        <div className="mt-4 pt-3 border-t border-stone-100 text-center">
+        <div className="mt-4 pt-3 border-t border-stone-100 flex flex-col items-center gap-2.5 text-center">
           {mode === 'signin' ? (
             <p className="text-xs text-stone-500">
               New here?{' '}
@@ -250,6 +273,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </button>
             </p>
           )}
+
+          <div className="w-full pt-2 border-t border-stone-100">
+            <button
+              type="button"
+              onClick={handleQuickDemoSignIn}
+              disabled={submitting}
+              className="w-full py-1.5 px-3 rounded-lg bg-amber-50/70 hover:bg-amber-100/70 border border-amber-200/80 text-[11px] font-semibold text-amber-800 flex items-center justify-center gap-1.5 transition-colors"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span>Instant Test: Sign In with Demo Student Account</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

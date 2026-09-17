@@ -65,16 +65,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
       }
     } catch (err: any) {
-      console.error('Google sign in error:', err);
-      // Format friendly error message
-      if (err.code === 'auth/popup-closed-by-user') {
-        setAuthError('Sign-in popup was closed before completion.');
-      } else if (err.code === 'auth/cancelled-popup-request') {
-        setAuthError('Sign-in request was cancelled.');
-      } else {
-        setAuthError(err.message || 'Failed to sign in with Google');
+      if (
+        err?.code === 'auth/popup-closed-by-user' ||
+        err?.code === 'auth/cancelled-popup-request'
+      ) {
+        // User intentionally closed or dismissed the popup window - not an error
+        return;
       }
-      throw err;
+      if (err?.code === 'auth/popup-blocked') {
+        setAuthError(
+          'Sign-in pop-up was blocked by your browser. Please allow pop-ups for this site, open in a new tab, or sign in with email.'
+        );
+        return;
+      }
+      if (err?.code === 'auth/unauthorized-domain') {
+        setAuthError(
+          'Google Sign-In is not authorized on this preview domain yet. Please use Email & Password below.'
+        );
+        return;
+      }
+      console.warn('Google sign-in attempt warning:', err?.message || err);
+      setAuthError(
+        err?.message || 'Failed to complete Google sign-in. You can sign in using Email & Password.'
+      );
     }
   };
 
@@ -91,15 +104,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
       }
     } catch (err: any) {
-      console.error('Email sign in error:', err);
-      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+      if (
+        err?.code === 'auth/invalid-credential' ||
+        err?.code === 'auth/wrong-password' ||
+        err?.code === 'auth/user-not-found'
+      ) {
         setAuthError('Invalid email or password.');
-      } else if (err.code === 'auth/invalid-email') {
+      } else if (err?.code === 'auth/invalid-email') {
         setAuthError('Please enter a valid email address.');
+      } else if (err?.code === 'auth/too-many-requests') {
+        setAuthError('Too many failed attempts. Please wait a moment and try again.');
       } else {
-        setAuthError(err.message || 'Failed to sign in');
+        setAuthError(err?.message || 'Failed to sign in.');
       }
-      throw err;
     }
   };
 
@@ -119,17 +136,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
       }
     } catch (err: any) {
-      console.error('Sign up error:', err);
-      if (err.code === 'auth/email-already-in-use') {
+      if (err?.code === 'auth/email-already-in-use') {
         setAuthError('An account with this email already exists. Try signing in instead.');
-      } else if (err.code === 'auth/weak-password') {
+      } else if (err?.code === 'auth/weak-password') {
         setAuthError('Password should be at least 6 characters.');
-      } else if (err.code === 'auth/invalid-email') {
+      } else if (err?.code === 'auth/invalid-email') {
         setAuthError('Please enter a valid email address.');
       } else {
-        setAuthError(err.message || 'Failed to create account');
+        setAuthError(err?.message || 'Failed to create account.');
       }
-      throw err;
     }
   };
 
