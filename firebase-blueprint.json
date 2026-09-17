@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile information in Firestore",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "Avatar URL" },
+        "createdAt": { "type": "string", "description": "Account creation ISO timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update ISO timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "DailyRecord": {
+      "title": "Daily Productivity Record",
+      "description": "Daily H.O.S.T.E.L. execution record for a specific date",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "description": "Date in YYYY-MM-DD format" },
+        "hardStart": { "type": "object", "description": "Morning hard start data" },
+        "organize": { "type": "object", "description": "Daily 3 priorities organization" },
+        "smallSessions": { "type": "object", "description": "Micro-sessions during college" },
+        "targetedWork": { "type": "object", "description": "Targeted evening focus blocks" },
+        "entertainment": { "type": "object", "description": "Guarded entertainment tracking" },
+        "lightsOut": { "type": "object", "description": "Night lights out discipline" },
+        "dailyNotes": { "type": "string", "description": "Reflections and hostel room notes" },
+        "totalScore": { "type": "number", "description": "Execution score 0-6" },
+        "updatedAt": { "type": "string", "description": "Last modified timestamp" }
+      },
+      "required": ["date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User account document, accessible only by the owner"
+    },
+    "/users/{userId}/dailyRecords/{date}": {
+      "schema": "DailyRecord",
+      "description": "User's daily execution records indexed by date"
+    }
+  }
+}

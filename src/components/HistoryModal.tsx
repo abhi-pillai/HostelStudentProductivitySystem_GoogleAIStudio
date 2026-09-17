@@ -1,13 +1,17 @@
 import React from 'react';
-import { X, Calendar, Flame, Download, Upload, CheckCircle2, CircleDashed } from 'lucide-react';
-import { getAllRecords, calculateScore, formatDateDisplay } from '../utils/storage';
+import { X, Calendar, Flame, Download, Upload, CloudCheck, RefreshCw } from 'lucide-react';
+import { calculateScore, formatDateDisplay } from '../utils/storage';
 import { DailyRecord } from '../types';
+import { useAuth } from '../contexts/AuthContext';
 
 interface HistoryModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectDate: (date: string) => void;
   streak: { currentStreak: number; bestStreak: number; totalLoggedDays: number };
+  records: Record<string, DailyRecord>;
+  onForceSync?: () => Promise<void>;
+  isSyncing?: boolean;
 }
 
 export const HistoryModal: React.FC<HistoryModalProps> = ({
@@ -15,10 +19,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   onClose,
   onSelectDate,
   streak,
+  records,
+  onForceSync,
+  isSyncing,
 }) => {
+  const { currentUser } = useAuth();
   if (!isOpen) return null;
 
-  const records = getAllRecords();
   const sortedDates = Object.keys(records).sort().reverse();
 
   // Export JSON
@@ -44,7 +51,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
           localStorage.setItem('hostel_student_productivity_records_v1', JSON.stringify(parsed));
           window.location.reload();
         }
-      } catch (err) {
+      } catch {
         alert('Invalid JSON backup file');
       }
     };
@@ -59,9 +66,17 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
       >
         <div className="flex items-center justify-between pb-3 border-b border-stone-100">
           <div>
-            <h3 className="text-lg font-bold text-stone-900">
-              Execution History & Insights
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-bold text-stone-900">
+                Execution History & Insights
+              </h3>
+              {currentUser && (
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                  <CloudCheck className="w-3 h-3 text-emerald-600" />
+                  Firestore Sync Active
+                </span>
+              )}
+            </div>
             <p className="text-xs text-stone-500">
               Review consistency across days and audit the behavioral loop
             </p>
@@ -109,9 +124,22 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
 
         {/* Records list */}
         <div className="mt-5">
-          <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider mb-2.5">
-            Logged Execution Records
-          </h4>
+          <div className="flex items-center justify-between mb-2.5">
+            <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider">
+              Logged Execution Records
+            </h4>
+            {currentUser && onForceSync && (
+              <button
+                type="button"
+                onClick={onForceSync}
+                disabled={isSyncing}
+                className="text-xs text-amber-700 hover:text-amber-900 font-semibold flex items-center gap-1 disabled:opacity-60"
+              >
+                <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin' : ''}`} />
+                <span>Sync with Firestore</span>
+              </button>
+            )}
+          </div>
 
           {sortedDates.length === 0 ? (
             <p className="text-xs text-stone-500 py-6 text-center">
@@ -121,6 +149,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
               {sortedDates.map((dateStr) => {
                 const rec = records[dateStr];
+                if (!rec) return null;
                 const score = calculateScore(rec);
                 return (
                   <button

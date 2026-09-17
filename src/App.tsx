@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { DailyRecord } from './types';
 import {
   getTodayDateString,
   getRecordForDate,
+  getAllRecords,
   saveRecord,
   calculateScore,
   calculateStreak,
   getDefaultRecord,
 } from './utils/storage';
 import { playChime } from './utils/sound';
+import { useAuth } from './contexts/AuthContext';
+import {
+  saveDailyRecordToFirestore,
+  fetchAllDailyRecordsFromFirestore,
+  syncLocalRecordsToFirestore,
+} from './services/firestoreService';
 import { Header } from './components/Header';
 import { ScoreBanner } from './components/ScoreBanner';
 import { HardStartSection } from './components/HardStartSection';
@@ -19,14 +26,64 @@ import { EntertainmentSection } from './components/EntertainmentSection';
 import { LightsOutSection } from './components/LightsOutSection';
 import { RulesCard } from './components/RulesCard';
 import { HistoryModal } from './components/HistoryModal';
-import { Sparkles, MessageSquare, ShieldAlert } from 'lucide-react';
+import { AuthModal } from './components/AuthModal';
+import { MessageSquare, ShieldAlert } from 'lucide-react';
 
 export const App: React.FC = () => {
+  const { currentUser } = useAuth();
   const [currentDate, setCurrentDate] = useState<string>(getTodayDateString());
   const [record, setRecord] = useState<DailyRecord>(() => getRecordForDate(getTodayDateString()));
+  const [allRecords, setAllRecords] = useState<Record<string, DailyRecord>>(() => getAllRecords());
   const [streak, setStreak] = useState(() => calculateStreak());
   const [showRules, setShowRules] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [syncState, setSyncState] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
+
+  // Cloud sync handler when user logs in
+  const syncWithCloud = useCallback(async (userId: string) => {
+    try {
+      setSyncState('syncing');
+      // 1. Fetch remote records from Firestore
+      const remoteRecords = await fetchAllDailyRecordsFromFirestore(userId);
+      const localRecords = getAllRecords();
+
+      // 2. Sync local records to cloud if they are newer or not yet stored
+      await syncLocalRecordsToFirestore(userId, localRecords);
+
+      // 3. Merge: remote records take priority or combine
+      const mergedRecords: Record<string, DailyRecord> = {
+        ...localRecords,
+        ...remoteRecords,
+      };
+
+      // Save merged to local storage
+      localStorage.setItem('hostel_student_productivity_records_v1', JSON.stringify(mergedRecords));
+      setAllRecords(mergedRecords);
+      setStreak(calculateStreak());
+
+      // If current selected date has a record in merged, load it
+      if (mergedRecords[currentDate]) {
+        setRecord(mergedRecords[currentDate]);
+      } else {
+        setRecord(getDefaultRecord(currentDate));
+      }
+
+      setSyncState('synced');
+    } catch (err) {
+      console.error('Failed cloud synchronization:', err);
+      setSyncState('error');
+    }
+  }, [currentDate]);
+
+  // When auth state changes, sync with Firestore
+  useEffect(() => {
+    if (currentUser?.uid) {
+      syncWithCloud(currentUser.uid);
+    } else {
+      setSyncState('idle');
+    }
+  }, [currentUser?.uid, syncWithCloud]);
 
   // When date changes, load record
   useEffect(() => {
@@ -35,10 +92,25 @@ export const App: React.FC = () => {
   }, [currentDate]);
 
   // Update helper
-  const handleUpdateRecord = (updated: DailyRecord) => {
+  const handleUpdateRecord = async (updated: DailyRecord) => {
+    // 1. Optimistic Local Update
     setRecord(updated);
     saveRecord(updated);
+    const updatedAll = getAllRecords();
+    setAllRecords(updatedAll);
     setStreak(calculateStreak());
+
+    // 2. Cloud Firestore Update if authenticated
+    if (currentUser?.uid) {
+      setSyncState('syncing');
+      try {
+        await saveDailyRecordToFirestore(currentUser.uid, updated);
+        setSyncState('synced');
+      } catch (err) {
+        console.error('Firestore save failed:', err);
+        setSyncState('error');
+      }
+    }
   };
 
   const scoreBreakdown = calculateScore(record);
@@ -150,6 +222,8 @@ export const App: React.FC = () => {
         onOpenHistory={() => setShowHistory(true)}
         onResetDay={handleResetDay}
         onPrefillSample={handlePrefillSample}
+        onOpenAuth={() => setShowAuth(true)}
+        syncState={syncState}
       />
 
       {/* Main Content Area */}
@@ -228,6 +302,13 @@ export const App: React.FC = () => {
         onClose={() => setShowHistory(false)}
         onSelectDate={setCurrentDate}
         streak={streak}
+        records={allRecords}
+        onForceSync={currentUser?.uid ? () => syncWithCloud(currentUser.uid) : undefined}
+        isSyncing={syncState === 'syncing'}
+      />
+      <AuthModal
+        isOpen={showAuth}
+        onClose={() => setShowAuth(false)}
       />
     </div>
   );
