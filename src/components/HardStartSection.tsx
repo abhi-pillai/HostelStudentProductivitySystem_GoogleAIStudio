@@ -43,32 +43,34 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
   return (
     <section 
       id="section-hard-start" 
-      className={`bg-white border rounded-xl p-5 mb-5 transition-all ${
-        earned ? 'border-emerald-200 shadow-2xs' : 'border-stone-200 shadow-2xs'
+      className={`bg-white dark:bg-stone-900 border rounded-xl p-5 mb-5 transition-all ${
+        earned 
+          ? 'border-emerald-200 dark:border-emerald-850 shadow-2xs' 
+          : 'border-stone-200 dark:border-stone-800 shadow-2xs'
       }`}
     >
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100">
+      <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-700 flex items-center justify-center font-mono font-bold text-base border border-amber-500/20 shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center font-mono font-bold text-base border border-amber-500/20 dark:border-amber-500/30 shrink-0">
             H
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-stone-900">
+              <h2 className="text-base font-bold text-stone-900 dark:text-stone-100">
                 Hard Start (Morning Anchor)
               </h2>
               {earned ? (
-                <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+                <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-1">
                   <Check className="w-3 h-3" /> 1 Point Earned
                 </span>
               ) : (
-                <span className="text-[11px] font-medium text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
+                <span className="text-[11px] font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-full">
                   Pending (1 Pt)
                 </span>
               )}
             </div>
-            <p className="text-xs text-stone-500 mt-0.5">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
               Activate problem-solving momentum before touching high-dopamine social apps.
             </p>
           </div>
@@ -77,9 +79,9 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
         <button
           type="button"
           onClick={() => setShowPractice(!showPractice)}
-          className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition-colors flex items-center gap-1.5 shrink-0"
+          className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors flex items-center gap-1.5 shrink-0"
         >
-          <BookOpen className="w-3.5 h-3.5 text-amber-700" />
+          <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
           <span>{showPractice ? 'Hide Practice Deck' : 'Solve Questions Here'}</span>
         </button>
       </div>
@@ -87,45 +89,45 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
       {/* Checklist */}
       <div className="mt-4 space-y-2.5">
         {/* Item 1 */}
-        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 hover:bg-stone-50/60 cursor-pointer transition-colors">
+        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors">
           <input
             type="checkbox"
             id="chk-wake-no-phone"
             checked={data.wakeNoPhone}
             onChange={(e) => onChange({ ...data, wakeNoPhone: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 focus:ring-amber-500 accent-amber-600"
+            className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 dark:border-stone-600 focus:ring-amber-500 accent-amber-600"
           />
           <div className="text-xs">
-            <span className="font-semibold text-stone-800">
+            <span className="font-semibold text-stone-800 dark:text-stone-200">
               Wake up without checking phone
             </span>
-            <p className="text-stone-500 text-[11px] mt-0.5">
+            <p className="text-stone-500 dark:text-stone-400 text-[11px] mt-0.5">
               Avoid early dopamine leaks (Instagram, YouTube, messaging). Leave phone on desk.
             </p>
           </div>
         </label>
 
         {/* Item 2 */}
-        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 hover:bg-stone-50/60 cursor-pointer transition-colors">
+        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors">
           <input
             type="checkbox"
             id="chk-water-freshen"
             checked={data.waterFreshen}
             onChange={(e) => onChange({ ...data, waterFreshen: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 focus:ring-amber-500 accent-amber-600"
+            className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 dark:border-stone-600 focus:ring-amber-500 accent-amber-600"
           />
           <div className="text-xs">
-            <span className="font-semibold text-stone-800">
+            <span className="font-semibold text-stone-800 dark:text-stone-200">
               Drink water and freshen up
             </span>
-            <p className="text-stone-500 text-[11px] mt-0.5">
+            <p className="text-stone-500 dark:text-stone-400 text-[11px] mt-0.5">
               Hydrate immediately to wake up cognitive alertness.
             </p>
           </div>
         </label>
 
         {/* Item 3 */}
-        <div className="p-3 rounded-lg border border-stone-100 hover:bg-stone-50/60 transition-colors">
+        <div className="p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 transition-colors">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
             <label className="flex items-start gap-3 cursor-pointer">
               <input
@@ -137,13 +139,13 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
                   aptitudeDone: e.target.checked,
                   aptitudeCount: e.target.checked && data.aptitudeCount < 15 ? 15 : data.aptitudeCount
                 })}
-                className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 focus:ring-amber-500 accent-amber-600"
+                className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 dark:border-stone-600 focus:ring-amber-500 accent-amber-600"
               />
               <div className="text-xs">
-                <span className="font-semibold text-stone-800">
+                <span className="font-semibold text-stone-800 dark:text-stone-200">
                   Solve 15–20 aptitude questions
                 </span>
-                <p className="text-stone-500 text-[11px] mt-0.5">
+                <p className="text-stone-500 dark:text-stone-400 text-[11px] mt-0.5">
                   Engage cognitive faculties immediately. Target: 15–20 questions.
                 </p>
               </div>
@@ -151,16 +153,16 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
 
             {/* Quick Count Stepper */}
             <div className="flex items-center gap-2 self-end sm:self-center pl-7 sm:pl-0">
-              <span className="text-xs text-stone-500 font-medium">Solved:</span>
-              <div className="flex items-center bg-stone-100 rounded-md border border-stone-200">
+              <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">Solved:</span>
+              <div className="flex items-center bg-stone-100 dark:bg-stone-800 rounded-md border border-stone-200 dark:border-stone-700">
                 <button
                   type="button"
                   onClick={() => onChange({ ...data, aptitudeCount: Math.max(0, data.aptitudeCount - 1) })}
-                  className="px-2 py-0.5 text-stone-600 hover:text-stone-900 text-xs font-bold"
+                  className="px-2 py-0.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white text-xs font-bold"
                 >
                   -
                 </button>
-                <span className="px-2.5 py-0.5 text-xs font-mono font-bold text-stone-800">
+                <span className="px-2.5 py-0.5 text-xs font-mono font-bold text-stone-800 dark:text-stone-200">
                   {data.aptitudeCount}
                 </span>
                 <button
@@ -173,7 +175,7 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
                       aptitudeDone: newCount >= 15 ? true : data.aptitudeDone
                     });
                   }}
-                  className="px-2 py-0.5 text-stone-600 hover:text-stone-900 text-xs font-bold"
+                  className="px-2 py-0.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white text-xs font-bold"
                 >
                   +
                 </button>
@@ -188,7 +190,7 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
                     aptitudeDone: newCount >= 15 ? true : data.aptitudeDone
                   });
                 }}
-                className="text-[11px] font-semibold px-2 py-1 rounded bg-stone-100 text-stone-700 hover:bg-stone-200"
+                className="text-[11px] font-semibold px-2 py-1 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700"
               >
                 +5
               </button>
@@ -199,26 +201,26 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
 
       {/* Interactive Aptitude Practice Deck */}
       {showPractice && (
-        <div className="mt-4 p-4 rounded-xl bg-amber-50/50 border border-amber-200">
-          <div className="flex items-center justify-between gap-2 pb-2 mb-3 border-b border-amber-200/70">
+        <div className="mt-4 p-4 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60">
+          <div className="flex items-center justify-between gap-2 pb-2 mb-3 border-b border-amber-200/70 dark:border-amber-800/40">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-amber-900 uppercase tracking-wider">
+              <span className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wider">
                 Question {currentQIndex + 1} of {APTITUDE_BANK.length}
               </span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200/80 text-amber-900 font-semibold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-semibold">
                 {currentQ.category}
               </span>
             </div>
             <button
               type="button"
               onClick={handleNextQuestion}
-              className="text-xs font-medium text-amber-800 hover:text-amber-950 flex items-center gap-1"
+              className="text-xs font-medium text-amber-800 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-100 flex items-center gap-1"
             >
               Skip / Next <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <p className="text-xs font-semibold text-stone-800 leading-relaxed mb-3">
+          <p className="text-xs font-semibold text-stone-800 dark:text-stone-200 leading-relaxed mb-3">
             {currentQ.question}
           </p>
 
@@ -226,13 +228,13 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
             {currentQ.options.map((option, idx) => {
               const isSelected = selectedOption === idx;
               const isCorrect = idx === currentQ.correctIndex;
-              let btnStyle = 'bg-white border-stone-200 text-stone-700 hover:bg-amber-50/40';
+              let btnStyle = 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-amber-50/40 dark:hover:bg-amber-950/30';
 
               if (showAnswer) {
                 if (isCorrect) {
-                  btnStyle = 'bg-emerald-100 border-emerald-300 text-emerald-900 font-semibold';
+                  btnStyle = 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 font-semibold';
                 } else if (isSelected) {
-                  btnStyle = 'bg-rose-100 border-rose-300 text-rose-900 line-through';
+                  btnStyle = 'bg-rose-100 dark:bg-rose-950/60 border-rose-300 dark:border-rose-700 text-rose-900 dark:text-rose-200 line-through';
                 }
               }
 
@@ -245,16 +247,16 @@ export const HardStartSection: React.FC<HardStartSectionProps> = ({ data, onChan
                   className={`text-xs p-2.5 rounded-lg border text-left transition-colors flex items-center justify-between ${btnStyle}`}
                 >
                   <span>{option}</span>
-                  {showAnswer && isCorrect && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />}
+                  {showAnswer && isCorrect && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />}
                 </button>
               );
             })}
           </div>
 
           {showAnswer && (
-            <div className="p-3 rounded-lg bg-white border border-amber-200 text-xs text-stone-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="p-3 rounded-lg bg-white dark:bg-stone-800 border border-amber-200 dark:border-amber-800/60 text-xs text-stone-700 dark:text-stone-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="font-bold text-stone-900">Explanation: </span>
+                <span className="font-bold text-stone-900 dark:text-stone-100">Explanation: </span>
                 {currentQ.explanation}
               </div>
               <button

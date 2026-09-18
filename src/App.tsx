@@ -214,7 +214,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-stone-100/60 text-stone-900 pb-16 font-sans">
+    <div className="min-h-screen bg-stone-100/60 dark:bg-stone-950 text-stone-900 dark:text-stone-100 pb-16 font-sans transition-colors duration-200">
       {/* Top Navbar */}
       <Header
         currentDate={currentDate}
@@ -277,10 +277,10 @@ export const App: React.FC = () => {
         />
 
         {/* Daily Reflection / Diary Notes */}
-        <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-2xs mb-6" id="section-reflection">
+        <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 shadow-2xs mb-6" id="section-reflection">
           <div className="flex items-center gap-2 mb-2">
-            <MessageSquare className="w-4 h-4 text-stone-500" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
+            <MessageSquare className="w-4 h-4 text-stone-500 dark:text-stone-400" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
               Hostel Daily Reflection & Notes
             </h3>
           </div>
@@ -289,12 +289,12 @@ export const App: React.FC = () => {
             onChange={(e) => handleUpdateRecord({ ...record, dailyNotes: e.target.value })}
             placeholder="How was today's discipline? Any distraction triggers in the hostel room (e.g. friends dropping by, late gaming)? How will you adjust tomorrow?"
             rows={3}
-            className="w-full text-xs p-3 rounded-lg border border-stone-200 focus:outline-hidden focus:ring-1 focus:ring-amber-500 text-stone-800 placeholder-stone-400"
+            className="w-full text-xs p-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
           />
         </div>
 
         {/* Hostel Cardinal Rule Reminder Footer */}
-        <div className="p-4 rounded-xl bg-stone-900 text-stone-300 text-xs flex items-start gap-3">
+        <div className="p-4 rounded-xl bg-stone-900 dark:bg-stone-900/90 border border-stone-800 text-stone-300 text-xs flex items-start gap-3">
           <ShieldAlert className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
           <div className="leading-relaxed">
             <span className="font-bold text-white">The Hostel Student Golden Law: </span>

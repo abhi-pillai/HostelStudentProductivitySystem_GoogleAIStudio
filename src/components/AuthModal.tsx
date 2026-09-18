@@ -78,20 +78,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs">
       <div
-        className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-stone-200"
+        className="bg-white dark:bg-stone-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-stone-200 dark:border-stone-800"
         id="auth-modal"
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+        <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <Cloud className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-stone-900">
+              <h3 className="text-base font-bold text-stone-900 dark:text-stone-100">
                 {mode === 'signin' ? 'Sign In to Cloud Sync' : 'Create System Account'}
               </h3>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-stone-500 dark:text-stone-400">
                 Store and synchronize your daily records in Firestore
               </p>
             </div>
@@ -99,15 +99,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={handleClose}
-            className="text-stone-400 hover:text-stone-600 p-1.5 rounded-lg hover:bg-stone-100 transition-colors"
+            className="text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 p-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Benefits badge */}
-        <div className="mt-4 p-3 bg-amber-50/70 border border-amber-200/60 rounded-xl flex items-start gap-2.5 text-xs text-amber-900 leading-relaxed">
-          <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+        <div className="mt-4 p-3 bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/60 rounded-xl flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-300 leading-relaxed">
+          <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold">Persistent Cloud Sync:</span> Log in to automatically back up your daily H.O.S.T.E.L. execution scores, notes, and streaks to Firebase Firestore.
           </div>
@@ -115,18 +115,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
         {/* Configuration Notice if not set up */}
         {!isFirebaseConfigured && (
-          <div className="mt-3 p-3 bg-amber-50 border border-amber-300/80 rounded-xl flex items-start gap-2 text-xs text-amber-900">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <div className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-300/80 dark:border-amber-800/80 rounded-xl flex items-start gap-2 text-xs text-amber-900 dark:text-amber-300">
+            <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <div className="flex-1">
-              Firebase credentials are read from <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">.env</code>. Set <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_API_KEY</code> and <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_PROJECT_ID</code> to enable cloud sign-in.
+              Firebase credentials are read from <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">.env</code>. Set <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_API_KEY</code> and <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_PROJECT_ID</code> to enable cloud sign-in.
             </div>
           </div>
         )}
 
         {/* Error Alert */}
         {authError && (
-          <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2 text-xs text-rose-800">
-            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+          <div className="mt-3 p-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-xl flex items-start gap-2 text-xs text-rose-800 dark:text-rose-300">
+            <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
             <div className="flex-1">{authError}</div>
           </div>
         )}
@@ -137,11 +137,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={submitting}
-            className="w-full py-2.5 px-4 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl text-xs font-semibold text-stone-700 flex items-center justify-center gap-2.5 shadow-2xs hover:shadow-xs transition-all disabled:opacity-60"
+            className="w-full py-2.5 px-4 bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-750 border border-stone-300 dark:border-stone-700 rounded-xl text-xs font-semibold text-stone-700 dark:text-stone-200 flex items-center justify-center gap-2.5 shadow-2xs hover:shadow-xs transition-all disabled:opacity-60"
             id="google-signin-btn"
           >
             {submitting ? (
-              <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
+              <Loader2 className="w-4 h-4 animate-spin text-amber-600 dark:text-amber-400" />
             ) : (
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -169,10 +169,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         {/* Divider */}
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-stone-200"></div>
+            <div className="w-full border-t border-stone-200 dark:border-stone-800"></div>
           </div>
-          <div className="relative flex justify-center text-[11px] uppercase tracking-wider text-stone-400">
-            <span className="bg-white px-2">or with email</span>
+          <div className="relative flex justify-center text-[11px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
+            <span className="bg-white dark:bg-stone-900 px-2">or with email</span>
           </div>
         </div>
 
@@ -180,45 +180,45 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-3">
           {mode === 'signup' && (
             <div>
-              <label className="block text-[11px] font-bold text-stone-700 uppercase mb-1">
+              <label className="block text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase mb-1">
                 Display Name
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
+                <User className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Student Sairuto"
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 focus:outline-hidden focus:ring-1 focus:ring-amber-500 text-stone-800 placeholder-stone-400"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
                 />
               </div>
             </div>
           )}
 
           <div>
-            <label className="block text-[11px] font-bold text-stone-700 uppercase mb-1">
+            <label className="block text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase mb-1">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
+              <Mail className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-2.5" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="hostel.student@college.edu"
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 focus:outline-hidden focus:ring-1 focus:ring-amber-500 text-stone-800 placeholder-stone-400"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-stone-700 uppercase mb-1">
+            <label className="block text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase mb-1">
               Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
+              <Lock className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-2.5" />
               <input
                 type="password"
                 required
@@ -226,7 +226,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 6 characters"
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 focus:outline-hidden focus:ring-1 focus:ring-amber-500 text-stone-800 placeholder-stone-400"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
               />
             </div>
           </div>
@@ -234,10 +234,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-2.5 px-4 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors disabled:opacity-60 mt-4"
+            className="w-full py-2.5 px-4 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-stone-200 text-white dark:text-stone-900 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors disabled:opacity-60 mt-4"
           >
             {submitting ? (
-              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <Loader2 className="w-4 h-4 animate-spin text-white dark:text-stone-900" />
             ) : mode === 'signin' ? (
               <>
                 <LogIn className="w-4 h-4" />
@@ -253,9 +253,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </form>
 
         {/* Mode Toggle Footer */}
-        <div className="mt-4 pt-3 border-t border-stone-100 flex flex-col items-center gap-2.5 text-center">
+        <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-col items-center gap-2.5 text-center">
           {mode === 'signin' ? (
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               New here?{' '}
               <button
                 type="button"
@@ -263,13 +263,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   clearAuthError();
                   setMode('signup');
                 }}
-                className="font-bold text-amber-700 hover:underline"
+                className="font-bold text-amber-700 dark:text-amber-400 hover:underline"
               >
                 Create an account
               </button>
             </p>
           ) : (
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               Already have an account?{' '}
               <button
                 type="button"
@@ -277,21 +277,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   clearAuthError();
                   setMode('signin');
                 }}
-                className="font-bold text-amber-700 hover:underline"
+                className="font-bold text-amber-700 dark:text-amber-400 hover:underline"
               >
                 Sign in
               </button>
             </p>
           )}
 
-          <div className="w-full pt-2 border-t border-stone-100">
+          <div className="w-full pt-2 border-t border-stone-100 dark:border-stone-800">
             <button
               type="button"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-1.5 px-3 rounded-lg bg-amber-50/70 hover:bg-amber-100/70 border border-amber-200/80 text-[11px] font-semibold text-amber-800 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-1.5 px-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/30 hover:bg-amber-100/70 dark:hover:bg-amber-900/40 border border-amber-200/80 dark:border-amber-800/60 text-[11px] font-semibold text-amber-800 dark:text-amber-300 flex items-center justify-center gap-1.5 transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               <span>Instant Test: Sign In with Demo Student Account</span>
             </button>
           </div>

@@ -13,9 +13,12 @@ import {
   LogIn,
   LogOut,
   User as UserIcon,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { formatDateDisplay, getTodayDateString } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface HeaderProps {
   currentDate: string;
@@ -41,6 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
   syncState,
 }) => {
   const { currentUser, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const isToday = currentDate === getTodayDateString();
 
@@ -61,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-white border-b border-stone-200 sticky top-0 z-30 shadow-xs" id="main-header">
+    <header className="bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 sticky top-0 z-30 shadow-xs transition-colors" id="main-header">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Brand & Framework Name */}
         <div className="flex items-center gap-3">
@@ -70,46 +74,46 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold tracking-tight text-stone-900 leading-tight">
+              <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100 leading-tight">
                 H.O.S.T.E.L.
               </h1>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
                 Execution Loop
               </span>
             </div>
-            <p className="text-xs text-stone-500 font-medium">
+            <p className="text-xs text-stone-500 dark:text-stone-400 font-medium">
               High Output Student Time Execution Loop
             </p>
           </div>
         </div>
 
-        {/* Date Selector, Cloud Status & Streak */}
+        {/* Date Selector, Cloud Status, Theme Toggle & Streak */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           {/* Streak Badge */}
           <div 
             id="streak-badge"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-orange-50 border border-orange-200 text-orange-800 text-xs font-semibold shadow-2xs"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs"
             title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak})`}
           >
-            <Flame className="w-4 h-4 text-orange-600 fill-orange-500" />
+            <Flame className="w-4 h-4 text-orange-600 dark:text-orange-400 fill-orange-500" />
             <span>{streak.currentStreak}d Streak</span>
           </div>
 
           {/* Date Navigator */}
-          <div className="flex items-center bg-stone-100 rounded-lg p-0.5 border border-stone-200 text-xs font-medium">
+          <div className="flex items-center bg-stone-100 dark:bg-stone-800/80 rounded-lg p-0.5 border border-stone-200 dark:border-stone-700/80 text-xs font-medium">
             <button
               id="prev-date-btn"
               onClick={handlePrevDay}
-              className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-white rounded-md transition-colors"
+              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
               aria-label="Previous Day"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="flex items-center gap-1.5 px-2 py-1 text-stone-800">
-              <Calendar className="w-3.5 h-3.5 text-stone-500" />
+            <div className="flex items-center gap-1.5 px-2 py-1 text-stone-800 dark:text-stone-200">
+              <Calendar className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
               <span className="font-semibold text-xs">{formatDateDisplay(currentDate)}</span>
               {isToday && (
-                <span className="text-[10px] uppercase font-bold text-amber-700 bg-amber-100/70 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
                   Today
                 </span>
               )}
@@ -117,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="next-date-btn"
               onClick={handleNextDay}
-              className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-white rounded-md transition-colors"
+              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
               aria-label="Next Day"
             >
               <ChevronRight className="w-4 h-4" />
@@ -128,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser && (
             <div
               id="cloud-sync-status"
-              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium border border-stone-200 bg-stone-50 text-stone-600"
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300"
               title={
                 syncState === 'syncing'
                   ? 'Syncing with Firestore...'
@@ -139,17 +143,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {syncState === 'syncing' ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600" />
-                  <span className="hidden md:inline text-amber-700">Syncing</span>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600 dark:text-amber-400" />
+                  <span className="hidden md:inline text-amber-700 dark:text-amber-300">Syncing</span>
                 </>
               ) : syncState === 'synced' ? (
                 <>
-                  <CloudCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="hidden md:inline text-emerald-700 font-semibold">Synced</span>
+                  <CloudCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span className="hidden md:inline text-emerald-700 dark:text-emerald-300 font-semibold">Synced</span>
                 </>
               ) : (
                 <>
-                  <Cloud className="w-3.5 h-3.5 text-stone-500" />
+                  <Cloud className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
                   <span className="hidden md:inline">Cloud</span>
                 </>
               )}
@@ -158,20 +162,36 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action buttons */}
           <div className="flex items-center gap-1">
+            {/* Dark Mode Toggle */}
+            <button
+              type="button"
+              id="theme-toggle-btn"
+              onClick={toggleTheme}
+              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors border border-stone-200/60 dark:border-stone-700/60"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode (Late-night study)'}
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400 hover:rotate-45 transition-transform" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-stone-600 hover:-rotate-12 transition-transform" />
+              )}
+            </button>
+
             <button
               id="btn-rules-modal"
               onClick={onOpenRules}
-              className="px-2.5 py-1.5 text-xs font-medium text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors flex items-center gap-1"
+              className="px-2.5 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors flex items-center gap-1 border border-stone-200/60 dark:border-stone-700/60"
               title="Philosophy & Principles"
             >
-              <BookOpen className="w-3.5 h-3.5 text-stone-600" />
+              <BookOpen className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
               <span className="hidden lg:inline">Philosophy</span>
             </button>
 
             <button
               id="btn-history-modal"
               onClick={onOpenHistory}
-              className="px-2 py-1.5 text-xs font-medium text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors"
+              className="px-2 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors border border-stone-200/60 dark:border-stone-700/60"
             >
               Stats
             </button>
@@ -179,17 +199,17 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="btn-sample-fill"
               onClick={onPrefillSample}
-              className="px-2 py-1.5 text-xs font-medium text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 rounded-lg transition-colors flex items-center gap-1"
+              className="px-2 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-lg transition-colors flex items-center gap-1"
               title="Fill example 6/6 day to test"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               <span className="hidden sm:inline">Example</span>
             </button>
 
             <button
               id="btn-reset-day"
               onClick={onResetDay}
-              className="p-1.5 text-stone-500 hover:text-rose-600 hover:bg-stone-100 rounded-lg transition-colors"
+              className="p-1.5 text-stone-500 dark:text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors"
               title="Reset day's progress"
               aria-label="Reset Progress"
             >
@@ -203,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({
                   type="button"
                   id="user-profile-btn"
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-1.5 pl-1.5 pr-2 py-1 rounded-lg border border-amber-300 bg-amber-50/60 hover:bg-amber-100/60 transition-colors"
+                  className="flex items-center gap-1.5 pl-1.5 pr-2 py-1 rounded-lg border border-amber-300 dark:border-amber-700/80 bg-amber-50/60 dark:bg-amber-950/40 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 transition-colors"
                 >
                   {currentUser.photoURL ? (
                     <img
@@ -221,7 +241,7 @@ export const Header: React.FC<HeaderProps> = ({
                         : 'U'}
                     </div>
                   )}
-                  <span className="text-xs font-semibold text-amber-900 max-w-[80px] truncate hidden sm:inline">
+                  <span className="text-xs font-semibold text-amber-900 dark:text-amber-200 max-w-[80px] truncate hidden sm:inline">
                     {currentUser.displayName || currentUser.email?.split('@')[0]}
                   </span>
                 </button>
@@ -229,17 +249,17 @@ export const Header: React.FC<HeaderProps> = ({
                 {/* Dropdown Menu */}
                 {showUserMenu && (
                   <div
-                    className="absolute right-0 mt-1.5 w-56 bg-white border border-stone-200 rounded-xl shadow-lg p-2 z-50 animate-in fade-in"
+                    className="absolute right-0 mt-1.5 w-56 bg-white dark:bg-stone-850 border border-stone-200 dark:border-stone-700 rounded-xl shadow-lg p-2 z-50 animate-in fade-in"
                     id="user-dropdown-menu"
                   >
-                    <div className="p-2 border-b border-stone-100 mb-1">
-                      <p className="text-xs font-bold text-stone-900 truncate">
+                    <div className="p-2 border-b border-stone-100 dark:border-stone-700/70 mb-1">
+                      <p className="text-xs font-bold text-stone-900 dark:text-stone-100 truncate">
                         {currentUser.displayName || 'Hostel Student'}
                       </p>
-                      <p className="text-[11px] text-stone-500 truncate">
+                      <p className="text-[11px] text-stone-500 dark:text-stone-400 truncate">
                         {currentUser.email}
                       </p>
-                      <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-700 font-semibold">
+                      <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
                         <CloudCheck className="w-3 h-3" />
                         <span>Firestore Database Active</span>
                       </div>
@@ -250,7 +270,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setShowUserMenu(false);
                         signOut();
                       }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-700 hover:bg-rose-50 flex items-center gap-2 transition-colors"
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center gap-2 transition-colors"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Sign Out</span>
@@ -263,9 +283,9 @@ export const Header: React.FC<HeaderProps> = ({
                 type="button"
                 id="btn-login-cloud"
                 onClick={onOpenAuth}
-                className="px-2.5 py-1.5 text-xs font-semibold text-white bg-stone-900 hover:bg-stone-800 rounded-lg shadow-2xs transition-colors flex items-center gap-1.5"
+                className="px-2.5 py-1.5 text-xs font-semibold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-white rounded-lg shadow-2xs transition-colors flex items-center gap-1.5"
               >
-                <LogIn className="w-3.5 h-3.5 text-amber-400" />
+                <LogIn className="w-3.5 h-3.5 text-amber-400 dark:text-amber-600" />
                 <span>Log In</span>
               </button>
             )}
