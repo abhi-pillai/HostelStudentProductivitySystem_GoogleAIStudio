@@ -1,5 +1,5 @@
 // Web Audio API simple notification chime
-export function playChime(type: 'success' | 'timer' | 'reset' = 'timer') {
+export function playChime(type: 'success' | 'timer' | 'reset' | 'warning' = 'timer') {
   try {
     const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (!AudioContextClass) return;
@@ -21,6 +21,19 @@ export function playChime(type: 'success' | 'timer' | 'reset' = 'timer') {
         osc.start(now + i * 0.08);
         osc.stop(now + i * 0.08 + 0.6);
       });
+    } else if (type === 'warning') {
+      // Low dual warning buzzer tone for distraction alert
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.setValueAtTime(140, now + 0.15);
+      osc.type = 'sawtooth';
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
     } else if (type === 'reset') {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();

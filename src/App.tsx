@@ -28,6 +28,9 @@ import { LightsOutSection } from './components/LightsOutSection';
 import { RulesCard } from './components/RulesCard';
 import { HistoryModal } from './components/HistoryModal';
 import { AuthModal } from './components/AuthModal';
+import { PWAInstallBanner, PWAInstallModal } from './components/PWAInstallModal';
+import { ActiveFocusMode } from './components/ActiveFocusMode';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { MessageSquare, ShieldAlert } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -39,6 +42,8 @@ export const App: React.FC = () => {
   const [showRules, setShowRules] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
+  const [showInstallModal, setShowInstallModal] = useState(false);
+  const [showActiveFocus, setShowActiveFocus] = useState(false);
   const [syncState, setSyncState] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
 
   // Cloud sync handler when user logs in
@@ -213,8 +218,26 @@ export const App: React.FC = () => {
     }
   };
 
+  // Callback when a focus mode block completes
+  const handleFocusBlockCompleted = (mins: number, notes: string) => {
+    const currentNotes = record.targetedWork.notes ? `${record.targetedWork.notes}\n• ${notes}` : `• ${notes}`;
+    const newCodingMinutes = record.targetedWork.codingMinutes + mins;
+    handleUpdateRecord({
+      ...record,
+      targetedWork: {
+        ...record.targetedWork,
+        codingMinutes: newCodingMinutes,
+        codingCompleted: newCodingMinutes >= 45,
+        notes: currentNotes,
+      },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-stone-100/60 dark:bg-stone-950 text-stone-900 dark:text-stone-100 pb-16 font-sans transition-colors duration-200">
+      {/* Mobile Install Promotion Banner */}
+      <PWAInstallBanner />
+
       {/* Top Navbar */}
       <Header
         currentDate={currentDate}
@@ -225,6 +248,8 @@ export const App: React.FC = () => {
         onResetDay={handleResetDay}
         onPrefillSample={handlePrefillSample}
         onOpenAuth={() => setShowAuth(true)}
+        onOpenInstall={() => setShowInstallModal(true)}
+        onOpenFocusMode={() => setShowActiveFocus(true)}
         syncState={syncState}
       />
 
@@ -262,6 +287,7 @@ export const App: React.FC = () => {
           data={record.targetedWork}
           onChange={(targetedWork) => handleUpdateRecord({ ...record, targetedWork })}
           earned={scoreBreakdown.targetedWork}
+          onLaunchActiveFocus={() => setShowActiveFocus(true)}
         />
 
         <EntertainmentSection
@@ -303,8 +329,12 @@ export const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Modals */}
+      {/* Offline Status Toast Indicator */}
+      <OfflineIndicator />
+
+      {/* Modals & Fullscreen Overlays */}
       <RulesCard isOpen={showRules} onClose={() => setShowRules(false)} />
+      
       <HistoryModal
         isOpen={showHistory}
         onClose={() => setShowHistory(false)}
@@ -314,9 +344,22 @@ export const App: React.FC = () => {
         onForceSync={currentUser?.uid ? () => syncWithCloud(currentUser.uid) : undefined}
         isSyncing={syncState === 'syncing'}
       />
+      
       <AuthModal
         isOpen={showAuth}
         onClose={() => setShowAuth(false)}
+      />
+
+      <PWAInstallModal
+        isOpen={showInstallModal}
+        onClose={() => setShowInstallModal(false)}
+      />
+
+      <ActiveFocusMode
+        isOpen={showActiveFocus}
+        onClose={() => setShowActiveFocus(false)}
+        dailyGoal={record.dailyFocusGoal}
+        onCompleteFocusBlock={handleFocusBlockCompleted}
       />
     </div>
   );

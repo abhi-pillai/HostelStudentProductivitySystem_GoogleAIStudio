@@ -12,13 +12,15 @@ import {
   Loader2,
   LogIn,
   LogOut,
-  User as UserIcon,
   Sun,
   Moon,
+  Smartphone,
+  Zap,
 } from 'lucide-react';
 import { formatDateDisplay, getTodayDateString } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 interface HeaderProps {
   currentDate: string;
@@ -29,6 +31,8 @@ interface HeaderProps {
   onResetDay: () => void;
   onPrefillSample: () => void;
   onOpenAuth: () => void;
+  onOpenInstall: () => void;
+  onOpenFocusMode: () => void;
   syncState: 'idle' | 'syncing' | 'synced' | 'error';
 }
 
@@ -41,10 +45,13 @@ export const Header: React.FC<HeaderProps> = ({
   onResetDay,
   onPrefillSample,
   onOpenAuth,
+  onOpenInstall,
+  onOpenFocusMode,
   syncState,
 }) => {
   const { currentUser, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { isInstalled } = usePWAInstall();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const isToday = currentDate === getTodayDateString();
 
@@ -66,37 +73,80 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 sticky top-0 z-30 shadow-xs transition-colors" id="main-header">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Brand & Framework Name */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold tracking-wider text-base shadow-sm shrink-0">
-            HL
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100 leading-tight">
-                H.O.S.T.E.L.
-              </h1>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
-                Execution Loop
-              </span>
+        <div className="flex items-center justify-between sm:justify-start gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold tracking-wider text-sm shadow-sm shrink-0">
+              HL
             </div>
-            <p className="text-xs text-stone-500 dark:text-stone-400 font-medium">
-              High Output Student Time Execution Loop
-            </p>
+            <div>
+              <div className="flex items-center gap-1.5">
+                <h1 className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100 leading-tight">
+                  H.O.S.T.E.L.
+                </h1>
+                <span className="text-[11px] font-semibold px-2 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
+                  Execution Loop
+                </span>
+                {isInstalled && (
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hidden md:inline">
+                    App Mode
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-stone-500 dark:text-stone-400 font-medium">
+                High Output Student Time Execution Loop
+              </p>
+            </div>
           </div>
+
+          {/* Quick Active Focus Mode Trigger for Mobile header */}
+          <button
+            type="button"
+            onClick={onOpenFocusMode}
+            className="sm:hidden px-2.5 py-1.5 bg-amber-500 text-stone-950 font-bold rounded-lg text-xs flex items-center gap-1 shadow-xs"
+          >
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span>Focus Mode</span>
+          </button>
         </div>
 
         {/* Date Selector, Cloud Status, Theme Toggle & Streak */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          {/* Active Focus Mode Button (Desktop / Tablet) */}
+          <button
+            type="button"
+            id="btn-active-focus"
+            onClick={onOpenFocusMode}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold shadow-xs transition-colors"
+            title="Launch Fullscreen Focus Lock Screen with Screen Awake & Tab Tracking"
+          >
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span>Active Focus Mode</span>
+          </button>
+
+          {/* Install App Button if not installed yet */}
+          {!isInstalled && (
+            <button
+              type="button"
+              id="btn-install-app-header"
+              onClick={onOpenInstall}
+              className="px-2.5 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50/70 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 hover:bg-amber-100/70 text-xs font-semibold flex items-center gap-1 transition-colors"
+              title="Install on your phone or desktop"
+            >
+              <Smartphone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Install App</span>
+            </button>
+          )}
+
           {/* Streak Badge */}
           <div 
             id="streak-badge"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs"
+            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs"
             title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak})`}
           >
-            <Flame className="w-4 h-4 text-orange-600 dark:text-orange-400 fill-orange-500" />
-            <span>{streak.currentStreak}d Streak</span>
+            <Flame className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 fill-orange-500" />
+            <span>{streak.currentStreak}d</span>
           </div>
 
           {/* Date Navigator */}
@@ -104,16 +154,16 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="prev-date-btn"
               onClick={handlePrevDay}
-              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
+              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
               aria-label="Previous Day"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <div className="flex items-center gap-1.5 px-2 py-1 text-stone-800 dark:text-stone-200">
-              <Calendar className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
+            <div className="flex items-center gap-1 px-1.5 py-0.5 text-stone-800 dark:text-stone-200">
+              <Calendar className="w-3 h-3 text-stone-500 dark:text-stone-400" />
               <span className="font-semibold text-xs">{formatDateDisplay(currentDate)}</span>
               {isToday && (
-                <span className="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
+                <span className="text-[9px] uppercase font-bold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/60 px-1 py-0.2 rounded">
                   Today
                 </span>
               )}
@@ -121,10 +171,10 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="next-date-btn"
               onClick={handleNextDay}
-              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
+              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
               aria-label="Next Day"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -132,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser && (
             <div
               id="cloud-sync-status"
-              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300"
+              className="flex items-center gap-1 px-1.5 py-1 rounded-lg text-[11px] font-medium border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300"
               title={
                 syncState === 'syncing'
                   ? 'Syncing with Firestore...'
@@ -143,17 +193,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {syncState === 'syncing' ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600 dark:text-amber-400" />
+                  <Loader2 className="w-3 h-3 animate-spin text-amber-600 dark:text-amber-400" />
                   <span className="hidden md:inline text-amber-700 dark:text-amber-300">Syncing</span>
                 </>
               ) : syncState === 'synced' ? (
                 <>
-                  <CloudCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <CloudCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span className="hidden md:inline text-emerald-700 dark:text-emerald-300 font-semibold">Synced</span>
                 </>
               ) : (
                 <>
-                  <Cloud className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
+                  <Cloud className="w-3 h-3 text-stone-500 dark:text-stone-400" />
                   <span className="hidden md:inline">Cloud</span>
                 </>
               )}
@@ -181,7 +231,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="btn-rules-modal"
               onClick={onOpenRules}
-              className="px-2.5 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors flex items-center gap-1 border border-stone-200/60 dark:border-stone-700/60"
+              className="p-1.5 sm:px-2.5 sm:py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors flex items-center gap-1 border border-stone-200/60 dark:border-stone-700/60"
               title="Philosophy & Principles"
             >
               <BookOpen className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />

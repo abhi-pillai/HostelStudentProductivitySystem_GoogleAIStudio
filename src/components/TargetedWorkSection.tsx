@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TargetedWorkData } from '../types';
-import { Check, Play, Pause, RotateCcw, Clock, Code, BookMarked, GraduationCap } from 'lucide-react';
+import { Check, Play, Pause, RotateCcw, Clock, Code, BookMarked, GraduationCap, Zap, Maximize2 } from 'lucide-react';
 import { playChime } from '../utils/sound';
 
 interface TargetedWorkSectionProps {
   data: TargetedWorkData;
   onChange: (data: TargetedWorkData) => void;
   earned: boolean;
+  onLaunchActiveFocus?: () => void;
 }
 
 type TimerMode = 'coding' | 'project' | 'gate' | 'custom';
 
-export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, onChange, earned }) => {
+export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({
+  data,
+  onChange,
+  earned,
+  onLaunchActiveFocus,
+}) => {
   // Timer State
   const [timerMode, setTimerMode] = useState<TimerMode>('coding');
   const [timeLeftSeconds, setTimeLeftSeconds] = useState(60 * 60); // 60 mins default
@@ -121,8 +127,22 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
           </div>
         </div>
 
-        <div className="text-xs font-mono font-semibold text-indigo-900 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 px-2.5 py-1 rounded-md">
-          {data.codingMinutes + data.projectMinutes + data.gateMinutes} mins logged
+        <div className="flex items-center gap-2">
+          {onLaunchActiveFocus && (
+            <button
+              type="button"
+              onClick={onLaunchActiveFocus}
+              className="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center gap-1 shadow-2xs transition-colors"
+              title="Launch Screen-Locked Fullscreen Focus Mode"
+            >
+              <Zap className="w-3.5 h-3.5 fill-current" />
+              <span className="hidden sm:inline">Launch Active Focus Mode</span>
+            </button>
+          )}
+
+          <div className="text-xs font-mono font-semibold text-indigo-900 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 px-2.5 py-1 rounded-md">
+            {data.codingMinutes + data.projectMinutes + data.gateMinutes} mins logged
+          </div>
         </div>
       </div>
 
@@ -255,9 +275,9 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
         >
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2">
-              <BookMarked className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <BookMarked className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                45 Min Academic Project
+                45m Final Year Project
               </span>
             </div>
             <input
@@ -269,7 +289,7 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
             />
           </div>
           <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1">
-            Capstone project, repo commits, or lab assignments.
+            Documentation, system design, feature implementation or testing.
           </p>
           <div className="mt-2.5 flex items-center justify-between text-xs">
             <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
@@ -290,7 +310,7 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
           </div>
         </div>
 
-        {/* Block 3: GATE / Competitive Exam */}
+        {/* Block 3: GATE Revision */}
         <div
           className={`p-3.5 rounded-lg border transition-all ${
             data.gateCompleted 
@@ -300,9 +320,9 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
         >
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2">
-              <GraduationCap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                30 Min GATE / Exam Prep
+                30m GATE / Core Subjects
               </span>
             </div>
             <input
@@ -314,7 +334,7 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
             />
           </div>
           <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1">
-            Previous year questions (PYQs) or standard mock tests.
+            Previous Year Questions (PYQs), formulas, or test series analysis.
           </p>
           <div className="mt-2.5 flex items-center justify-between text-xs">
             <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
@@ -334,6 +354,20 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({ data, 
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Target Work Notes */}
+      <div className="mt-3.5">
+        <label className="block text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-1">
+          Evening Deep Work Notes / Accomplishments
+        </label>
+        <textarea
+          rows={2}
+          value={data.notes}
+          onChange={(e) => onChange({ ...data, notes: e.target.value })}
+          placeholder="e.g. Solved 3 DP Medium questions on LeetCode without peeking at solutions; tested Capstone payment endpoint."
+          className="w-full text-xs p-2.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+        />
       </div>
     </section>
   );

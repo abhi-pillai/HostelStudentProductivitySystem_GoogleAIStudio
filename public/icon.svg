@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="50%" stop-color="#292524"/>
+      <stop offset="100%" stop-color="#0c0a09"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+  <!-- Background with slight rounded corners for standalone icon -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle circular halo / safe zone ring -->
+  <circle cx="256" cy="256" r="185" fill="none" stroke="#f59e0b" stroke-opacity="0.15" stroke-width="4" stroke-dasharray="8 8"/>
+  
+  <!-- Outer Shield / Loop Emblem -->
+  <g transform="translate(106, 96) scale(1.25)">
+    <!-- Shield / Anchor outline -->
+    <path d="M120 20 L200 55 L200 135 C200 190 120 230 120 230 C120 230 40 190 40 135 L40 55 Z" fill="none" stroke="url(#amberGrad)" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>
+    
+    <!-- Central Monogram 'H' representing H.O.S.T.E.L. Loop -->
+    <path d="M85 90 L85 170 M155 90 L155 170 M85 130 L155 130" stroke="#fef3c7" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Focus Target Sparkle on top right -->
+    <circle cx="175" cy="55" r="10" fill="#38bdf8"/>
+    <path d="M175 35 L175 42 M175 68 L175 75 M155 55 L162 55 M188 55 L195 55" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  
+  <!-- H.O.S.T.E.L. bottom dots -->
+  <circle cx="176" cy="425" r="7" fill="#f59e0b"/>
+  <circle cx="208" cy="425" r="7" fill="#3b82f6"/>
+  <circle cx="240" cy="425" r="7" fill="#10b981"/>
+  <circle cx="272" cy="425" r="7" fill="#6366f1"/>
+  <circle cx="304" cy="425" r="7" fill="#f43f5e"/>
+  <circle cx="336" cy="425" r="7" fill="#8b5cf6"/>
+</svg>
