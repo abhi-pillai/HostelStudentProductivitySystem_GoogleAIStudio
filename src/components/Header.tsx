@@ -16,6 +16,8 @@ import {
   Moon,
   Smartphone,
   Zap,
+  Award,
+  User,
 } from 'lucide-react';
 import { formatDateDisplay, getTodayDateString } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
@@ -33,6 +35,7 @@ interface HeaderProps {
   onOpenAuth: () => void;
   onOpenInstall: () => void;
   onOpenFocusMode: () => void;
+  onOpenProfile: () => void;
   syncState: 'idle' | 'syncing' | 'synced' | 'error';
 }
 
@@ -47,6 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAuth,
   onOpenInstall,
   onOpenFocusMode,
+  onOpenProfile,
   syncState,
 }) => {
   const { currentUser, signOut } = useAuth();
@@ -140,14 +144,16 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* Streak Badge */}
-          <div 
+          <button
+            type="button"
             id="streak-badge"
-            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs"
-            title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak})`}
+            onClick={onOpenProfile}
+            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100/80 dark:hover:bg-orange-900/60 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+            title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak}). Click to view Profile & Badges`}
           >
             <Flame className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 fill-orange-500" />
             <span>{streak.currentStreak}d</span>
-          </div>
+          </button>
 
           {/* Date Navigator */}
           <div className="flex items-center bg-stone-100 dark:bg-stone-800/80 rounded-lg p-0.5 border border-stone-200 dark:border-stone-700/80 text-xs font-medium">
@@ -247,6 +253,17 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              type="button"
+              id="btn-badges-header"
+              onClick={onOpenProfile}
+              className="px-2 py-1.5 text-xs font-semibold text-amber-900 dark:text-amber-200 bg-amber-100/80 dark:bg-amber-950/60 hover:bg-amber-200/80 dark:hover:bg-amber-900/60 border border-amber-300/80 dark:border-amber-700/80 rounded-lg transition-colors flex items-center gap-1"
+              title="View Streak Milestones & Badges in Profile"
+            >
+              <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Badges</span>
+            </button>
+
+            <button
               id="btn-sample-fill"
               onClick={onPrefillSample}
               className="px-2 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-lg transition-colors flex items-center gap-1"
@@ -314,6 +331,17 @@ export const Header: React.FC<HeaderProps> = ({
                         <span>Firestore Database Active</span>
                       </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowUserMenu(false);
+                        onOpenProfile();
+                      }}
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center gap-2 transition-colors mb-0.5"
+                    >
+                      <Award className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Profile & Badges</span>
+                    </button>
                     <button
                       type="button"
                       onClick={() => {

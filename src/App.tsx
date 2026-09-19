@@ -28,6 +28,7 @@ import { LightsOutSection } from './components/LightsOutSection';
 import { RulesCard } from './components/RulesCard';
 import { HistoryModal } from './components/HistoryModal';
 import { AuthModal } from './components/AuthModal';
+import { UserProfileModal } from './components/UserProfileModal';
 import { PWAInstallBanner, PWAInstallModal } from './components/PWAInstallModal';
 import { ActiveFocusMode } from './components/ActiveFocusMode';
 import { OfflineIndicator } from './components/OfflineIndicator';
@@ -42,6 +43,7 @@ export const App: React.FC = () => {
   const [showRules, setShowRules] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showActiveFocus, setShowActiveFocus] = useState(false);
   const [syncState, setSyncState] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
@@ -250,6 +252,7 @@ export const App: React.FC = () => {
         onOpenAuth={() => setShowAuth(true)}
         onOpenInstall={() => setShowInstallModal(true)}
         onOpenFocusMode={() => setShowActiveFocus(true)}
+        onOpenProfile={() => setShowProfile(true)}
         syncState={syncState}
       />
 
@@ -343,8 +346,17 @@ export const App: React.FC = () => {
         records={allRecords}
         onForceSync={currentUser?.uid ? () => syncWithCloud(currentUser.uid) : undefined}
         isSyncing={syncState === 'syncing'}
+        onOpenProfile={() => setShowProfile(true)}
       />
       
+      <UserProfileModal
+        isOpen={showProfile}
+        onClose={() => setShowProfile(false)}
+        streak={streak}
+        records={allRecords}
+        onOpenAuth={() => setShowAuth(true)}
+      />
+
       <AuthModal
         isOpen={showAuth}
         onClose={() => setShowAuth(false)}

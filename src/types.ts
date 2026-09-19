@@ -78,3 +78,25 @@ export interface ScoreBreakdown {
   verdict: string;
   verdictColor: string;
 }
+
+export interface StreakStats {
+  currentStreak: number;
+  bestStreak: number;
+  totalLoggedDays: number;
+}
+
+export interface Badge {
+  id: string;
+  title: string;
+  description: string;
+  category: 'streak' | 'perfection' | 'discipline' | 'milestone';
+  targetDays: number;
+  iconName: 'flame' | 'sun' | 'award' | 'zap' | 'crown' | 'target' | 'star' | 'shield' | 'trophy' | 'sparkles';
+  unlocked: boolean;
+  unlockedAt?: string;
+  progress: number; // 0 to 100
+  currentValue: number;
+  targetValue: number;
+  rarity: 'Common' | 'Rare' | 'Epic' | 'Legendary';
+}
+

@@ -1,8 +1,10 @@
 import React from 'react';
-import { X, Calendar, Flame, Download, Upload, CloudCheck, RefreshCw } from 'lucide-react';
+import { X, Calendar, Flame, Download, Upload, CloudCheck, RefreshCw, Award, ChevronRight } from 'lucide-react';
 import { calculateScore, formatDateDisplay } from '../utils/storage';
 import { DailyRecord } from '../types';
 import { useAuth } from '../contexts/AuthContext';
+import { computeBadges } from '../utils/badges';
+import { Badges } from './Badges';
 
 interface HistoryModalProps {
   isOpen: boolean;
@@ -12,6 +14,7 @@ interface HistoryModalProps {
   records: Record<string, DailyRecord>;
   onForceSync?: () => Promise<void>;
   isSyncing?: boolean;
+  onOpenProfile?: () => void;
 }
 
 export const HistoryModal: React.FC<HistoryModalProps> = ({
@@ -22,11 +25,14 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   records,
   onForceSync,
   isSyncing,
+  onOpenProfile,
 }) => {
   const { currentUser } = useAuth();
   if (!isOpen) return null;
 
   const sortedDates = Object.keys(records).sort().reverse();
+  const badges = computeBadges(streak, records);
+  const unlockedBadgesCount = badges.filter((b) => b.unlocked).length;
 
   // Export JSON
   const handleExport = () => {
@@ -120,6 +126,32 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
               {streak.totalLoggedDays} <span className="text-xs font-normal">days</span>
             </span>
           </div>
+        </div>
+
+        {/* Badges & Milestones Preview Card */}
+        <div className="mt-4 p-3.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/50">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                Streak Milestones & Badges ({unlockedBadgesCount} / {badges.length} Unlocked)
+              </span>
+            </div>
+            {onOpenProfile && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOpenProfile();
+                }}
+                className="text-xs font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-200 flex items-center gap-1 transition-colors"
+              >
+                <span>View Full Profile</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+          <Badges badges={badges} compact />
         </div>
 
         {/* Records list */}
