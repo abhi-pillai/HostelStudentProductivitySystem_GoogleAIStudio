@@ -65,6 +65,7 @@ export interface DailyRecord {
   entertainment: EntertainmentData;
   lightsOut: LightsOutData;
   dailyNotes?: string;
+  distractions?: string[]; // Logged hostel distractions (e.g., 'Roommates', 'Noise', 'Phone')
 }
 
 export interface ScoreBreakdown {

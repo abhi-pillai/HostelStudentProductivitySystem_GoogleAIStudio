@@ -74,7 +74,8 @@ export function getDefaultRecord(date: string = getTodayDateString()): DailyReco
       sleptBetween11And12: false,
       bedOnlyForSleep: true
     },
-    dailyNotes: ''
+    dailyNotes: '',
+    distractions: []
   };
 }
 

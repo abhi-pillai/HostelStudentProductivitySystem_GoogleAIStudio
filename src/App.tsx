@@ -33,6 +33,7 @@ import { UserProfileModal } from './components/UserProfileModal';
 import { PWAInstallBanner, PWAInstallModal } from './components/PWAInstallModal';
 import { ActiveFocusMode } from './components/ActiveFocusMode';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { DistractionLogger } from './components/DistractionLogger';
 import { MessageSquare, ShieldAlert, Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -340,6 +341,13 @@ export const App: React.FC = () => {
             placeholder="How was today's discipline? Any distraction triggers in the hostel room (e.g. friends dropping by, late gaming)? How will you adjust tomorrow?"
             rows={3}
             className="w-full text-xs p-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
+          />
+
+          {/* Distraction Logger */}
+          <DistractionLogger
+            selectedDistractions={record.distractions || []}
+            onChange={(distractions) => handleUpdateRecord({ ...record, distractions })}
+            allRecords={allRecords}
           />
         </div>
 

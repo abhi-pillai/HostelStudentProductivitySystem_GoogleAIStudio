@@ -226,6 +226,25 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                           );
                         })}
                       </div>
+
+                      {/* Logged Distractions if any */}
+                      {Array.isArray(rec.distractions) && rec.distractions.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {rec.distractions.slice(0, 3).map((d) => (
+                            <span
+                              key={d}
+                              className="text-[10px] px-1.5 py-0.2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700"
+                            >
+                              {d}
+                            </span>
+                          ))}
+                          {rec.distractions.length > 3 && (
+                            <span className="text-[10px] text-stone-400">
+                              +{rec.distractions.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 hover:underline">

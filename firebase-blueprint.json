@@ -28,6 +28,11 @@
         "entertainment": { "type": "object", "description": "Guarded entertainment tracking" },
         "lightsOut": { "type": "object", "description": "Night lights out discipline" },
         "dailyNotes": { "type": "string", "description": "Reflections and hostel room notes" },
+        "distractions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Logged hostel distractions for pattern tracking"
+        },
         "totalScore": { "type": "number", "description": "Execution score 0-6" },
         "updatedAt": { "type": "string", "description": "Last modified timestamp" }
       },
