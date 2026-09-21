@@ -5,6 +5,7 @@ import { DailyRecord } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { computeBadges } from '../utils/badges';
 import { Badges } from './Badges';
+import { ScoreTrendChart } from './ScoreTrendChart';
 
 interface HistoryModalProps {
   isOpen: boolean;
@@ -153,6 +154,15 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
           </div>
           <Badges badges={badges} compact />
         </div>
+
+        {/* 7-Day Recharts Score Trend Chart */}
+        <ScoreTrendChart
+          records={records}
+          onSelectDate={(date) => {
+            onSelectDate(date);
+            onClose();
+          }}
+        />
 
         {/* Records list */}
         <div className="mt-5">
