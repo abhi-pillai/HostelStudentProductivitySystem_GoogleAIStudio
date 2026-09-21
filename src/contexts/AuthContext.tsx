@@ -15,9 +15,9 @@ interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
   isFirebaseConfigured: boolean;
-  signInWithGoogle: () => Promise<void>;
-  signInWithEmail: (email: string, pass: string) => Promise<void>;
-  signUpWithEmail: (email: string, pass: string, displayName?: string) => Promise<void>;
+  signInWithGoogle: () => Promise<{ success: boolean }>;
+  signInWithEmail: (email: string, pass: string) => Promise<{ success: boolean }>;
+  signUpWithEmail: (email: string, pass: string, displayName?: string) => Promise<{ success: boolean }>;
   signOut: () => Promise<void>;
   authError: string | null;
   clearAuthError: () => void;
@@ -58,11 +58,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearAuthError = () => setAuthError(null);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<{ success: boolean }> => {
     setAuthError(null);
     if (!isFirebaseConfigured) {
       setAuthError('Firebase environment variables (.env) are not configured yet.');
-      return;
+      return { success: false };
     }
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -73,39 +73,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
         });
+        return { success: true };
       }
+      return { success: false };
     } catch (err: any) {
       if (
         err?.code === 'auth/popup-closed-by-user' ||
         err?.code === 'auth/cancelled-popup-request'
       ) {
         // User intentionally closed or dismissed the popup window - not an error
-        return;
+        return { success: false };
       }
       if (err?.code === 'auth/popup-blocked') {
         setAuthError(
           'Sign-in pop-up was blocked by your browser. Please allow pop-ups for this site, open in a new tab, or sign in with email.'
         );
-        return;
+        return { success: false };
       }
       if (err?.code === 'auth/unauthorized-domain') {
         setAuthError(
           'Google Sign-In is not authorized on this preview domain yet. Please use Email & Password below.'
         );
-        return;
+        return { success: false };
       }
       console.warn('Google sign-in attempt warning:', err?.message || err);
       setAuthError(
         err?.message || 'Failed to complete Google sign-in. You can sign in using Email & Password.'
       );
+      return { success: false };
     }
   };
 
-  const signInWithEmail = async (email: string, pass: string) => {
+  const signInWithEmail = async (email: string, pass: string): Promise<{ success: boolean }> => {
     setAuthError(null);
     if (!isFirebaseConfigured) {
       setAuthError('Firebase environment variables (.env) are not configured yet.');
-      return;
+      return { success: false };
     }
     try {
       const result = await signInWithEmailAndPassword(auth, email.trim(), pass);
@@ -116,7 +119,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
         });
+        return { success: true };
       }
+      return { success: false };
     } catch (err: any) {
       if (
         err?.code === 'auth/invalid-credential' ||
@@ -131,14 +136,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         setAuthError(err?.message || 'Failed to sign in.');
       }
+      return { success: false };
     }
   };
 
-  const signUpWithEmail = async (email: string, pass: string, displayName?: string) => {
+  const signUpWithEmail = async (email: string, pass: string, displayName?: string): Promise<{ success: boolean }> => {
     setAuthError(null);
     if (!isFirebaseConfigured) {
       setAuthError('Firebase environment variables (.env) are not configured yet.');
-      return;
+      return { success: false };
     }
     try {
       const result = await createUserWithEmailAndPassword(auth, email.trim(), pass);
@@ -152,7 +158,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           displayName: displayName || result.user.displayName,
           photoURL: result.user.photoURL,
         });
+        return { success: true };
       }
+      return { success: false };
     } catch (err: any) {
       if (err?.code === 'auth/email-already-in-use') {
         setAuthError('An account with this email already exists. Try signing in instead.');
@@ -163,6 +171,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         setAuthError(err?.message || 'Failed to create account.');
       }
+      return { success: false };
     }
   };
 

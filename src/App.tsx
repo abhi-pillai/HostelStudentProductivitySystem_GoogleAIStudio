@@ -28,14 +28,15 @@ import { LightsOutSection } from './components/LightsOutSection';
 import { RulesCard } from './components/RulesCard';
 import { HistoryModal } from './components/HistoryModal';
 import { AuthModal } from './components/AuthModal';
+import { AuthGate } from './components/AuthGate';
 import { UserProfileModal } from './components/UserProfileModal';
 import { PWAInstallBanner, PWAInstallModal } from './components/PWAInstallModal';
 import { ActiveFocusMode } from './components/ActiveFocusMode';
 import { OfflineIndicator } from './components/OfflineIndicator';
-import { MessageSquare, ShieldAlert } from 'lucide-react';
+import { MessageSquare, ShieldAlert, Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
   const [currentDate, setCurrentDate] = useState<string>(getTodayDateString());
   const [record, setRecord] = useState<DailyRecord>(() => getRecordForDate(getTodayDateString()));
   const [allRecords, setAllRecords] = useState<Record<string, DailyRecord>>(() => getAllRecords());
@@ -234,6 +235,26 @@ export const App: React.FC = () => {
       },
     });
   };
+
+  // Initial auth checking state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-4 text-center">
+        <div className="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-bold text-xl shadow-lg mb-4 animate-pulse">
+          HL
+        </div>
+        <div className="flex items-center gap-2 text-stone-300 text-sm font-semibold">
+          <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
+          <span>Verifying student session...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Feature Access Gate: user must create an account and log in before accessing system features
+  if (!currentUser) {
+    return <AuthGate />;
+  }
 
   return (
     <div className="min-h-screen bg-stone-100/60 dark:bg-stone-950 text-stone-900 dark:text-stone-100 pb-16 font-sans transition-colors duration-200">

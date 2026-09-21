@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles, AlertTriangle } from 'lucide-react';
+import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../lib/firebase';
 
@@ -15,20 +15,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [signupSuccessMsg, setSignupSuccessMsg] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const handleClose = () => {
     clearAuthError();
+    setSignupSuccessMsg(null);
     onClose();
   };
 
   const handleGoogleSignIn = async () => {
     setSubmitting(true);
     clearAuthError();
+    setSignupSuccessMsg(null);
     try {
-      await signInWithGoogle();
-      if (auth.currentUser) {
+      const res = await signInWithGoogle();
+      if (res?.success) {
         handleClose();
       }
     } finally {
@@ -41,14 +44,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     if (!email || !password) return;
     setSubmitting(true);
     clearAuthError();
+    setSignupSuccessMsg(null);
     try {
       if (mode === 'signin') {
-        await signInWithEmail(email, password);
+        const res = await signInWithEmail(email, password);
+        if (res?.success) {
+          handleClose();
+        }
       } else {
-        await signUpWithEmail(email, password, name);
-      }
-      if (auth.currentUser) {
-        handleClose();
+        const res = await signUpWithEmail(email, password, name);
+        if (res?.success) {
+          setMode('signin');
+          setSignupSuccessMsg(
+            'Account created successfully! Please enter your password to log in and access the system.'
+          );
+        }
       }
     } finally {
       setSubmitting(false);
@@ -58,14 +68,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const handleQuickDemoSignIn = async () => {
     setSubmitting(true);
     clearAuthError();
+    setSignupSuccessMsg(null);
     const demoEmail = 'student.demo@hostelapp.internal';
     const demoPass = 'hostelPass123!';
     try {
       // Attempt sign in first
-      await signInWithEmail(demoEmail, demoPass);
-      if (!auth.currentUser) {
+      const signInRes = await signInWithEmail(demoEmail, demoPass);
+      if (!signInRes?.success) {
         // If account doesn't exist, create it
         await signUpWithEmail(demoEmail, demoPass, 'Hostel Scholar (Demo)');
+        await signInWithEmail(demoEmail, demoPass);
       }
       if (auth.currentUser) {
         handleClose();
@@ -120,6 +132,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <div className="flex-1">
               Firebase credentials are read from <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">.env</code>. Set <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_API_KEY</code> and <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded font-mono text-[11px]">VITE_FIREBASE_PROJECT_ID</code> to enable cloud sign-in.
             </div>
+          </div>
+        )}
+
+        {/* Signup Success Banner */}
+        {signupSuccessMsg && (
+          <div className="mt-3 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-xl flex items-start gap-2 text-xs text-emerald-800 dark:text-emerald-300 animate-in fade-in">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div className="flex-1 font-medium">{signupSuccessMsg}</div>
           </div>
         )}
 
