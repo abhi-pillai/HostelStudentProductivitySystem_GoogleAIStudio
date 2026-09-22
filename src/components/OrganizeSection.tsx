@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { OrganizeData, PriorityItem, PriorityCategory } from '../types';
-import { Check, Plus, Trash2, Clock, Tag } from 'lucide-react';
+import { Check, Plus, Trash2, Clock, Tag, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
+import { playChime } from '../utils/sound';
 
 interface OrganizeSectionProps {
   data: OrganizeData;
@@ -10,9 +11,30 @@ interface OrganizeSectionProps {
 
 const CATEGORIES: PriorityCategory[] = ['Coding', 'Project', 'GATE', 'Placement', 'Academics', 'Other'];
 
+const QUICK_TEMPLATES: { text: string; category: PriorityCategory; slot: string }[] = [
+  { text: 'Solve 3 LeetCode Mediums (Trees / Graphs)', category: 'Coding', slot: '07:30 PM - 08:30 PM' },
+  { text: 'Implement REST API endpoints & tests', category: 'Project', slot: '08:30 PM - 09:30 PM' },
+  { text: 'Revise OS Virtual Memory & Paging formulas', category: 'GATE', slot: '05:30 PM - 06:30 PM' },
+  { text: 'Practice 20 quantitative aptitude speed drills', category: 'Placement', slot: '04:30 PM - 05:15 PM' },
+  { text: 'Complete Lab manual assignment submission', category: 'Academics', slot: '06:30 PM - 07:15 PM' },
+];
+
 export const OrganizeSection: React.FC<OrganizeSectionProps> = ({ data, onChange, earned }) => {
+  const [showTemplates, setShowTemplates] = useState(false);
+
+  const completedCount = data.priorities.filter(p => p.completed && p.text.trim().length > 0).length;
+  const activeCount = data.priorities.filter(p => p.text.trim().length > 0).length;
+
   const updatePriority = (id: string, updates: Partial<PriorityItem>) => {
-    const updated = data.priorities.map((p) => (p.id === id ? { ...p, ...updates } : p));
+    const updated = data.priorities.map((p) => {
+      if (p.id === id) {
+        if (updates.completed && !p.completed) {
+          playChime('success');
+        }
+        return { ...p, ...updates };
+      }
+      return p;
+    });
     onChange({ ...data, priorities: updated });
   };
 
@@ -38,6 +60,30 @@ export const OrganizeSection: React.FC<OrganizeSectionProps> = ({ data, onChange
       return;
     }
     onChange({ ...data, priorities: data.priorities.filter((p) => p.id !== id) });
+  };
+
+  const applyTemplate = (template: typeof QUICK_TEMPLATES[0]) => {
+    // Find first empty priority, or replace least filled
+    const emptyIndex = data.priorities.findIndex(p => !p.text.trim());
+    if (emptyIndex !== -1) {
+      const updated = [...data.priorities];
+      updated[emptyIndex] = {
+        ...updated[emptyIndex],
+        text: template.text,
+        category: template.category,
+        timeSlot: template.slot,
+      };
+      onChange({ ...data, priorities: updated });
+    } else if (data.priorities.length < 5) {
+      const newItem: PriorityItem = {
+        id: Date.now().toString(),
+        text: template.text,
+        timeSlot: template.slot,
+        category: template.category,
+        completed: false,
+      };
+      onChange({ ...data, priorities: [...data.priorities, newItem] });
+    }
   };
 
   return (
@@ -76,17 +122,62 @@ export const OrganizeSection: React.FC<OrganizeSectionProps> = ({ data, onChange
           </div>
         </div>
 
-        {data.priorities.length < 5 && (
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             type="button"
-            onClick={addPriority}
-            className="text-xs font-semibold px-2 py-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-md transition-colors flex items-center gap-1 shrink-0 border border-stone-200/60 dark:border-stone-700/60"
+            onClick={() => setShowTemplates(!showTemplates)}
+            className="text-xs font-semibold px-2 py-1 text-blue-700 dark:text-blue-300 hover:text-blue-900 bg-blue-50 dark:bg-blue-950/40 rounded-md transition-colors flex items-center gap-1 border border-blue-200 dark:border-blue-800/60"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Slot</span>
+            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span>Templates</span>
+            {showTemplates ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
-        )}
+
+          {data.priorities.length < 5 && (
+            <button
+              type="button"
+              onClick={addPriority}
+              className="text-xs font-semibold px-2 py-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-md transition-colors flex items-center gap-1 border border-stone-200/60 dark:border-stone-700/60"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Slot</span>
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Quick Task Templates Drawer */}
+      {showTemplates && (
+        <div className="mt-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-900/40 rounded-lg animate-in fade-in duration-150">
+          <div className="text-[11px] font-bold text-blue-900 dark:text-blue-200 mb-1.5 flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+            <span>Quick Hostel Task Presets (Click to autofill):</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {QUICK_TEMPLATES.map((tpl, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => applyTemplate(tpl)}
+                className="text-left text-xs px-2.5 py-1 rounded bg-white dark:bg-stone-800 border border-blue-200 dark:border-stone-700 hover:border-blue-400 text-stone-700 dark:text-stone-300 flex items-center gap-1.5 transition-all shadow-2xs"
+              >
+                <span className="font-semibold text-blue-600 dark:text-blue-400 text-[10px]">[{tpl.category}]</span>
+                <span>{tpl.text}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Task Completion Mini Banner */}
+      {activeCount > 0 && (
+        <div className="mt-3 flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400 bg-stone-50 dark:bg-stone-850 px-3 py-1.5 rounded-lg border border-stone-200/60 dark:border-stone-800">
+          <span>Priority Tasks Completion:</span>
+          <span className="font-semibold text-stone-800 dark:text-stone-200">
+            {completedCount} of {activeCount} tasks completed ({Math.round((completedCount / activeCount) * 100)}%)
+          </span>
+        </div>
+      )}
 
       {/* Priorities List */}
       <div className="mt-4 space-y-3">

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Target } from 'lucide-react';
+import { Target, X } from 'lucide-react';
+import { QuickGoalInspirations } from './QuickGoalInspirations';
 
 interface DailyFocusGoalProps {
   value?: string;
@@ -36,9 +37,21 @@ export const DailyFocusGoal: React.FC<DailyFocusGoalProps> = ({ value = '', onCh
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="e.g. Master DP Subsequences & finish Capstone API endpoints by 8:30 PM..."
-          className="w-full text-xs sm:text-sm font-medium px-3.5 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 focus:outline-hidden focus:ring-1 focus:ring-amber-500 focus:border-amber-500 text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 bg-stone-50/50 dark:bg-stone-800/60"
+          className="w-full text-xs sm:text-sm font-medium pl-3.5 pr-8 py-2.5 rounded-lg border border-stone-200 dark:border-stone-700 focus:outline-hidden focus:ring-1 focus:ring-amber-500 focus:border-amber-500 text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 bg-stone-50/50 dark:bg-stone-800/60"
         />
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange('')}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-700/50"
+            title="Clear goal"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
+
+      <QuickGoalInspirations currentGoal={value} onSelectGoal={onChange} />
     </div>
   );
 };

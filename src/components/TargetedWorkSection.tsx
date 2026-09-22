@@ -247,7 +247,20 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({
             DSA, algorithmic patterns, or contest problem solving.
           </p>
           <div className="mt-2.5 flex items-center justify-between text-xs">
-            <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const newMins = data.codingMinutes + 15;
+                  onChange({ ...data, codingMinutes: newMins, codingCompleted: newMins >= 45 ? true : data.codingCompleted });
+                }}
+                className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100"
+                title="Quick add 15 minutes"
+              >
+                +15m
+              </button>
+            </div>
             <div className="flex items-center bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 px-2 py-0.5">
               <input
                 type="number"
@@ -292,7 +305,20 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({
             Documentation, system design, feature implementation or testing.
           </p>
           <div className="mt-2.5 flex items-center justify-between text-xs">
-            <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const newMins = data.projectMinutes + 15;
+                  onChange({ ...data, projectMinutes: newMins, projectCompleted: newMins >= 30 ? true : data.projectCompleted });
+                }}
+                className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100"
+                title="Quick add 15 minutes"
+              >
+                +15m
+              </button>
+            </div>
             <div className="flex items-center bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 px-2 py-0.5">
               <input
                 type="number"
@@ -337,7 +363,20 @@ export const TargetedWorkSection: React.FC<TargetedWorkSectionProps> = ({
             Previous Year Questions (PYQs), formulas, or test series analysis.
           </p>
           <div className="mt-2.5 flex items-center justify-between text-xs">
-            <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-stone-500 dark:text-stone-400 text-[11px]">Minutes:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const newMins = data.gateMinutes + 15;
+                  onChange({ ...data, gateMinutes: newMins, gateCompleted: newMins >= 20 ? true : data.gateCompleted });
+                }}
+                className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100"
+                title="Quick add 15 minutes"
+              >
+                +15m
+              </button>
+            </div>
             <div className="flex items-center bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 px-2 py-0.5">
               <input
                 type="number"
