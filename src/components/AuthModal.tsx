@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { X, LogIn, UserPlus, Mail, Lock, User, Cloud, ShieldCheck, AlertCircle, Loader2, Sparkles, AlertTriangle, CheckCircle2, Terminal, Code2, KeyRound } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../lib/firebase';
 
@@ -9,7 +9,7 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
-  const { signInWithGoogle, signInWithEmail, signUpWithEmail, authError, clearAuthError, isFirebaseConfigured } = useAuth();
+  const { signInWithGoogle, signInWithEmail, signUpWithEmail, signInWithDevBypass, authError, clearAuthError, isFirebaseConfigured } = useAuth();
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -304,15 +304,42 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             </p>
           )}
 
-          <div className="w-full pt-2 border-t border-stone-100 dark:border-stone-800">
+          <div className="w-full pt-2 border-t border-stone-100 dark:border-stone-800 space-y-2">
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  signInWithDevBypass('developer');
+                  handleClose();
+                }}
+                className="flex-1 py-1.5 px-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-bold text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1 transition-colors"
+                title="Bypass as Developer"
+              >
+                <Code2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span>Dev Bypass</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  signInWithDevBypass('tester');
+                  handleClose();
+                }}
+                className="flex-1 py-1.5 px-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center gap-1 transition-colors"
+                title="Bypass as Tester"
+              >
+                <KeyRound className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Tester Bypass</span>
+              </button>
+            </div>
+
             <button
               type="button"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-1.5 px-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/30 hover:bg-amber-100/70 dark:hover:bg-amber-900/40 border border-amber-200/80 dark:border-amber-800/60 text-[11px] font-semibold text-amber-800 dark:text-amber-300 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-1.5 px-3 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-[11px] font-semibold text-stone-700 dark:text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>Instant Test: Sign In with Demo Student Account</span>
+              <span>Firebase Demo Account</span>
             </button>
           </div>
         </div>

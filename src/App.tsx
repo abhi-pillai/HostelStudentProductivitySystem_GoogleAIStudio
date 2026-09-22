@@ -38,7 +38,7 @@ import { QuickReflectionPrompts } from './components/QuickReflectionPrompts';
 import { MessageSquare, ShieldAlert, Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, isDevBypass, loading } = useAuth();
   const [currentDate, setCurrentDate] = useState<string>(getTodayDateString());
   const [record, setRecord] = useState<DailyRecord>(() => getRecordForDate(getTodayDateString()));
   const [allRecords, setAllRecords] = useState<Record<string, DailyRecord>>(() => getAllRecords());
@@ -53,6 +53,12 @@ export const App: React.FC = () => {
 
   // Cloud sync handler when user logs in
   const syncWithCloud = useCallback(async (userId: string) => {
+    // In dev bypass mode, store locally without making remote firestore network calls
+    if (isDevBypass) {
+      setSyncState('synced');
+      return;
+    }
+
     try {
       setSyncState('syncing');
       // 1. Fetch remote records from Firestore
@@ -85,16 +91,18 @@ export const App: React.FC = () => {
       console.error('Failed cloud synchronization:', err);
       setSyncState('error');
     }
-  }, [currentDate]);
+  }, [currentDate, isDevBypass]);
 
   // When auth state changes, sync with Firestore
   useEffect(() => {
-    if (currentUser?.uid) {
+    if (currentUser?.uid && !isDevBypass) {
       syncWithCloud(currentUser.uid);
+    } else if (currentUser?.uid && isDevBypass) {
+      setSyncState('synced');
     } else {
       setSyncState('idle');
     }
-  }, [currentUser?.uid, syncWithCloud]);
+  }, [currentUser?.uid, isDevBypass, syncWithCloud]);
 
   // When date changes, load record
   useEffect(() => {
@@ -111,8 +119,8 @@ export const App: React.FC = () => {
     setAllRecords(updatedAll);
     setStreak(calculateStreak());
 
-    // 2. Cloud Firestore Update if authenticated
-    if (currentUser?.uid) {
+    // 2. Cloud Firestore Update if authenticated and not in bypass mode
+    if (currentUser?.uid && !isDevBypass) {
       setSyncState('syncing');
       try {
         await saveDailyRecordToFirestore(currentUser.uid, updated);
@@ -121,6 +129,8 @@ export const App: React.FC = () => {
         console.error('Firestore save failed:', err);
         setSyncState('error');
       }
+    } else if (isDevBypass) {
+      setSyncState('synced');
     }
   };
 

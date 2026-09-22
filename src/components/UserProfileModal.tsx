@@ -12,6 +12,7 @@ import {
   Sparkles,
   ShieldAlert,
   Clock,
+  Terminal,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { DailyRecord, StreakStats } from '../types';
@@ -33,7 +34,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   records,
   onOpenAuth,
 }) => {
-  const { currentUser, signOut } = useAuth();
+  const { currentUser, isDevBypass, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<'badges' | 'overview'>('badges');
 
   if (!isOpen) return null;
@@ -87,9 +88,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               </div>
             )}
             <div>
-              <h4 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+              <h4 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5 flex-wrap">
                 {currentUser?.displayName || (currentUser ? 'Hostel Scholar' : 'Guest Student')}
-                {currentUser && (
+                {isDevBypass && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 font-mono font-bold flex items-center gap-1">
+                    <Terminal className="w-2.5 h-2.5" /> Dev/Tester Bypass Mode
+                  </span>
+                )}
+                {currentUser && !isDevBypass && (
                   <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-semibold flex items-center gap-1">
                     <CloudCheck className="w-2.5 h-2.5" /> Cloud Active
                   </span>

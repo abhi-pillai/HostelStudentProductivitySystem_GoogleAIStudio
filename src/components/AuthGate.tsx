@@ -13,6 +13,10 @@ import {
   CheckCircle2,
   Calendar,
   Zap,
+  Terminal,
+  KeyRound,
+  Check,
+  Code2,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../lib/firebase';
@@ -21,11 +25,15 @@ interface AuthGateProps {
   onSuccess?: () => void;
 }
 
+// Supported tester / developer bypass codes
+const VALID_DEV_PASSCODES = ['DEV123', 'TESTER', 'HOSTELDEV', 'DEMO99', '123456'];
+
 export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
   const {
     signInWithGoogle,
     signInWithEmail,
     signUpWithEmail,
+    signInWithDevBypass,
     authError,
     clearAuthError,
     isFirebaseConfigured,
@@ -37,6 +45,28 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
   const [name, setName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [signupSuccessMsg, setSignupSuccessMsg] = useState<string | null>(null);
+
+  // Dev & Tester bypass states
+  const [showDevPanel, setShowDevPanel] = useState(false);
+  const [devCodeInput, setDevCodeInput] = useState('');
+  const [devCodeError, setDevCodeError] = useState<string | null>(null);
+
+  const handleDevBypassSubmit = (codeToTest?: string) => {
+    const code = (codeToTest || devCodeInput).trim().toUpperCase();
+    if (!code) {
+      setDevCodeError('Please enter a developer or tester passcode');
+      return;
+    }
+    if (VALID_DEV_PASSCODES.includes(code)) {
+      const role = code === 'TESTER' ? 'tester' : 'developer';
+      signInWithDevBypass(role);
+      if (onSuccess) {
+        onSuccess();
+      }
+    } else {
+      setDevCodeError(`Invalid code "${code}". Try: DEV123 or TESTER`);
+    }
+  };
 
   const handleGoogleSignIn = async () => {
     setSubmitting(true);
@@ -313,21 +343,104 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
             </button>
           </form>
 
-          {/* Quick Demo Student Access for seamless review */}
-          <div className="mt-5 pt-4 border-t border-stone-800 text-center">
+          {/* Quick Demo Student Access & Dev/Tester Bypass */}
+          <div className="mt-5 pt-4 border-t border-stone-800 space-y-3">
+            {/* Tester & Dev Bypass Box */}
+            <div className="bg-stone-900/90 rounded-xl p-3 border border-amber-500/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+                  <Terminal className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Dev & Tester Bypass (No Sign-In Required)</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowDevPanel(!showDevPanel)}
+                  className="text-[10px] text-amber-400/80 hover:text-amber-300 underline font-mono"
+                >
+                  {showDevPanel ? 'Hide Codes' : 'Enter Passcode'}
+                </button>
+              </div>
+
+              {/* 1-Click Quick Bypass Buttons */}
+              <div className="grid grid-cols-2 gap-2 mt-2.5">
+                <button
+                  type="button"
+                  id="btn-bypass-developer"
+                  onClick={() => handleDevBypassSubmit('DEV123')}
+                  className="py-1.5 px-2.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-[11px] font-bold text-amber-300 flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:scale-[1.01]"
+                  title="Instant bypass as Developer (Code: DEV123)"
+                >
+                  <Code2 className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Dev Bypass (DEV123)</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="btn-bypass-tester"
+                  onClick={() => handleDevBypassSubmit('TESTER')}
+                  className="py-1.5 px-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-[11px] font-bold text-emerald-300 flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:scale-[1.01]"
+                  title="Instant bypass as QA Tester (Code: TESTER)"
+                >
+                  <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Tester Bypass (TESTER)</span>
+                </button>
+              </div>
+
+              {/* Expandable Manual Passcode Input */}
+              {showDevPanel && (
+                <div className="mt-3 pt-2.5 border-t border-stone-800">
+                  <p className="text-[10px] text-stone-400 mb-1.5">
+                    Enter any valid test code: <span className="font-mono text-amber-300">DEV123</span>, <span className="font-mono text-emerald-300">TESTER</span>, or <span className="font-mono text-stone-300">HOSTELDEV</span>
+                  </p>
+                  <div className="flex gap-1.5">
+                    <input
+                      type="text"
+                      id="input-dev-passcode"
+                      value={devCodeInput}
+                      onChange={(e) => {
+                        setDevCodeInput(e.target.value);
+                        setDevCodeError(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleDevBypassSubmit();
+                        }
+                      }}
+                      placeholder="e.g. DEV123 or TESTER"
+                      className="flex-1 px-2.5 py-1.5 text-xs rounded-lg border border-stone-700 bg-stone-950 text-stone-100 placeholder-stone-500 font-mono uppercase focus:outline-hidden focus:ring-1 focus:ring-amber-500"
+                    />
+                    <button
+                      type="button"
+                      id="btn-submit-dev-code"
+                      onClick={() => handleDevBypassSubmit()}
+                      className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs flex items-center gap-1 shadow-xs transition-colors"
+                    >
+                      <Check className="w-3 h-3 stroke-[3]" />
+                      <span>Enter</span>
+                    </button>
+                  </div>
+                  {devCodeError && (
+                    <p className="text-[10px] text-rose-400 mt-1 font-medium flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3 shrink-0" />
+                      <span>{devCodeError}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Standard Demo Account Option */}
             <button
               type="button"
               id="gate-demo-btn"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-2 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-xs font-semibold text-amber-300 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-2 px-3 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 hover:border-stone-700 text-xs font-semibold text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Instant Test: Sign in with Demo Student Account</span>
+              <span>Sign in with Firebase Demo Account</span>
             </button>
-            <p className="text-[11px] text-stone-500 mt-2">
-              Creates or signs into a demo hostel account immediately.
-            </p>
           </div>
         </div>
 

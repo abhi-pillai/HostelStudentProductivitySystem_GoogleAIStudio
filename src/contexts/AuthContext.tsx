@@ -15,28 +15,97 @@ interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
   isFirebaseConfigured: boolean;
+  isDevBypass: boolean;
   signInWithGoogle: () => Promise<{ success: boolean }>;
   signInWithEmail: (email: string, pass: string) => Promise<{ success: boolean }>;
   signUpWithEmail: (email: string, pass: string, displayName?: string) => Promise<{ success: boolean }>;
+  signInWithDevBypass: (dummyRole?: 'developer' | 'tester' | 'guest') => void;
   signOut: () => Promise<void>;
   authError: string | null;
   clearAuthError: () => void;
 }
 
+const DEV_STORAGE_KEY = 'hostel_dev_bypass_user';
+
+// Creates a dummy Firebase User compatible object
+const createDummyDevUser = (role: 'developer' | 'tester' | 'guest' = 'developer'): User => {
+  const email = role === 'developer'
+    ? 'dev.engineer@hostelloop.test'
+    : role === 'tester'
+    ? 'qa.tester@hostelloop.test'
+    : 'guest.preview@hostelloop.test';
+
+  const displayName = role === 'developer'
+    ? 'Dev Engineer (Bypass Mode)'
+    : role === 'tester'
+    ? 'QA Tester (Bypass Mode)'
+    : 'Guest Reviewer (Bypass Mode)';
+
+  return {
+    uid: `dev-bypass-${role}-${Date.now().toString().slice(-6)}`,
+    email,
+    displayName,
+    photoURL: null,
+    emailVerified: true,
+    isAnonymous: true,
+    metadata: {},
+    providerData: [],
+    refreshToken: '',
+    tenantId: null,
+    delete: async () => {},
+    getIdToken: async () => 'dummy-dev-token',
+    getIdTokenResult: async () => ({} as any),
+    reload: async () => {},
+    toJSON: () => ({}),
+    phoneNumber: null,
+    providerId: 'dev-bypass',
+  } as unknown as User;
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    // Check if tester/dev bypass was previously activated
+    try {
+      const savedDevUser = localStorage.getItem(DEV_STORAGE_KEY);
+      if (savedDevUser) {
+        return JSON.parse(savedDevUser) as User;
+      }
+    } catch (e) {
+      console.warn('Could not read saved dev bypass user:', e);
+    }
+    return null;
+  });
+  const [isDevBypass, setIsDevBypass] = useState<boolean>(() => {
+    try {
+      return !!localStorage.getItem(DEV_STORAGE_KEY);
+    } catch {
+      return false;
+    }
+  });
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
+    // If dev bypass is active, do not overwrite with null from Firebase auth
+    if (localStorage.getItem(DEV_STORAGE_KEY)) {
+      setLoading(false);
+      return;
+    }
+
     if (!isFirebaseConfigured) {
       setLoading(false);
       return;
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      // Don't overwrite dev bypass user if currently active
+      if (localStorage.getItem(DEV_STORAGE_KEY)) {
+        setLoading(false);
+        return;
+      }
+
       setCurrentUser(user);
       setLoading(false);
       if (user) {
@@ -57,6 +126,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const clearAuthError = () => setAuthError(null);
+
+  const signInWithDevBypass = (role: 'developer' | 'tester' | 'guest' = 'developer') => {
+    setAuthError(null);
+    const dummyUser = createDummyDevUser(role);
+    try {
+      localStorage.setItem(DEV_STORAGE_KEY, JSON.stringify(dummyUser));
+    } catch (e) {
+      console.warn('Could not persist dev user to localStorage:', e);
+    }
+    setCurrentUser(dummyUser);
+    setIsDevBypass(true);
+  };
 
   const signInWithGoogle = async (): Promise<{ success: boolean }> => {
     setAuthError(null);
@@ -178,7 +259,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signOut = async () => {
     setAuthError(null);
     try {
-      if (isFirebaseConfigured) {
+      localStorage.removeItem(DEV_STORAGE_KEY);
+      setIsDevBypass(false);
+      if (isFirebaseConfigured && auth.currentUser) {
         await fbSignOut(auth);
       } else {
         setCurrentUser(null);
@@ -196,9 +279,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         currentUser,
         loading,
         isFirebaseConfigured,
+        isDevBypass,
         signInWithGoogle,
         signInWithEmail,
         signUpWithEmail,
+        signInWithDevBypass,
         signOut,
         authError,
         clearAuthError,

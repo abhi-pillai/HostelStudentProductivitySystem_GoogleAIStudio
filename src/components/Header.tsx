@@ -18,6 +18,7 @@ import {
   Zap,
   Award,
   User,
+  Terminal,
 } from 'lucide-react';
 import { formatDateDisplay, getTodayDateString } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
@@ -53,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenProfile,
   syncState,
 }) => {
-  const { currentUser, signOut } = useAuth();
+  const { currentUser, isDevBypass, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { isInstalled } = usePWAInstall();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -326,10 +327,17 @@ export const Header: React.FC<HeaderProps> = ({
                       <p className="text-[11px] text-stone-500 dark:text-stone-400 truncate">
                         {currentUser.email}
                       </p>
-                      <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
-                        <CloudCheck className="w-3 h-3" />
-                        <span>Firestore Database Active</span>
-                      </div>
+                      {isDevBypass ? (
+                        <div className="flex items-center gap-1 mt-1 text-[10px] text-amber-700 dark:text-amber-400 font-semibold font-mono">
+                          <Terminal className="w-3 h-3" />
+                          <span>Bypass Mode (Dev/Tester)</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
+                          <CloudCheck className="w-3 h-3" />
+                          <span>Firestore Database Active</span>
+                        </div>
+                      )}
                     </div>
                     <button
                       type="button"
