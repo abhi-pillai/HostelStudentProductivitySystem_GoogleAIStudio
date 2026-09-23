@@ -19,6 +19,7 @@ import {
   Award,
   User,
   Terminal,
+  FileText,
 } from 'lucide-react';
 import { formatDateDisplay, getTodayDateString } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
@@ -37,6 +38,7 @@ interface HeaderProps {
   onOpenInstall: () => void;
   onOpenFocusMode: () => void;
   onOpenProfile: () => void;
+  onOpenReport?: () => void;
   syncState: 'idle' | 'syncing' | 'synced' | 'error';
 }
 
@@ -52,6 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenInstall,
   onOpenFocusMode,
   onOpenProfile,
+  onOpenReport,
   syncState,
 }) => {
   const { currentUser, isDevBypass, signOut } = useAuth();
@@ -252,6 +255,20 @@ export const Header: React.FC<HeaderProps> = ({
             >
               Stats
             </button>
+
+            {onOpenReport && (
+              <button
+                type="button"
+                id="btn-header-report"
+                onClick={onOpenReport}
+                className="px-2.5 py-1.5 text-xs font-semibold text-amber-900 dark:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs hover:scale-[1.02]"
+                title="Detailed Report Analysis & Ways to Improve (Downloadable PDF)"
+              >
+                <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span className="hidden sm:inline">Report & PDF</span>
+                <span className="sm:hidden">Report</span>
+              </button>
+            )}
 
             <button
               type="button"

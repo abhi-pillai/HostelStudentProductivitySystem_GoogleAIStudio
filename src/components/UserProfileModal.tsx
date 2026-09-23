@@ -13,6 +13,7 @@ import {
   ShieldAlert,
   Clock,
   Terminal,
+  FileText,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { DailyRecord, StreakStats } from '../types';
@@ -25,6 +26,7 @@ interface UserProfileModalProps {
   streak: StreakStats;
   records: Record<string, DailyRecord>;
   onOpenAuth: () => void;
+  onOpenReport?: () => void;
 }
 
 export const UserProfileModal: React.FC<UserProfileModalProps> = ({
@@ -33,6 +35,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   streak,
   records,
   onOpenAuth,
+  onOpenReport,
 }) => {
   const { currentUser, isDevBypass, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<'badges' | 'overview'>('badges');
@@ -166,6 +169,32 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Generate Report Action Banner */}
+        {onOpenReport && (
+          <div className="mt-3.5 p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 flex items-center justify-between gap-3">
+            <div>
+              <h5 className="text-xs font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span>Productivity Analysis & PDF Report</span>
+              </h5>
+              <p className="text-[11px] text-stone-500 dark:text-stone-400">
+                Detailed diagnostics across all 6 pillars and personalized ways to improve
+              </p>
+            </div>
+            <button
+              type="button"
+              id="btn-profile-generate-report"
+              onClick={() => {
+                onClose();
+                onOpenReport();
+              }}
+              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-colors shadow-2xs"
+            >
+              <span>Generate PDF</span>
+            </button>
+          </div>
+        )}
 
         {/* Tab Toggle */}
         <div className="mt-4 flex items-center gap-1 border-b border-stone-200 dark:border-stone-800 pb-2">

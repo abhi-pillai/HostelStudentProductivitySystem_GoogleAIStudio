@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { ScoreBreakdown } from '../types';
-import { CheckCircle2, CircleDashed, Award, Sparkles, Filter, ChevronRight } from 'lucide-react';
+import { CheckCircle2, CircleDashed, Award, Sparkles, Filter, ChevronRight, FileText } from 'lucide-react';
 
 interface ScoreBannerProps {
   scoreBreakdown: ScoreBreakdown;
   onJumpToSection?: (letter: string) => void;
+  onOpenReport?: () => void;
 }
 
-export const ScoreBanner: React.FC<ScoreBannerProps> = ({ scoreBreakdown, onJumpToSection }) => {
+export const ScoreBanner: React.FC<ScoreBannerProps> = ({ scoreBreakdown, onJumpToSection, onOpenReport }) => {
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
 
   const letters = [
@@ -55,6 +56,16 @@ export const ScoreBanner: React.FC<ScoreBannerProps> = ({ scoreBreakdown, onJump
               {scoreBreakdown.verdict}
             </span>
           </div>
+          {onOpenReport && (
+            <button
+              type="button"
+              onClick={onOpenReport}
+              className="mt-1 text-xs text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 font-semibold flex items-center gap-1 transition-colors"
+            >
+              <FileText className="w-3 h-3" />
+              <span>Full Diagnostic Report & Ways to Improve (PDF) →</span>
+            </button>
+          )}
         </div>
 
         {/* Scoring Scale Guide & Status Filters */}

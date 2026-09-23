@@ -35,6 +35,7 @@ import { ActiveFocusMode } from './components/ActiveFocusMode';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { DistractionLogger } from './components/DistractionLogger';
 import { QuickReflectionPrompts } from './components/QuickReflectionPrompts';
+import { ReportModal } from './components/ReportModal';
 import { MessageSquare, ShieldAlert, Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -47,6 +48,7 @@ export const App: React.FC = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showActiveFocus, setShowActiveFocus] = useState(false);
   const [syncState, setSyncState] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
@@ -286,6 +288,7 @@ export const App: React.FC = () => {
         onOpenInstall={() => setShowInstallModal(true)}
         onOpenFocusMode={() => setShowActiveFocus(true)}
         onOpenProfile={() => setShowProfile(true)}
+        onOpenReport={() => setShowReport(true)}
         syncState={syncState}
       />
 
@@ -298,7 +301,11 @@ export const App: React.FC = () => {
         />
 
         {/* Score Banner */}
-        <ScoreBanner scoreBreakdown={scoreBreakdown} onJumpToSection={jumpToSection} />
+        <ScoreBanner
+          scoreBreakdown={scoreBreakdown}
+          onJumpToSection={jumpToSection}
+          onOpenReport={() => setShowReport(true)}
+        />
 
         {/* 6 H.O.S.T.E.L. Execution Sections */}
         <HardStartSection
@@ -397,6 +404,7 @@ export const App: React.FC = () => {
         onForceSync={currentUser?.uid ? () => syncWithCloud(currentUser.uid) : undefined}
         isSyncing={syncState === 'syncing'}
         onOpenProfile={() => setShowProfile(true)}
+        onOpenReport={() => setShowReport(true)}
       />
       
       <UserProfileModal
@@ -405,6 +413,13 @@ export const App: React.FC = () => {
         streak={streak}
         records={allRecords}
         onOpenAuth={() => setShowAuth(true)}
+        onOpenReport={() => setShowReport(true)}
+      />
+
+      <ReportModal
+        isOpen={showReport}
+        onClose={() => setShowReport(false)}
+        records={allRecords}
       />
 
       <AuthModal

@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Calendar, Flame, Download, Upload, CloudCheck, RefreshCw, Award, ChevronRight } from 'lucide-react';
+import { X, Calendar, Flame, Download, Upload, CloudCheck, RefreshCw, Award, ChevronRight, FileText } from 'lucide-react';
 import { calculateScore, formatDateDisplay } from '../utils/storage';
 import { DailyRecord } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -16,6 +16,7 @@ interface HistoryModalProps {
   onForceSync?: () => Promise<void>;
   isSyncing?: boolean;
   onOpenProfile?: () => void;
+  onOpenReport?: () => void;
 }
 
 export const HistoryModal: React.FC<HistoryModalProps> = ({
@@ -27,6 +28,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   onForceSync,
   isSyncing,
   onOpenProfile,
+  onOpenReport,
 }) => {
   const { currentUser } = useAuth();
   if (!isOpen) return null;
@@ -269,7 +271,23 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
 
         {/* Export / Import footer */}
         <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            {onOpenReport && (
+              <button
+                type="button"
+                id="btn-history-open-report"
+                onClick={() => {
+                  onClose();
+                  onOpenReport();
+                }}
+                className="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-500 text-white flex items-center gap-1.5 shadow-xs transition-colors"
+                title="Open comprehensive report analysis and download PDF"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Full Diagnostic Report & PDF</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={handleExport}
