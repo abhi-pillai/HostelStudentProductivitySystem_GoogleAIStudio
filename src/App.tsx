@@ -17,6 +17,8 @@ import {
   syncLocalRecordsToFirestore,
 } from './services/firestoreService';
 import { Header } from './components/Header';
+import { WeekStrip } from './components/WeekStrip';
+import { DailyMotivation } from './components/DailyMotivation';
 import { DailyFocusGoal } from './components/DailyFocusGoal';
 import { ScoreBanner } from './components/ScoreBanner';
 import { HardStartSection } from './components/HardStartSection';
@@ -293,19 +295,31 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-5">
+        {/* 7-Day Habit Momentum & Quick Date Switcher */}
+        <WeekStrip
+          currentDate={currentDate}
+          onSelectDate={setCurrentDate}
+          records={allRecords}
+          streak={streak}
+        />
+
         {/* Daily Focus Goal */}
         <DailyFocusGoal
           value={record.dailyFocusGoal || ''}
           onChange={(goal) => handleUpdateRecord({ ...record, dailyFocusGoal: goal })}
         />
 
-        {/* Score Banner */}
+        {/* Score Banner (Execution Cockpit) */}
         <ScoreBanner
           scoreBreakdown={scoreBreakdown}
           onJumpToSection={jumpToSection}
           onOpenReport={() => setShowReport(true)}
+          onLaunchFocus={() => setShowActiveFocus(true)}
         />
+
+        {/* Daily Hostel Wisdom & Protocol */}
+        <DailyMotivation />
 
         {/* 6 H.O.S.T.E.L. Execution Sections */}
         <HardStartSection

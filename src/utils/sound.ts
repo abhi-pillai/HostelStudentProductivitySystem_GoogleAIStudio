@@ -1,12 +1,25 @@
 // Web Audio API simple notification chime
-export function playChime(type: 'success' | 'timer' | 'reset' | 'warning' = 'timer') {
+export function playChime(type: 'success' | 'timer' | 'reset' | 'warning' | 'check' = 'timer') {
   try {
     const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (!AudioContextClass) return;
     const ctx = new AudioContextClass();
     const now = ctx.currentTime;
 
-    if (type === 'success') {
+    if (type === 'check') {
+      // Subtle crisp tap/chime for checking tasks
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.setValueAtTime(987.77, now); // B5
+      osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.08); // E6
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.12);
+    } else if (type === 'success') {
       // Harmonic chord
       const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
       freqs.forEach((f, i) => {

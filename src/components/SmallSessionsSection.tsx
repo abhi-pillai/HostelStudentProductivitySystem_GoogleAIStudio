@@ -23,12 +23,16 @@ export const SmallSessionsSection: React.FC<SmallSessionsSectionProps> = ({ data
   return (
     <section
       id="section-small-sessions"
-      className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 mb-5 shadow-2xs transition-all"
+      className={`bg-white dark:bg-stone-900 border rounded-xl p-5 mb-5 shadow-2xs transition-all ${
+        earned
+          ? 'border-emerald-300/80 dark:border-emerald-800/60 ring-1 ring-emerald-400/15'
+          : 'border-stone-200/90 dark:border-stone-800'
+      }`}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 flex items-center justify-center font-mono font-bold text-sm border border-stone-200 dark:border-stone-700 shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25 flex items-center justify-center font-mono font-bold text-sm shrink-0">
             S
           </div>
           <div>
@@ -37,8 +41,8 @@ export const SmallSessionsSection: React.FC<SmallSessionsSectionProps> = ({ data
                 Small Sessions During College (Micro-Learning)
               </h2>
               {earned ? (
-                <span className="text-xs font-medium text-stone-600 dark:text-stone-300 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300" /> Earned
+                <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/25 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 stroke-[2.5]" /> 1/1 pt Earned
                 </span>
               ) : (
                 <span className="text-xs font-normal text-stone-400 dark:text-stone-500">

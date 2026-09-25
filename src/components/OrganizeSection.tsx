@@ -89,12 +89,16 @@ export const OrganizeSection: React.FC<OrganizeSectionProps> = ({ data, onChange
   return (
     <section
       id="section-organize"
-      className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 mb-5 shadow-2xs transition-all"
+      className={`bg-white dark:bg-stone-900 border rounded-xl p-5 mb-5 shadow-2xs transition-all ${
+        earned
+          ? 'border-sky-300/80 dark:border-sky-800/60 ring-1 ring-sky-400/15'
+          : 'border-stone-200/90 dark:border-stone-800'
+      }`}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 flex items-center justify-center font-mono font-bold text-sm border border-stone-200 dark:border-stone-700 shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-sky-500/10 dark:bg-sky-500/15 text-sky-700 dark:text-sky-400 border border-sky-500/25 flex items-center justify-center font-mono font-bold text-sm shrink-0">
             O
           </div>
           <div>
@@ -103,8 +107,8 @@ export const OrganizeSection: React.FC<OrganizeSectionProps> = ({ data, onChange
                 Organize the Day (Top 3 Priorities)
               </h2>
               {earned ? (
-                <span className="text-xs font-medium text-stone-600 dark:text-stone-300 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300" /> Earned
+                <span className="text-xs font-semibold text-sky-700 dark:text-sky-400 px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/25 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 stroke-[2.5]" /> 1/1 pt Earned
                 </span>
               ) : (
                 <span className="text-xs font-normal text-stone-400 dark:text-stone-500">

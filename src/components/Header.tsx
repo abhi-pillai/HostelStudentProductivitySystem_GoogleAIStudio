@@ -85,8 +85,9 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand & Framework Name */}
         <div className="flex items-center justify-between sm:justify-start gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 flex items-center justify-center font-bold tracking-wider text-xs shadow-2xs shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 flex items-center justify-center font-bold tracking-wider text-xs shadow-2xs shrink-0 relative">
               HL
+              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white dark:ring-stone-900" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -113,10 +114,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenFocusMode}
-            className="sm:hidden px-2.5 py-1.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-medium rounded-lg text-xs flex items-center gap-1 shadow-2xs transition-colors"
+            className="sm:hidden px-2.5 py-1.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold rounded-lg text-xs flex items-center gap-1.5 shadow-2xs transition-colors"
           >
-            <Zap className="w-3.5 h-3.5 fill-current" />
-            <span>Focus Mode</span>
+            <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <span>Focus</span>
           </button>
         </div>
 
@@ -127,10 +128,10 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             id="btn-active-focus"
             onClick={onOpenFocusMode}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-900 text-xs font-medium shadow-2xs transition-colors"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-900 text-xs font-semibold shadow-2xs transition-colors"
             title="Launch Fullscreen Focus Lock Screen with Screen Awake & Tab Tracking"
           >
-            <Zap className="w-3.5 h-3.5 fill-current" />
+            <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
             <span>Focus Mode</span>
           </button>
 
@@ -148,15 +149,15 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Streak Badge */}
+          {/* Streak Badge with lively warm ember flame */}
           <button
             type="button"
             id="streak-badge"
             onClick={onOpenProfile}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-stone-50 dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-750 text-stone-700 dark:text-stone-300 text-xs font-medium transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-500/10 dark:bg-amber-500/15 hover:bg-amber-500/20 border border-amber-500/25 text-stone-800 dark:text-stone-200 text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
             title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak}). Click to view Profile & Badges`}
           >
-            <Flame className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
+            <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500/30" />
             <span>{streak.currentStreak}d streak</span>
           </button>
 
