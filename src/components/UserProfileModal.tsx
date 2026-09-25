@@ -57,7 +57,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between pb-3.5 border-b border-stone-100 dark:border-stone-800">
           <div className="flex items-center gap-2">
-            <User className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            <User className="w-5 h-5 text-stone-700 dark:text-stone-300" />
             <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-stone-100">
               Hostel Student Profile & Milestones
             </h3>
@@ -72,17 +72,17 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         </div>
 
         {/* User Identity Card */}
-        <div className="mt-4 p-4 rounded-xl bg-stone-50 dark:bg-stone-850/80 border border-stone-200 dark:border-stone-700/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="mt-4 p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             {currentUser?.photoURL ? (
               <img
                 src={currentUser.photoURL}
                 alt={currentUser.displayName || 'Student'}
                 referrerPolicy="no-referrer"
-                className="w-12 h-12 rounded-full object-cover border-2 border-amber-500 shadow-xs"
+                className="w-11 h-11 rounded-full object-cover border border-stone-300 dark:border-stone-700 shadow-2xs"
               />
             ) : (
-              <div className="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg shadow-xs">
+              <div className="w-11 h-11 rounded-xl bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 flex items-center justify-center font-bold text-base shadow-2xs">
                 {currentUser?.displayName
                   ? currentUser.displayName.charAt(0).toUpperCase()
                   : currentUser?.email
@@ -91,16 +91,16 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               </div>
             )}
             <div>
-              <h4 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5 flex-wrap">
+              <h4 className="text-sm font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-1.5 flex-wrap">
                 {currentUser?.displayName || (currentUser ? 'Hostel Scholar' : 'Guest Student')}
                 {isDevBypass && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 font-mono font-bold flex items-center gap-1">
-                    <Terminal className="w-2.5 h-2.5" /> Dev/Tester Bypass Mode
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-stone-700 font-mono font-medium flex items-center gap-1">
+                    <Terminal className="w-2.5 h-2.5" /> Dev Mode
                   </span>
                 )}
                 {currentUser && !isDevBypass && (
-                  <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-semibold flex items-center gap-1">
-                    <CloudCheck className="w-2.5 h-2.5" /> Cloud Active
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-stone-700 font-mono font-medium flex items-center gap-1">
+                    <CloudCheck className="w-2.5 h-2.5" /> Cloud Synced
                   </span>
                 )}
               </h4>
@@ -119,7 +119,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   signOut();
                   onClose();
                 }}
-                className="px-3 py-1.5 text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg border border-rose-200 dark:border-rose-900/60 flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg border border-stone-200 dark:border-stone-700 flex items-center gap-1.5 transition-colors"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
@@ -131,9 +131,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   onClose();
                   onOpenAuth();
                 }}
-                className="px-3 py-1.5 text-xs font-bold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-white rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-stone-200 rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-amber-600" />
+                <Sparkles className="w-3.5 h-3.5 text-stone-300 dark:text-stone-600" />
                 <span>Log In / Sync</span>
               </button>
             )}
@@ -142,29 +142,29 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         {/* Quick Execution Stats Bar */}
         <div className="mt-3.5 grid grid-cols-3 gap-2 text-center">
-          <div className="p-2.5 rounded-xl bg-orange-50/70 dark:bg-orange-950/20 border border-orange-200/60 dark:border-orange-900/40">
-            <div className="flex items-center justify-center gap-1 text-orange-700 dark:text-orange-400 text-[10px] font-bold uppercase">
-              <Flame className="w-3.5 h-3.5" /> Streak
+          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
+              <Flame className="w-3.5 h-3.5 text-stone-500" /> Streak
             </div>
-            <div className="text-xl font-extrabold text-orange-950 dark:text-orange-200 mt-0.5">
+            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
               {streak.currentStreak}d
             </div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40">
-            <div className="flex items-center justify-center gap-1 text-amber-700 dark:text-amber-400 text-[10px] font-bold uppercase">
-              <Award className="w-3.5 h-3.5" /> All-Time Best
+          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
+              <Award className="w-3.5 h-3.5 text-stone-500" /> All-Time Best
             </div>
-            <div className="text-xl font-extrabold text-amber-950 dark:text-amber-200 mt-0.5">
+            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
               {streak.bestStreak}d
             </div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-stone-100/80 dark:bg-stone-800/60 border border-stone-200/60 dark:border-stone-700/60">
-            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-bold uppercase">
-              <Calendar className="w-3.5 h-3.5" /> Badges Cleared
+          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
+              <Calendar className="w-3.5 h-3.5 text-stone-500" /> Badges Cleared
             </div>
-            <div className="text-xl font-extrabold text-stone-900 dark:text-stone-100 mt-0.5">
+            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
               {unlockedBadges.length} / {badges.length}
             </div>
           </div>
@@ -172,10 +172,10 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         {/* Generate Report Action Banner */}
         {onOpenReport && (
-          <div className="mt-3.5 p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 flex items-center justify-between gap-3">
+          <div className="mt-3.5 p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3">
             <div>
-              <h5 className="text-xs font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <h5 className="text-xs font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-stone-500" />
                 <span>Productivity Analysis & PDF Report</span>
               </h5>
               <p className="text-[11px] text-stone-500 dark:text-stone-400">
@@ -189,7 +189,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onOpenReport();
               }}
-              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-colors shadow-2xs"
+              className="px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 font-semibold text-xs flex items-center gap-1 shrink-0 transition-colors shadow-2xs"
             >
               <span>Generate PDF</span>
             </button>
@@ -201,9 +201,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('badges')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
               activeTab === 'badges'
-                ? 'bg-amber-500 text-stone-950 shadow-2xs'
+                ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-2xs'
                 : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
             }`}
           >
@@ -213,9 +213,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('overview')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
               activeTab === 'overview'
-                ? 'bg-amber-500 text-stone-950 shadow-2xs'
+                ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-2xs'
                 : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
             }`}
           >

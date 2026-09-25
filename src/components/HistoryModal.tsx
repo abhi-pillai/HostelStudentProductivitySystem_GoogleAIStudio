@@ -80,9 +80,9 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 Execution History & Insights
               </h3>
               {currentUser && (
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
-                  <CloudCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                  Firestore Sync Active
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 flex items-center gap-1 font-mono">
+                  <CloudCheck className="w-3 h-3 text-stone-500" />
+                  Cloud Synced
                 </span>
               )}
             </div>
@@ -101,43 +101,43 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
 
         {/* Stats Row */}
         <div className="mt-4 grid grid-cols-3 gap-3">
-          <div className="p-3 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-200/80 dark:border-orange-800/60 text-center">
-            <div className="flex items-center justify-center gap-1 text-orange-700 dark:text-orange-400 mb-1">
-              <Flame className="w-4 h-4" />
-              <span className="text-[11px] font-bold uppercase">Current Streak</span>
-            </div>
-            <span className="text-2xl font-extrabold text-orange-900 dark:text-orange-200">
-              {streak.currentStreak} <span className="text-xs font-normal">days</span>
-            </span>
-          </div>
-
-          <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-800/60 text-center">
-            <div className="flex items-center justify-center gap-1 text-amber-700 dark:text-amber-400 mb-1">
-              <span className="text-[11px] font-bold uppercase">Best Streak</span>
-            </div>
-            <span className="text-2xl font-extrabold text-amber-900 dark:text-amber-200">
-              {streak.bestStreak} <span className="text-xs font-normal">days</span>
-            </span>
-          </div>
-
-          <div className="p-3 rounded-xl bg-stone-100 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 text-center">
+          <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 text-center">
             <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 mb-1">
-              <Calendar className="w-4 h-4" />
-              <span className="text-[11px] font-bold uppercase">Total Tracked</span>
+              <Flame className="w-4 h-4 text-stone-500" />
+              <span className="text-[11px] font-semibold uppercase">Current Streak</span>
             </div>
-            <span className="text-2xl font-extrabold text-stone-900 dark:text-stone-100">
-              {streak.totalLoggedDays} <span className="text-xs font-normal">days</span>
+            <span className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+              {streak.currentStreak} <span className="text-xs font-normal text-stone-400">days</span>
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 text-center">
+            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 mb-1">
+              <span className="text-[11px] font-semibold uppercase">Best Streak</span>
+            </div>
+            <span className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+              {streak.bestStreak} <span className="text-xs font-normal text-stone-400">days</span>
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 text-center">
+            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 mb-1">
+              <Calendar className="w-4 h-4 text-stone-500" />
+              <span className="text-[11px] font-semibold uppercase">Total Tracked</span>
+            </div>
+            <span className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+              {streak.totalLoggedDays} <span className="text-xs font-normal text-stone-400">days</span>
             </span>
           </div>
         </div>
 
         {/* Badges & Milestones Preview Card */}
-        <div className="mt-4 p-3.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/50">
+        <div className="mt-4 p-3.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-              <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                Streak Milestones & Badges ({unlockedBadgesCount} / {badges.length} Unlocked)
+              <Award className="w-4 h-4 text-stone-600 dark:text-stone-400" />
+              <span className="text-xs font-semibold text-stone-900 dark:text-stone-100">
+                Milestones & Badges ({unlockedBadgesCount} / {badges.length} Unlocked)
               </span>
             </div>
             {onOpenProfile && (
@@ -147,9 +147,9 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   onClose();
                   onOpenProfile();
                 }}
-                className="text-xs font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-200 flex items-center gap-1 transition-colors"
+                className="text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 flex items-center gap-1 transition-colors"
               >
-                <span>View Full Profile</span>
+                <span>View Profile</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -169,7 +169,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
         {/* Records list */}
         <div className="mt-5">
           <div className="flex items-center justify-between mb-2.5">
-            <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100 uppercase tracking-wider">
+            <h4 className="text-xs font-semibold text-stone-900 dark:text-stone-100 uppercase tracking-wider">
               Logged Execution Records
             </h4>
             {currentUser && onForceSync && (
@@ -177,7 +177,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 type="button"
                 onClick={onForceSync}
                 disabled={isSyncing}
-                className="text-xs text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 font-semibold flex items-center gap-1 disabled:opacity-60"
+                className="text-xs text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 font-medium flex items-center gap-1 disabled:opacity-60"
               >
                 <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin' : ''}`} />
                 <span>Sync with Firestore</span>
@@ -203,14 +203,14 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                       onSelectDate(dateStr);
                       onClose();
                     }}
-                    className="w-full text-left p-3 rounded-xl border border-stone-200 dark:border-stone-800 hover:border-amber-400 dark:hover:border-amber-600 hover:bg-amber-50/20 dark:hover:bg-amber-950/20 transition-all flex items-center justify-between bg-stone-50/30 dark:bg-stone-800/30"
+                    className="w-full text-left p-3 rounded-xl border border-stone-200 dark:border-stone-800 hover:border-stone-400 dark:hover:border-stone-600 hover:bg-stone-100/50 dark:hover:bg-stone-800/50 transition-all flex items-center justify-between bg-stone-50/40 dark:bg-stone-850/40"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                        <span className="text-xs font-semibold text-stone-900 dark:text-stone-100">
                           {formatDateDisplay(dateStr)}
                         </span>
-                        <span className={`text-[11px] font-bold ${score.verdictColor}`}>
+                        <span className="text-[11px] font-mono text-stone-600 dark:text-stone-400">
                           ({score.totalScore}/6)
                         </span>
                       </div>
@@ -227,10 +227,10 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                           return (
                             <span
                               key={letter}
-                              className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
+                              className={`text-[10px] font-mono font-medium px-1.5 py-0.5 rounded ${
                                 passed
-                                  ? 'bg-emerald-600 text-white'
-                                  : 'bg-stone-200 dark:bg-stone-700 text-stone-500 dark:text-stone-400'
+                                  ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-bold'
+                                  : 'bg-stone-200 dark:bg-stone-700 text-stone-400 dark:text-stone-500'
                               }`}
                             >
                               {letter}

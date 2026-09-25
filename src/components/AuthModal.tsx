@@ -96,7 +96,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400">
+            <div className="w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-700 dark:text-stone-300">
               <Cloud className="w-4 h-4" />
             </div>
             <div>
@@ -118,10 +118,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Benefits badge */}
-        <div className="mt-4 p-3 bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/60 rounded-xl flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-300 leading-relaxed">
-          <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+        <div className="mt-4 p-3 bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 rounded-xl flex items-start gap-2.5 text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+          <ShieldCheck className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold">Persistent Cloud Sync:</span> Log in to automatically back up your daily H.O.S.T.E.L. execution scores, notes, and streaks to Firebase Firestore.
+            <span className="font-semibold text-stone-900 dark:text-stone-100">Persistent Cloud Sync:</span> Log in to automatically back up your daily H.O.S.T.E.L. execution scores, notes, and streaks to Firebase Firestore.
           </div>
         </div>
 
@@ -283,7 +283,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   clearAuthError();
                   setMode('signup');
                 }}
-                className="font-bold text-amber-700 dark:text-amber-400 hover:underline"
+                className="font-semibold text-stone-900 dark:text-stone-100 hover:underline"
               >
                 Create an account
               </button>
@@ -297,7 +297,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   clearAuthError();
                   setMode('signin');
                 }}
-                className="font-bold text-amber-700 dark:text-amber-400 hover:underline"
+                className="font-semibold text-stone-900 dark:text-stone-100 hover:underline"
               >
                 Sign in
               </button>
@@ -312,10 +312,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   signInWithDevBypass('developer');
                   handleClose();
                 }}
-                className="flex-1 py-1.5 px-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-bold text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1 transition-colors"
+                className="flex-1 py-1.5 px-2 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-[11px] font-medium text-stone-800 dark:text-stone-200 flex items-center justify-center gap-1 transition-colors"
                 title="Bypass as Developer"
               >
-                <Code2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <Code2 className="w-3.5 h-3.5 text-stone-500" />
                 <span>Dev Bypass</span>
               </button>
               <button
@@ -324,10 +324,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   signInWithDevBypass('tester');
                   handleClose();
                 }}
-                className="flex-1 py-1.5 px-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center gap-1 transition-colors"
+                className="flex-1 py-1.5 px-2 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-[11px] font-medium text-stone-800 dark:text-stone-200 flex items-center justify-center gap-1 transition-colors"
                 title="Bypass as Tester"
               >
-                <KeyRound className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <KeyRound className="w-3.5 h-3.5 text-stone-500" />
                 <span>Tester Bypass</span>
               </button>
             </div>
@@ -336,9 +336,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               type="button"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-1.5 px-3 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-[11px] font-semibold text-stone-700 dark:text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-1.5 px-3 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-[11px] font-medium text-stone-700 dark:text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-stone-500" />
               <span>Firebase Demo Account</span>
             </button>
           </div>

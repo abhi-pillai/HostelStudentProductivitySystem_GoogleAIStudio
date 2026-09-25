@@ -160,23 +160,23 @@ export function calculateScore(record: DailyRecord): ScoreBreakdown {
   if (lightsOutPassed) totalScore += 1;
 
   let verdict = 'System reset required';
-  let verdictColor = 'text-rose-600 dark:text-rose-400';
+  let verdictColor = 'text-stone-500 dark:text-stone-400';
 
   if (totalScore === 6) {
     verdict = '6 — Excellent execution';
-    verdictColor = 'text-emerald-700 dark:text-emerald-400';
+    verdictColor = 'text-stone-900 dark:text-stone-100 font-semibold';
   } else if (totalScore === 5) {
     verdict = '5 — Strong day';
-    verdictColor = 'text-teal-700 dark:text-teal-400';
+    verdictColor = 'text-stone-800 dark:text-stone-200 font-semibold';
   } else if (totalScore === 4) {
     verdict = '4 — Acceptable progress';
-    verdictColor = 'text-amber-700 dark:text-amber-400';
+    verdictColor = 'text-stone-700 dark:text-stone-300 font-medium';
   } else if (totalScore === 3) {
     verdict = '3 — Weak execution';
-    verdictColor = 'text-orange-700 dark:text-orange-400';
+    verdictColor = 'text-stone-500 dark:text-stone-400';
   } else {
     verdict = `${totalScore} — System reset required`;
-    verdictColor = 'text-rose-700 dark:text-rose-400';
+    verdictColor = 'text-stone-500 dark:text-stone-400';
   }
 
   return {

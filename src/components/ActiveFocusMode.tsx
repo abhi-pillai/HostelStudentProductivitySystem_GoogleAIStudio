@@ -330,7 +330,7 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
       {/* Top Controls Bar */}
       <header className="px-4 py-3 sm:px-6 flex items-center justify-between border-b border-stone-800 bg-stone-900/60 backdrop-blur-md sticky top-0 z-10">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">
+          <div className="w-8 h-8 rounded-lg bg-stone-800 text-stone-200 flex items-center justify-center font-bold text-xs">
             <Zap className="w-4 h-4" />
           </div>
           <div>
@@ -339,8 +339,8 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
                 Active Study Focus Lock
               </h2>
               {wakeLockActive && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-800 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-700 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
                   Screen Awake
                 </span>
               )}
@@ -357,7 +357,7 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
             <button
               type="button"
               onClick={() => setIsMuted(!isMuted)}
-              className={`p-1.5 rounded ${isMuted ? 'text-stone-500' : 'text-amber-400'}`}
+              className={`p-1.5 rounded ${isMuted ? 'text-stone-500' : 'text-stone-300'}`}
               title={isMuted ? 'Unmute audio' : 'Mute audio'}
             >
               {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -399,11 +399,11 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 max-w-2xl mx-auto w-full">
         {/* Daily Objective Reminder */}
         {dailyGoal && (
-          <div className="w-full mb-6 p-3 rounded-xl bg-amber-950/30 border border-amber-800/60 text-center">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-0.5">
+          <div className="w-full mb-6 p-3 rounded-xl bg-stone-900 border border-stone-800 text-center">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-400 block mb-0.5">
               Current Mission
             </span>
-            <p className="text-xs font-semibold text-amber-200 line-clamp-2">
+            <p className="text-xs font-semibold text-stone-200 line-clamp-2">
               "{dailyGoal}"
             </p>
           </div>
@@ -411,8 +411,8 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
 
         {/* Tab Switch / Distraction Counter Badge */}
         {distractionCount > 0 && (
-          <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-950/80 border border-rose-800 text-rose-300 text-xs animate-bounce">
-            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+          <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-900 border border-stone-700 text-stone-300 text-xs">
+            <AlertTriangle className="w-4 h-4 text-stone-400 shrink-0" />
             <span>App minimized or left tab <strong>{distractionCount}</strong> time{distractionCount > 1 ? 's' : ''}! Return to hostel focus.</span>
           </div>
         )}
@@ -426,7 +426,7 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
               cy="50"
               r="44"
               className="text-stone-900 stroke-current"
-              strokeWidth="5"
+              strokeWidth="4"
               fill="transparent"
             />
             {/* Progress circle */}
@@ -435,9 +435,9 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
               cy="50"
               r="44"
               className={`stroke-current transition-all duration-500 ${
-                isCompleted ? 'text-emerald-500' : isRunning ? 'text-amber-500' : 'text-stone-700'
+                isCompleted ? 'text-stone-400' : isRunning ? 'text-stone-100' : 'text-stone-700'
               }`}
-              strokeWidth="5"
+              strokeWidth="4"
               strokeDasharray={2 * Math.PI * 44}
               strokeDashoffset={2 * Math.PI * 44 * (1 - progressPercent / 100)}
               strokeLinecap="round"
@@ -450,7 +450,7 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
             <span className="font-mono text-5xl sm:text-6xl font-extrabold tracking-tight text-stone-100">
               {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
             </span>
-            <span className="text-xs font-semibold uppercase tracking-widest text-stone-400 mt-2">
+            <span className="text-xs font-medium uppercase tracking-widest text-stone-400 mt-2">
               {isCompleted ? 'Sprint Completed!' : isRunning ? 'Deep Focus Active' : 'Ready to Start'}
             </span>
           </div>
@@ -464,9 +464,9 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
                 key={mins}
                 type="button"
                 onClick={() => setDuration(mins)}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
                   sessionMinutes === mins
-                    ? 'bg-amber-500 text-stone-950 border-amber-400 shadow-xs'
+                    ? 'bg-stone-100 text-stone-950 border-stone-100 shadow-2xs font-semibold'
                     : 'bg-stone-900 text-stone-300 border-stone-800 hover:border-stone-700'
                 }`}
               >
@@ -483,20 +483,20 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
               <button
                 type="button"
                 onClick={handleStartPause}
-                className={`px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md transition-all ${
+                className={`px-6 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
                   isRunning
                     ? 'bg-stone-800 hover:bg-stone-700 text-stone-100 border border-stone-700'
-                    : 'bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-amber-950/50'
+                    : 'bg-stone-100 hover:bg-stone-200 text-stone-950'
                 }`}
               >
                 {isRunning ? (
                   <>
-                    <Pause className="w-5 h-5 fill-current" />
+                    <Pause className="w-4 h-4 fill-current" />
                     <span>Pause Session</span>
                   </>
                 ) : (
                   <>
-                    <Play className="w-5 h-5 fill-current" />
+                    <Play className="w-4 h-4 fill-current" />
                     <span>Start Focus Session</span>
                   </>
                 )}
@@ -505,10 +505,10 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
               <button
                 type="button"
                 onClick={handleReset}
-                className="p-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-white border border-stone-800 transition-colors"
+                className="p-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-white border border-stone-800 transition-colors"
                 title="Reset timer"
               >
-                <RotateCcw className="w-5 h-5" />
+                <RotateCcw className="w-4 h-4" />
               </button>
             </>
           ) : (
@@ -518,12 +518,12 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
                 placeholder="What did you accomplish in this block?"
                 value={blockNotes}
                 onChange={(e) => setBlockNotes(e.target.value)}
-                className="w-full text-xs p-3 rounded-xl bg-stone-900 border border-stone-800 text-stone-100 placeholder-stone-500 focus:outline-hidden focus:border-amber-500"
+                className="w-full text-xs p-3 rounded-xl bg-stone-900 border border-stone-800 text-stone-100 placeholder-stone-500 focus:outline-hidden focus:border-stone-500"
               />
               <button
                 type="button"
                 onClick={handleFinishAndSave}
-                className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md"
+                className="w-full py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow-2xs"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Save to Targeted Work Block & Exit</span>
@@ -534,8 +534,8 @@ export const ActiveFocusMode: React.FC<ActiveFocusModeProps> = ({
 
         {/* Hostel Rules of the Focus State */}
         <div className="mt-8 p-4 rounded-xl bg-stone-900/80 border border-stone-800/80 text-xs text-stone-400 max-w-md w-full">
-          <div className="flex items-center gap-2 text-stone-200 font-bold mb-1.5">
-            <Shield className="w-4 h-4 text-amber-500" />
+          <div className="flex items-center gap-2 text-stone-200 font-semibold mb-1.5">
+            <Shield className="w-4 h-4 text-stone-400" />
             <span>Hostel Focus Mode Enforcement:</span>
           </div>
           <ul className="list-disc list-inside space-y-1 text-[11px] leading-relaxed">

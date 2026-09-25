@@ -254,11 +254,11 @@ export const App: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-4 text-center">
-        <div className="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-bold text-xl shadow-lg mb-4 animate-pulse">
+        <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-900 flex items-center justify-center font-bold text-sm shadow-md mb-4 animate-pulse">
           HL
         </div>
-        <div className="flex items-center gap-2 text-stone-300 text-sm font-semibold">
-          <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
+        <div className="flex items-center gap-2 text-stone-300 text-xs font-medium">
+          <Loader2 className="w-4 h-4 animate-spin text-stone-400" />
           <span>Verifying student session...</span>
         </div>
       </div>
@@ -358,7 +358,7 @@ export const App: React.FC = () => {
             onChange={(e) => handleUpdateRecord({ ...record, dailyNotes: e.target.value })}
             placeholder="How was today's discipline? Any distraction triggers in the hostel room (e.g. friends dropping by, late gaming)? How will you adjust tomorrow?"
             rows={3}
-            className="w-full text-xs p-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:ring-1 focus:ring-amber-500"
+            className="w-full text-xs p-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:border-stone-500"
           />
 
           {/* 1-click Quick Reflection Prompts */}
@@ -380,10 +380,10 @@ export const App: React.FC = () => {
         </div>
 
         {/* Hostel Cardinal Rule Reminder Footer */}
-        <div className="p-4 rounded-xl bg-stone-900 dark:bg-stone-900/90 border border-stone-800 text-stone-300 text-xs flex items-start gap-3">
-          <ShieldAlert className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-stone-900 text-stone-300 text-xs flex items-start gap-3">
+          <ShieldAlert className="w-5 h-5 text-stone-400 shrink-0 mt-0.5" />
           <div className="leading-relaxed">
-            <span className="font-bold text-white">The Hostel Student Golden Law: </span>
+            <span className="font-semibold text-white">The Hostel Student Golden Law: </span>
             Your bed should only be used for sleep. Avoid watching shows in bed, scrolling social media in bed, or studying in bed. Do not aim for perfect days—aim for consistent daily execution of the loop.
           </div>
         </div>

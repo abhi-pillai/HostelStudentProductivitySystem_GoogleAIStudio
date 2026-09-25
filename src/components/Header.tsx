@@ -85,24 +85,25 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand & Framework Name */}
         <div className="flex items-center justify-between sm:justify-start gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold tracking-wider text-sm shadow-sm shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 flex items-center justify-center font-bold tracking-wider text-xs shadow-2xs shrink-0">
               HL
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <h1 className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100 leading-tight">
+              <div className="flex items-center gap-2">
+                <h1 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100 leading-tight">
                   H.O.S.T.E.L.
                 </h1>
-                <span className="text-[11px] font-semibold px-2 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
-                  Execution Loop
+                <span className="text-stone-300 dark:text-stone-650 text-xs">/</span>
+                <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">
+                  Daily Execution Loop
                 </span>
                 {isInstalled && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hidden md:inline">
-                    App Mode
+                  <span className="text-[10px] text-stone-400 dark:text-stone-500 font-mono hidden md:inline">
+                    · App
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-stone-500 dark:text-stone-400 font-medium">
+              <p className="text-[11px] text-stone-500 dark:text-stone-400 font-normal">
                 High Output Student Time Execution Loop
               </p>
             </div>
@@ -112,7 +113,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenFocusMode}
-            className="sm:hidden px-2.5 py-1.5 bg-amber-500 text-stone-950 font-bold rounded-lg text-xs flex items-center gap-1 shadow-xs"
+            className="sm:hidden px-2.5 py-1.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-medium rounded-lg text-xs flex items-center gap-1 shadow-2xs transition-colors"
           >
             <Zap className="w-3.5 h-3.5 fill-current" />
             <span>Focus Mode</span>
@@ -126,11 +127,11 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             id="btn-active-focus"
             onClick={onOpenFocusMode}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold shadow-xs transition-colors"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-900 text-xs font-medium shadow-2xs transition-colors"
             title="Launch Fullscreen Focus Lock Screen with Screen Awake & Tab Tracking"
           >
             <Zap className="w-3.5 h-3.5 fill-current" />
-            <span>Active Focus Mode</span>
+            <span>Focus Mode</span>
           </button>
 
           {/* Install App Button if not installed yet */}
@@ -139,11 +140,11 @@ export const Header: React.FC<HeaderProps> = ({
               type="button"
               id="btn-install-app-header"
               onClick={onOpenInstall}
-              className="px-2.5 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50/70 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 hover:bg-amber-100/70 text-xs font-semibold flex items-center gap-1 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg border border-stone-200 dark:border-stone-750 bg-stone-50/80 dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-medium flex items-center gap-1 transition-colors"
               title="Install on your phone or desktop"
             >
-              <Smartphone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>Install App</span>
+              <Smartphone className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
+              <span>Install</span>
             </button>
           )}
 
@@ -152,36 +153,36 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             id="streak-badge"
             onClick={onOpenProfile}
-            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100/80 dark:hover:bg-orange-900/60 border border-orange-200 dark:border-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-stone-50 dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-750 text-stone-700 dark:text-stone-300 text-xs font-medium transition-colors cursor-pointer"
             title={`Current execution streak: ${streak.currentStreak} days (Best: ${streak.bestStreak}). Click to view Profile & Badges`}
           >
-            <Flame className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400 fill-orange-500" />
-            <span>{streak.currentStreak}d</span>
+            <Flame className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
+            <span>{streak.currentStreak}d streak</span>
           </button>
 
           {/* Date Navigator */}
-          <div className="flex items-center bg-stone-100 dark:bg-stone-800/80 rounded-lg p-0.5 border border-stone-200 dark:border-stone-700/80 text-xs font-medium">
+          <div className="flex items-center bg-white dark:bg-stone-850 rounded-lg p-0.5 border border-stone-200 dark:border-stone-750 text-xs font-medium">
             <button
               id="prev-date-btn"
               onClick={handlePrevDay}
-              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
+              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-750 rounded-md transition-colors"
               aria-label="Previous Day"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <div className="flex items-center gap-1 px-1.5 py-0.5 text-stone-800 dark:text-stone-200">
+            <div className="flex items-center gap-1.5 px-2 py-0.5 text-stone-800 dark:text-stone-200">
               <Calendar className="w-3 h-3 text-stone-500 dark:text-stone-400" />
               <span className="font-semibold text-xs">{formatDateDisplay(currentDate)}</span>
               {isToday && (
-                <span className="text-[9px] uppercase font-bold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/60 px-1 py-0.2 rounded">
-                  Today
+                <span className="text-[10px] uppercase font-medium text-stone-500 dark:text-stone-400">
+                  · Today
                 </span>
               )}
             </div>
             <button
               id="next-date-btn"
               onClick={handleNextDay}
-              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-white dark:hover:bg-stone-700 rounded-md transition-colors"
+              className="p-1 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-750 rounded-md transition-colors"
               aria-label="Next Day"
             >
               <ChevronRight className="w-3.5 h-3.5" />
@@ -192,7 +193,7 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser && (
             <div
               id="cloud-sync-status"
-              className="flex items-center gap-1 px-1.5 py-1 rounded-lg text-[11px] font-medium border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300"
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium border border-stone-200 dark:border-stone-750 bg-stone-50 dark:bg-stone-850 text-stone-600 dark:text-stone-300"
               title={
                 syncState === 'syncing'
                   ? 'Syncing with Firestore...'
@@ -203,13 +204,13 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {syncState === 'syncing' ? (
                 <>
-                  <Loader2 className="w-3 h-3 animate-spin text-amber-600 dark:text-amber-400" />
-                  <span className="hidden md:inline text-amber-700 dark:text-amber-300">Syncing</span>
+                  <Loader2 className="w-3 h-3 animate-spin text-stone-600 dark:text-stone-400" />
+                  <span className="hidden md:inline text-stone-700 dark:text-stone-300">Syncing</span>
                 </>
               ) : syncState === 'synced' ? (
                 <>
-                  <CloudCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                  <span className="hidden md:inline text-emerald-700 dark:text-emerald-300 font-semibold">Synced</span>
+                  <CloudCheck className="w-3 h-3 text-stone-700 dark:text-stone-300" />
+                  <span className="hidden md:inline font-medium">Synced</span>
                 </>
               ) : (
                 <>
@@ -227,31 +228,31 @@ export const Header: React.FC<HeaderProps> = ({
               type="button"
               id="theme-toggle-btn"
               onClick={toggleTheme}
-              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors border border-stone-200/60 dark:border-stone-700/60"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode (Late-night study)'}
+              className="p-1.5 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors border border-stone-200 dark:border-stone-750"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? (
-                <Sun className="w-3.5 h-3.5 text-amber-400 hover:rotate-45 transition-transform" />
+                <Sun className="w-3.5 h-3.5 text-stone-300" />
               ) : (
-                <Moon className="w-3.5 h-3.5 text-stone-600 hover:-rotate-12 transition-transform" />
+                <Moon className="w-3.5 h-3.5 text-stone-600" />
               )}
             </button>
 
             <button
               id="btn-rules-modal"
               onClick={onOpenRules}
-              className="p-1.5 sm:px-2.5 sm:py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors flex items-center gap-1 border border-stone-200/60 dark:border-stone-700/60"
+              className="p-1.5 sm:px-2.5 sm:py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors flex items-center gap-1.5 border border-stone-200 dark:border-stone-750"
               title="Philosophy & Principles"
             >
-              <BookOpen className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
+              <BookOpen className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
               <span className="hidden lg:inline">Philosophy</span>
             </button>
 
             <button
               id="btn-history-modal"
               onClick={onOpenHistory}
-              className="px-2 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg transition-colors border border-stone-200/60 dark:border-stone-700/60"
+              className="px-2.5 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors border border-stone-200 dark:border-stone-750"
             >
               Stats
             </button>
@@ -261,10 +262,10 @@ export const Header: React.FC<HeaderProps> = ({
                 type="button"
                 id="btn-header-report"
                 onClick={onOpenReport}
-                className="px-2.5 py-1.5 text-xs font-semibold text-amber-900 dark:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs hover:scale-[1.02]"
+                className="px-2.5 py-1.5 text-xs font-medium text-stone-800 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-750 border border-stone-250 dark:border-stone-700 rounded-lg transition-colors flex items-center gap-1.5"
                 title="Detailed Report Analysis & Ways to Improve (Downloadable PDF)"
               >
-                <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <FileText className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
                 <span className="hidden sm:inline">Report & PDF</span>
                 <span className="sm:hidden">Report</span>
               </button>
@@ -274,27 +275,27 @@ export const Header: React.FC<HeaderProps> = ({
               type="button"
               id="btn-badges-header"
               onClick={onOpenProfile}
-              className="px-2 py-1.5 text-xs font-semibold text-amber-900 dark:text-amber-200 bg-amber-100/80 dark:bg-amber-950/60 hover:bg-amber-200/80 dark:hover:bg-amber-900/60 border border-amber-300/80 dark:border-amber-700/80 rounded-lg transition-colors flex items-center gap-1"
+              className="px-2 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-750 rounded-lg transition-colors flex items-center gap-1"
               title="View Streak Milestones & Badges in Profile"
             >
-              <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <Award className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
               <span>Badges</span>
             </button>
 
             <button
               id="btn-sample-fill"
               onClick={onPrefillSample}
-              className="px-2 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-lg transition-colors flex items-center gap-1"
+              className="px-2 py-1.5 text-xs font-medium text-stone-700 dark:text-stone-300 bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-750 rounded-lg transition-colors flex items-center gap-1"
               title="Fill example 6/6 day to test"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
               <span className="hidden sm:inline">Example</span>
             </button>
 
             <button
               id="btn-reset-day"
               onClick={onResetDay}
-              className="p-1.5 text-stone-500 dark:text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors"
+              className="p-1.5 text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition-colors"
               title="Reset day's progress"
               aria-label="Reset Progress"
             >
@@ -308,17 +309,17 @@ export const Header: React.FC<HeaderProps> = ({
                   type="button"
                   id="user-profile-btn"
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-1.5 pl-1.5 pr-2 py-1 rounded-lg border border-amber-300 dark:border-amber-700/80 bg-amber-50/60 dark:bg-amber-950/40 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 transition-colors"
+                  className="flex items-center gap-1.5 pl-1.5 pr-2 py-1 rounded-lg border border-stone-200 dark:border-stone-750 bg-white dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
                 >
                   {currentUser.photoURL ? (
                     <img
                       src={currentUser.photoURL}
                       alt={currentUser.displayName || 'User'}
                       referrerPolicy="no-referrer"
-                      className="w-5 h-5 rounded-full object-cover border border-amber-400"
+                      className="w-5 h-5 rounded-full object-cover border border-stone-300 dark:border-stone-600"
                     />
                   ) : (
-                    <div className="w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-[10px] font-bold">
+                    <div className="w-5 h-5 rounded-full bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 flex items-center justify-center text-[10px] font-bold">
                       {currentUser.displayName
                         ? currentUser.displayName.charAt(0).toUpperCase()
                         : currentUser.email
@@ -326,7 +327,7 @@ export const Header: React.FC<HeaderProps> = ({
                         : 'U'}
                     </div>
                   )}
-                  <span className="text-xs font-semibold text-amber-900 dark:text-amber-200 max-w-[80px] truncate hidden sm:inline">
+                  <span className="text-xs font-medium text-stone-800 dark:text-stone-200 max-w-[80px] truncate hidden sm:inline">
                     {currentUser.displayName || currentUser.email?.split('@')[0]}
                   </span>
                 </button>
@@ -337,7 +338,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className="absolute right-0 mt-1.5 w-56 bg-white dark:bg-stone-850 border border-stone-200 dark:border-stone-700 rounded-xl shadow-lg p-2 z-50 animate-in fade-in"
                     id="user-dropdown-menu"
                   >
-                    <div className="p-2 border-b border-stone-100 dark:border-stone-700/70 mb-1">
+                    <div className="p-2 border-b border-stone-100 dark:border-stone-750 mb-1">
                       <p className="text-xs font-bold text-stone-900 dark:text-stone-100 truncate">
                         {currentUser.displayName || 'Hostel Student'}
                       </p>
@@ -345,14 +346,14 @@ export const Header: React.FC<HeaderProps> = ({
                         {currentUser.email}
                       </p>
                       {isDevBypass ? (
-                        <div className="flex items-center gap-1 mt-1 text-[10px] text-amber-700 dark:text-amber-400 font-semibold font-mono">
+                        <div className="flex items-center gap-1 mt-1 text-[10px] text-stone-600 dark:text-stone-400 font-mono">
                           <Terminal className="w-3 h-3" />
-                          <span>Bypass Mode (Dev/Tester)</span>
+                          <span>Dev / Tester Bypass Mode</span>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
-                          <CloudCheck className="w-3 h-3" />
-                          <span>Firestore Database Active</span>
+                        <div className="flex items-center gap-1 mt-1 text-[10px] text-stone-600 dark:text-stone-400 font-medium">
+                          <CloudCheck className="w-3 h-3 text-stone-700 dark:text-stone-300" />
+                          <span>Firestore Synced</span>
                         </div>
                       )}
                     </div>
@@ -362,9 +363,9 @@ export const Header: React.FC<HeaderProps> = ({
                         setShowUserMenu(false);
                         onOpenProfile();
                       }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center gap-2 transition-colors mb-0.5"
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-750 flex items-center gap-2 transition-colors mb-0.5"
                     >
-                      <Award className="w-3.5 h-3.5 text-amber-500" />
+                      <Award className="w-3.5 h-3.5 text-stone-500" />
                       <span>Profile & Badges</span>
                     </button>
                     <button
@@ -373,7 +374,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setShowUserMenu(false);
                         signOut();
                       }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center gap-2 transition-colors"
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-750 flex items-center gap-2 transition-colors"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Sign Out</span>
@@ -386,9 +387,9 @@ export const Header: React.FC<HeaderProps> = ({
                 type="button"
                 id="btn-login-cloud"
                 onClick={onOpenAuth}
-                className="px-2.5 py-1.5 text-xs font-semibold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-white rounded-lg shadow-2xs transition-colors flex items-center gap-1.5"
+                className="px-2.5 py-1.5 text-xs font-medium text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-white rounded-lg shadow-2xs transition-colors flex items-center gap-1.5"
               >
-                <LogIn className="w-3.5 h-3.5 text-amber-400 dark:text-amber-600" />
+                <LogIn className="w-3.5 h-3.5" />
                 <span>Log In</span>
               </button>
             )}

@@ -325,7 +325,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
               type="submit"
               id="gate-submit-btn"
               disabled={submitting}
-              className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-sm transition-all disabled:opacity-60 mt-4 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-950 font-semibold rounded-xl text-xs flex items-center justify-center gap-2 shadow-2xs transition-all disabled:opacity-60 mt-4 cursor-pointer"
             >
               {submitting ? (
                 <Loader2 className="w-4 h-4 animate-spin text-stone-950" />
@@ -346,16 +346,16 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
           {/* Quick Demo Student Access & Dev/Tester Bypass */}
           <div className="mt-5 pt-4 border-t border-stone-800 space-y-3">
             {/* Tester & Dev Bypass Box */}
-            <div className="bg-stone-900/90 rounded-xl p-3 border border-amber-500/30">
+            <div className="bg-stone-900 rounded-xl p-3 border border-stone-800">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                  <Terminal className="w-3.5 h-3.5 text-amber-400" />
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-stone-300">
+                  <Terminal className="w-3.5 h-3.5 text-stone-400" />
                   <span>Dev & Tester Bypass (No Sign-In Required)</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowDevPanel(!showDevPanel)}
-                  className="text-[10px] text-amber-400/80 hover:text-amber-300 underline font-mono"
+                  className="text-[10px] text-stone-400 hover:text-stone-200 underline font-mono"
                 >
                   {showDevPanel ? 'Hide Codes' : 'Enter Passcode'}
                 </button>
@@ -367,10 +367,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   type="button"
                   id="btn-bypass-developer"
                   onClick={() => handleDevBypassSubmit('DEV123')}
-                  className="py-1.5 px-2.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-[11px] font-bold text-amber-300 flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:scale-[1.01]"
+                  className="py-1.5 px-2.5 rounded-lg bg-stone-800 hover:bg-stone-750 border border-stone-700 text-[11px] font-medium text-stone-250 flex items-center justify-center gap-1.5 transition-all shadow-2xs"
                   title="Instant bypass as Developer (Code: DEV123)"
                 >
-                  <Code2 className="w-3.5 h-3.5 text-amber-400" />
+                  <Code2 className="w-3.5 h-3.5 text-stone-400" />
                   <span>Dev Bypass (DEV123)</span>
                 </button>
 
@@ -378,10 +378,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   type="button"
                   id="btn-bypass-tester"
                   onClick={() => handleDevBypassSubmit('TESTER')}
-                  className="py-1.5 px-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-[11px] font-bold text-emerald-300 flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:scale-[1.01]"
+                  className="py-1.5 px-2.5 rounded-lg bg-stone-800 hover:bg-stone-750 border border-stone-700 text-[11px] font-medium text-stone-250 flex items-center justify-center gap-1.5 transition-all shadow-2xs"
                   title="Instant bypass as QA Tester (Code: TESTER)"
                 >
-                  <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
+                  <KeyRound className="w-3.5 h-3.5 text-stone-400" />
                   <span>Tester Bypass (TESTER)</span>
                 </button>
               </div>
@@ -390,7 +390,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
               {showDevPanel && (
                 <div className="mt-3 pt-2.5 border-t border-stone-800">
                   <p className="text-[10px] text-stone-400 mb-1.5">
-                    Enter any valid test code: <span className="font-mono text-amber-300">DEV123</span>, <span className="font-mono text-emerald-300">TESTER</span>, or <span className="font-mono text-stone-300">HOSTELDEV</span>
+                    Enter test code: <span className="font-mono text-stone-300">DEV123</span> or <span className="font-mono text-stone-300">TESTER</span>
                   </p>
                   <div className="flex gap-1.5">
                     <input
@@ -407,16 +407,16 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                           handleDevBypassSubmit();
                         }
                       }}
-                      placeholder="e.g. DEV123 or TESTER"
-                      className="flex-1 px-2.5 py-1.5 text-xs rounded-lg border border-stone-700 bg-stone-950 text-stone-100 placeholder-stone-500 font-mono uppercase focus:outline-hidden focus:ring-1 focus:ring-amber-500"
+                      placeholder="e.g. DEV123"
+                      className="flex-1 px-2.5 py-1.5 text-xs rounded-lg border border-stone-700 bg-stone-950 text-stone-100 placeholder-stone-500 font-mono uppercase focus:outline-hidden focus:border-stone-500"
                     />
                     <button
                       type="button"
                       id="btn-submit-dev-code"
                       onClick={() => handleDevBypassSubmit()}
-                      className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs flex items-center gap-1 shadow-xs transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 font-semibold text-xs flex items-center gap-1 shadow-2xs transition-colors"
                     >
-                      <Check className="w-3 h-3 stroke-[3]" />
+                      <Check className="w-3 h-3 stroke-[2.5]" />
                       <span>Enter</span>
                     </button>
                   </div>
@@ -436,30 +436,30 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
               id="gate-demo-btn"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-2 px-3 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 hover:border-stone-700 text-xs font-semibold text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-2 px-3 rounded-xl bg-stone-900 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 text-xs font-medium text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Sign in with Firebase Demo Account</span>
+              <Sparkles className="w-3.5 h-3.5 text-stone-400" />
+              <span>Sign in with Demo Account</span>
             </button>
           </div>
         </div>
 
         {/* Feature Lock Teaser Icons */}
         <div className="mt-5 grid grid-cols-3 gap-2 text-center text-stone-400 text-[11px]">
-          <div className="p-2 rounded-xl bg-stone-900/80 border border-stone-800 flex flex-col items-center gap-1">
-            <Flame className="w-4 h-4 text-orange-400" />
-            <span className="font-semibold text-stone-300">Streaks & Badges</span>
-            <span className="text-[10px] text-stone-500">Locked</span>
+          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
+            <Flame className="w-4 h-4 text-stone-400" />
+            <span className="font-medium text-stone-300">Streaks & Badges</span>
+            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
           </div>
-          <div className="p-2 rounded-xl bg-stone-900/80 border border-stone-800 flex flex-col items-center gap-1">
-            <Zap className="w-4 h-4 text-amber-400" />
-            <span className="font-semibold text-stone-300">Focus Mode</span>
-            <span className="text-[10px] text-stone-500">Locked</span>
+          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
+            <Zap className="w-4 h-4 text-stone-400" />
+            <span className="font-medium text-stone-300">Focus Mode</span>
+            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
           </div>
-          <div className="p-2 rounded-xl bg-stone-900/80 border border-stone-800 flex flex-col items-center gap-1">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span className="font-semibold text-stone-300">Cloud Sync</span>
-            <span className="text-[10px] text-stone-500">Locked</span>
+          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
+            <ShieldCheck className="w-4 h-4 text-stone-400" />
+            <span className="font-medium text-stone-300">Cloud Sync</span>
+            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
           </div>
         </div>
       </div>

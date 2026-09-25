@@ -60,16 +60,12 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
   return (
     <section
       id="section-entertainment"
-      className={`bg-white dark:bg-stone-900 border rounded-xl p-5 mb-5 transition-all ${
-        earned 
-          ? 'border-emerald-200 dark:border-emerald-850 shadow-2xs' 
-          : 'border-stone-200 dark:border-stone-800 shadow-2xs'
-      }`}
+      className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 mb-5 shadow-2xs transition-all"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-rose-500/10 dark:bg-rose-500/20 text-rose-700 dark:text-rose-400 flex items-center justify-center font-mono font-bold text-base border border-rose-500/20 dark:border-rose-500/30 shrink-0">
+          <div className="w-8 h-8 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 flex items-center justify-center font-mono font-bold text-sm border border-stone-200 dark:border-stone-700 shrink-0">
             E
           </div>
           <div>
@@ -78,12 +74,12 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
                 Entertainment with Limits
               </h2>
               {earned ? (
-                <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-1">
-                  <Check className="w-3 h-3" /> 1 Point Earned
+                <span className="text-xs font-medium text-stone-600 dark:text-stone-300 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300" /> Earned
                 </span>
               ) : (
-                <span className="text-[11px] font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-full">
-                  Pending (1 Pt)
+                <span className="text-xs font-normal text-stone-400 dark:text-stone-500">
+                  Pending · 0/1 pt
                 </span>
               )}
             </div>
@@ -93,8 +89,8 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-300 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded-md border border-stone-200/60 dark:border-stone-700/60">
-          <Tv className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
+        <div className="flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-400 bg-stone-50 dark:bg-stone-850 px-2.5 py-1 rounded-lg border border-stone-200 dark:border-stone-750">
+          <Tv className="w-3.5 h-3.5 text-stone-400" />
           <span>Max 30m</span>
         </div>
       </div>
@@ -102,13 +98,13 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
       {/* Rules & Checkboxes */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Rule 1 */}
-        <label className="p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors flex items-start gap-3">
+        <label className="p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors flex items-start gap-3">
           <input
             type="checkbox"
             id="chk-entertainment-time"
             checked={data.startedAfter930}
             onChange={(e) => onChange({ ...data, startedAfter930: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-rose-600 rounded border-stone-300 dark:border-stone-600 focus:ring-rose-500 accent-rose-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -121,13 +117,13 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
         </label>
 
         {/* Rule 2 */}
-        <label className="p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors flex items-start gap-3">
+        <label className="p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors flex items-start gap-3">
           <input
             type="checkbox"
             id="chk-entertainment-cap"
             checked={data.under30Mins}
             onChange={(e) => onChange({ ...data, under30Mins: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-rose-600 rounded border-stone-300 dark:border-stone-600 focus:ring-rose-500 accent-rose-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -140,13 +136,13 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
         </label>
 
         {/* Rule 3 */}
-        <label className="p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors flex items-start gap-3">
+        <label className="p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors flex items-start gap-3">
           <input
             type="checkbox"
             id="chk-entertainment-no-binge"
             checked={data.noWeekdayBinge}
             onChange={(e) => onChange({ ...data, noWeekdayBinge: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-rose-600 rounded border-stone-300 dark:border-stone-600 focus:ring-rose-500 accent-rose-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -160,33 +156,33 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
       </div>
 
       {/* 30-min Entertainment Timer Widget */}
-      <div className="mt-4 p-3 rounded-xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="mt-4 p-3.5 rounded-xl bg-stone-50 dark:bg-stone-850/80 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 flex items-center justify-center font-bold">
-            ⏱
+          <div className="w-8 h-8 rounded-lg bg-stone-200 dark:bg-stone-750 text-stone-700 dark:text-stone-300 flex items-center justify-center font-medium text-xs">
+            30m
           </div>
           <div>
-            <div className="text-xs font-bold text-stone-900 dark:text-stone-100">
-              30-Minute Entertainment Guardrail
+            <div className="text-xs font-semibold text-stone-900 dark:text-stone-100">
+              Entertainment Guardrail Timer
             </div>
             <div className="text-[11px] text-stone-500 dark:text-stone-400">
-              Set this timer before opening YouTube, Netflix, or anime.
+              Set this timer before opening YouTube, Netflix, or social apps.
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xl font-bold text-rose-700 dark:text-rose-400">
+          <span className="font-mono text-xl font-semibold text-stone-900 dark:text-stone-100">
             {formatTime(timeLeft)}
           </span>
 
           <button
             type="button"
             onClick={toggleTimer}
-            className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
               isRunning 
-                ? 'bg-amber-600 text-white' 
-                : 'bg-stone-800 dark:bg-stone-700 text-white hover:bg-stone-900 dark:hover:bg-stone-600'
+                ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900' 
+                : 'bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-900'
             }`}
           >
             {isRunning ? 'Pause' : 'Start 30m'}
@@ -195,7 +191,7 @@ export const EntertainmentSection: React.FC<EntertainmentSectionProps> = ({ data
           <button
             type="button"
             onClick={resetTimer}
-            className="p-1 text-stone-400 hover:text-stone-600 dark:hover:text-stone-300"
+            className="p-1.5 text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 rounded-lg hover:bg-stone-200/50 dark:hover:bg-stone-750"
             title="Reset"
           >
             <RotateCcw className="w-3.5 h-3.5" />

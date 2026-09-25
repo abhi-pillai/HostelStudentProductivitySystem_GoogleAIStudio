@@ -33,16 +33,16 @@ export const QuickReflectionPrompts: React.FC<QuickReflectionPromptsProps> = ({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <Sparkles className="w-3.5 h-3.5 text-stone-500" />
           <span>Hostel Reflection Prompts (1-click insert)</span>
           {isOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="mt-2 flex flex-wrap gap-1.5 p-2 rounded-lg bg-stone-50/70 dark:bg-stone-850/60 border border-stone-200/70 dark:border-stone-800 animate-in fade-in duration-150">
+        <div className="mt-2 flex flex-wrap gap-1.5 p-2 rounded-lg bg-stone-50/70 dark:bg-stone-850/60 border border-stone-200 dark:border-stone-800 animate-in fade-in duration-150">
           {HOSTEL_PROMPTS.map((prompt, idx) => {
             const isAdded = lastAppended === prompt;
             return (
@@ -52,13 +52,13 @@ export const QuickReflectionPrompts: React.FC<QuickReflectionPromptsProps> = ({
                 onClick={() => handleSelect(prompt)}
                 className={`text-left text-xs px-2.5 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 ${
                   isAdded
-                    ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-semibold'
-                    : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-750'
+                    ? 'bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 font-medium'
+                    : 'bg-white dark:bg-stone-850 border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
                 }`}
               >
                 <span>{prompt}</span>
                 {isAdded ? (
-                  <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <Check className="w-3 h-3 text-white dark:text-stone-900 shrink-0" />
                 ) : (
                   <span className="text-[10px] text-stone-400 font-mono">+Add</span>
                 )}

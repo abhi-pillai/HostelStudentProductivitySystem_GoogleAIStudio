@@ -74,37 +74,16 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
   const getRarityBadge = (rarity: Badge['rarity'], isUnlocked: boolean) => {
     if (!isUnlocked) {
       return (
-        <span className="text-[9px] font-semibold uppercase px-1.5 py-0.2 rounded bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400">
+        <span className="text-[9px] font-medium uppercase px-1.5 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-400 font-mono">
           Locked
         </span>
       );
     }
-    switch (rarity) {
-      case 'Legendary':
-        return (
-          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-            Legendary
-          </span>
-        );
-      case 'Epic':
-        return (
-          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
-            Epic
-          </span>
-        );
-      case 'Rare':
-        return (
-          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
-            Rare
-          </span>
-        );
-      default:
-        return (
-          <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.2 rounded bg-stone-200/60 dark:bg-stone-700/60 text-stone-700 dark:text-stone-300">
-            Common
-          </span>
-        );
-    }
+    return (
+      <span className="text-[9px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 font-mono">
+        {rarity}
+      </span>
+    );
   };
 
   if (compact) {
@@ -117,14 +96,14 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
             title={`${b.title} (${b.unlocked ? 'Unlocked' : `${b.progress}%`}) - ${b.description}`}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs shrink-0 transition-all ${
               b.unlocked
-                ? 'bg-amber-50/80 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/60 text-stone-900 dark:text-stone-100 shadow-2xs'
-                : 'bg-stone-100/50 dark:bg-stone-800/40 border-stone-200/60 dark:border-stone-700/40 text-stone-400 dark:text-stone-500 opacity-70'
+                ? 'bg-stone-50 dark:bg-stone-850 border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 shadow-2xs'
+                : 'bg-stone-100/50 dark:bg-stone-800/40 border-stone-200/60 dark:border-stone-700/40 text-stone-400 dark:text-stone-500 opacity-60'
             }`}
           >
             {renderIcon(b.iconName, b.unlocked, b.rarity)}
-            <span className="font-semibold text-[11px] truncate max-w-[110px]">{b.title}</span>
+            <span className="font-medium text-[11px] truncate max-w-[110px]">{b.title}</span>
             {b.unlocked ? (
-              <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0 ml-0.5" />
+              <CheckCircle2 className="w-3 h-3 text-stone-800 dark:text-stone-200 shrink-0 ml-0.5" />
             ) : (
               <Lock className="w-2.5 h-2.5 text-stone-400 dark:text-stone-500 shrink-0 ml-0.5" />
             )}
@@ -137,23 +116,23 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
   return (
     <div className="w-full" id="badges-component-view">
       {/* Header with overall milestone progress */}
-      <div className="p-3.5 rounded-xl bg-linear-to-r from-amber-50 to-orange-50/60 dark:from-amber-950/30 dark:to-orange-950/20 border border-amber-200/80 dark:border-amber-800/50 mb-4">
+      <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 mb-4">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-            <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+            <Trophy className="w-4 h-4 text-stone-700 dark:text-stone-300" />
+            <span className="text-xs font-semibold text-stone-900 dark:text-stone-100">
               Hostel Milestone Badges
             </span>
           </div>
-          <span className="text-xs font-mono font-bold text-amber-800 dark:text-amber-300">
+          <span className="text-xs font-mono font-medium text-stone-700 dark:text-stone-300">
             {unlockedCount} / {totalCount} Unlocked ({completionPercentage}%)
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full h-2 bg-stone-200 dark:bg-stone-700/80 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
           <div
-            className="h-full bg-linear-to-r from-amber-500 to-orange-500 transition-all duration-500 rounded-full"
+            className="h-full bg-stone-900 dark:bg-stone-100 transition-all duration-500 rounded-full"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -191,18 +170,18 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
               className={`p-3 rounded-xl border text-left cursor-pointer transition-all ${
                 badge.unlocked
                   ? isSelected
-                    ? 'bg-amber-50/90 dark:bg-amber-950/40 border-amber-400 dark:border-amber-600 shadow-xs ring-1 ring-amber-400'
-                    : 'bg-white dark:bg-stone-800/80 border-stone-200 dark:border-stone-700 hover:border-amber-300 dark:hover:border-amber-700 shadow-2xs'
-                  : 'bg-stone-50/70 dark:bg-stone-850/60 border-stone-200/60 dark:border-stone-800/60 opacity-80 hover:opacity-100'
+                    ? 'bg-stone-100 dark:bg-stone-800 border-stone-400 dark:border-stone-600 shadow-2xs'
+                    : 'bg-white dark:bg-stone-850 border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 shadow-2xs'
+                  : 'bg-stone-50/70 dark:bg-stone-850/60 border-stone-200/60 dark:border-stone-800/60 opacity-60 hover:opacity-100'
               }`}
             >
               <div className="flex items-start gap-2.5">
                 {/* Icon Box */}
                 <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
+                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border ${
                     badge.unlocked
-                      ? 'bg-amber-500/10 dark:bg-amber-500/20 border-amber-500/30'
-                      : 'bg-stone-100 dark:bg-stone-800 border-stone-200 dark:border-stone-700'
+                      ? 'bg-stone-100 dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100'
+                      : 'bg-stone-50 dark:bg-stone-850 border-stone-200 dark:border-stone-800 text-stone-400'
                   }`}
                 >
                   {renderIcon(badge.iconName, badge.unlocked, badge.rarity)}
@@ -212,10 +191,10 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-1.5">
                     <h4
-                      className={`text-xs font-bold truncate ${
+                      className={`text-xs font-semibold truncate ${
                         badge.unlocked
                           ? 'text-stone-900 dark:text-stone-100'
-                          : 'text-stone-600 dark:text-stone-400'
+                          : 'text-stone-500 dark:text-stone-400'
                       }`}
                     >
                       {badge.title}
@@ -230,8 +209,8 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
                   {/* Progress or unlocked banner */}
                   <div className="mt-2 flex items-center justify-between text-[10px]">
                     {badge.unlocked ? (
-                      <span className="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Unlocked & Achieved
+                      <span className="font-medium text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3 text-stone-600 dark:text-stone-400" /> Unlocked
                       </span>
                     ) : (
                       <>
@@ -263,23 +242,23 @@ export const Badges: React.FC<BadgesProps> = ({ badges, compact = false }) => {
 
       {/* Selected badge details spotlight */}
       {selectedBadge && (
-        <div className="mt-3 p-3 rounded-xl bg-stone-100/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 text-xs">
+        <div className="mt-3 p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+            <span className="font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
               {renderIcon(selectedBadge.iconName, selectedBadge.unlocked, selectedBadge.rarity)}
               {selectedBadge.title}
             </span>
             {selectedBadge.unlocked ? (
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold text-[11px]">
+              <span className="text-stone-700 dark:text-stone-300 font-medium text-[11px]">
                 Milestone Cleared
               </span>
             ) : (
-              <span className="text-amber-600 dark:text-amber-400 font-bold text-[11px]">
+              <span className="text-stone-500 dark:text-stone-400 font-medium text-[11px]">
                 In Progress ({selectedBadge.progress}%)
               </span>
             )}
           </div>
-          <p className="text-[11px] text-stone-600 dark:text-stone-300 mt-1 leading-relaxed">
+          <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-1 leading-relaxed">
             {selectedBadge.description}
           </p>
         </div>

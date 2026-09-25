@@ -12,16 +12,12 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
   return (
     <section
       id="section-lights-out"
-      className={`bg-white dark:bg-stone-900 border rounded-xl p-5 mb-5 transition-all ${
-        earned 
-          ? 'border-emerald-200 dark:border-emerald-850 shadow-2xs' 
-          : 'border-stone-200 dark:border-stone-800 shadow-2xs'
-      }`}
+      className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 mb-5 shadow-2xs transition-all"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 flex items-center justify-center font-mono font-bold text-base border border-purple-500/20 dark:border-purple-500/30 shrink-0">
+          <div className="w-8 h-8 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 flex items-center justify-center font-mono font-bold text-sm border border-stone-200 dark:border-stone-700 shrink-0">
             L
           </div>
           <div>
@@ -30,12 +26,12 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
                 Lights Out Discipline (Sleep Anchor)
               </h2>
               {earned ? (
-                <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-1">
-                  <Check className="w-3 h-3" /> 1 Point Earned
+                <span className="text-xs font-medium text-stone-600 dark:text-stone-300 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300" /> Earned
                 </span>
               ) : (
-                <span className="text-[11px] font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-full">
-                  Pending (1 Pt)
+                <span className="text-xs font-normal text-stone-400 dark:text-stone-500">
+                  Pending · 0/1 pt
                 </span>
               )}
             </div>
@@ -45,8 +41,8 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-300 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded-md border border-stone-200/60 dark:border-stone-700/60">
-          <Moon className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+        <div className="flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-400 bg-stone-50 dark:bg-stone-850 px-2.5 py-1 rounded-lg border border-stone-200 dark:border-stone-750">
+          <Moon className="w-3.5 h-3.5 text-stone-400" />
           <span>11:00 PM – 12:00 AM</span>
         </div>
       </div>
@@ -54,13 +50,13 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
       {/* Checklist */}
       <div className="mt-4 space-y-2.5">
         {/* Item 1 */}
-        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors">
+        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors">
           <input
             type="checkbox"
             id="chk-screens-off"
             checked={data.screensOffEarly}
             onChange={(e) => onChange({ ...data, screensOffEarly: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-purple-600 rounded border-stone-300 dark:border-stone-600 focus:ring-purple-500 accent-purple-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -73,13 +69,13 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
         </label>
 
         {/* Item 2 */}
-        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors">
+        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors">
           <input
             type="checkbox"
             id="chk-tomorrow-top3"
             checked={data.tomorrowTop3Written}
             onChange={(e) => onChange({ ...data, tomorrowTop3Written: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-purple-600 rounded border-stone-300 dark:border-stone-600 focus:ring-purple-500 accent-purple-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -92,13 +88,13 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
         </label>
 
         {/* Item 3 */}
-        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-100 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-800/40 cursor-pointer transition-colors">
+        <label className="flex items-start gap-3 p-3 rounded-lg border border-stone-150 dark:border-stone-800/80 hover:bg-stone-50/60 dark:hover:bg-stone-850/40 cursor-pointer transition-colors">
           <input
             type="checkbox"
             id="chk-sleep-window"
             checked={data.sleptBetween11And12}
             onChange={(e) => onChange({ ...data, sleptBetween11And12: e.target.checked })}
-            className="w-4 h-4 mt-0.5 text-purple-600 rounded border-stone-300 dark:border-stone-600 focus:ring-purple-500 accent-purple-600"
+            className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
           />
           <div className="text-xs">
             <span className="font-semibold text-stone-800 dark:text-stone-200">
@@ -111,21 +107,21 @@ export const LightsOutSection: React.FC<LightsOutSectionProps> = ({ data, onChan
         </label>
 
         {/* Cardinal Hostel Rule */}
-        <div className="p-3.5 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 dark:border-amber-500/30">
+        <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-stone-850/80 border border-stone-200 dark:border-stone-800">
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
               id="chk-bed-only-sleep"
               checked={data.bedOnlyForSleep}
               onChange={(e) => onChange({ ...data, bedOnlyForSleep: e.target.checked })}
-              className="w-4 h-4 mt-0.5 text-amber-600 rounded border-stone-300 dark:border-stone-600 focus:ring-amber-500 accent-amber-600"
+              className="w-4 h-4 mt-0.5 rounded border-stone-300 dark:border-stone-600 accent-stone-900 dark:accent-stone-100"
             />
             <div className="text-xs">
-              <div className="flex items-center gap-1.5 font-bold text-amber-950 dark:text-amber-200">
-                <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <div className="flex items-center gap-1.5 font-semibold text-stone-900 dark:text-stone-100">
+                <ShieldAlert className="w-4 h-4 text-stone-500 dark:text-stone-400" />
                 <span>Cardinal Rule: Bed is ONLY for Sleep</span>
               </div>
-              <p className="text-amber-900/80 dark:text-amber-300/80 text-[11px] mt-1 leading-relaxed">
+              <p className="text-stone-500 dark:text-stone-400 text-[11px] mt-1 leading-relaxed">
                 Never study in bed, never watch shows in bed, and never scroll in bed. Keep study at your desk and bed strictly for restorative sleep.
               </p>
             </div>

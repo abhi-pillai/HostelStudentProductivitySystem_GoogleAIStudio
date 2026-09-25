@@ -103,7 +103,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
         {/* Top Control Bar */}
         <div className="px-5 py-4 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3 bg-stone-50 dark:bg-stone-900 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300 flex items-center justify-center">
               <FileText className="w-4 h-4" />
             </div>
             <div>
@@ -126,7 +126,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
               id="btn-download-report-pdf"
               onClick={handleDownloadPDF}
               disabled={isExporting}
-              className="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50"
+              className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 font-medium text-xs flex items-center gap-1.5 transition-colors shadow-2xs disabled:opacity-50"
               title="Download analysis and improvement report as a crisp PDF document"
             >
               <FileDown className="w-3.5 h-3.5" />
@@ -158,15 +158,15 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
         {/* Filter & Sub-Nav Toolbar */}
         <div className="px-5 py-2.5 bg-stone-100/60 dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
           {/* Timeframe Tabs */}
-          <div className="flex items-center gap-1 bg-stone-200/70 dark:bg-stone-850 p-1 rounded-xl">
+          <div className="flex items-center gap-1 bg-stone-250/70 dark:bg-stone-850 p-1 rounded-xl">
             {(['last7', 'last14', 'last30', 'all'] as ReportTimeframe[]).map((tf) => (
               <button
                 key={tf}
                 type="button"
                 onClick={() => setTimeframe(tf)}
-                className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
+                className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
                   timeframe === tf
-                    ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-2xs'
+                    ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-2xs font-semibold'
                     : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
                 }`}
               >
@@ -180,9 +180,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('analysis')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
                 activeTab === 'analysis'
-                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900'
+                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
                   : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
               }`}
             >
@@ -193,9 +193,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('improvements')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
                 activeTab === 'improvements'
-                  ? 'bg-amber-600 text-white shadow-xs'
+                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
                   : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
               }`}
             >
@@ -206,9 +206,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('preview')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
                 activeTab === 'preview'
-                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900'
+                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
                   : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
               }`}
             >
@@ -302,27 +302,27 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                       {analysis.scoreDistribution.perfect6} perfect (6/6) · {analysis.scoreDistribution.strong5} strong (5/6) · {analysis.scoreDistribution.acceptable4} pass (4/6) · {analysis.scoreDistribution.subparUnder4} off-days
                     </span>
                   </div>
-                  <div className="w-full h-3 rounded-full bg-stone-200 dark:bg-stone-800 overflow-hidden flex">
+                  <div className="w-full h-2.5 rounded-full bg-stone-200 dark:bg-stone-800 overflow-hidden flex">
                     {analysis.daysLoggedCount > 0 ? (
                       <>
                         <div
                           style={{ width: `${(analysis.scoreDistribution.perfect6 / analysis.daysLoggedCount) * 100}%` }}
-                          className="bg-emerald-500 transition-all"
+                          className="bg-stone-900 dark:bg-stone-100 transition-all"
                           title="6/6 Perfect Days"
                         />
                         <div
                           style={{ width: `${(analysis.scoreDistribution.strong5 / analysis.daysLoggedCount) * 100}%` }}
-                          className="bg-teal-500 transition-all"
+                          className="bg-stone-600 dark:bg-stone-400 transition-all"
                           title="5/6 Strong Days"
                         />
                         <div
                           style={{ width: `${(analysis.scoreDistribution.acceptable4 / analysis.daysLoggedCount) * 100}%` }}
-                          className="bg-amber-500 transition-all"
+                          className="bg-stone-400 dark:bg-stone-600 transition-all"
                           title="4/6 Acceptable Days"
                         />
                         <div
                           style={{ width: `${(analysis.scoreDistribution.subparUnder4 / analysis.daysLoggedCount) * 100}%` }}
-                          className="bg-rose-500 transition-all"
+                          className="bg-stone-300 dark:bg-stone-700 transition-all"
                           title="<4 Below Target"
                         />
                       </>
@@ -335,31 +335,13 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
 
               {/* 6 H.O.S.T.E.L. Pillars Audit Grid */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3 flex items-center gap-2">
-                  <Target className="w-3.5 h-3.5 text-amber-500" />
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3 flex items-center gap-2">
+                  <Target className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
                   <span>The 6 H.O.S.T.E.L. Pillars Performance Breakdown</span>
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {analysis.pillarStats.map((pillar) => {
-                    const statusColor =
-                      pillar.status === 'Mastered'
-                        ? 'text-emerald-700 dark:text-emerald-400'
-                        : pillar.status === 'Solid'
-                        ? 'text-teal-700 dark:text-teal-400'
-                        : pillar.status === 'Inconsistent'
-                        ? 'text-amber-700 dark:text-amber-400'
-                        : 'text-rose-700 dark:text-rose-400';
-
-                    const barColor =
-                      pillar.successRate >= 80
-                        ? 'bg-emerald-500'
-                        : pillar.successRate >= 65
-                        ? 'bg-teal-500'
-                        : pillar.successRate >= 45
-                        ? 'bg-amber-500'
-                        : 'bg-rose-500';
-
                     return (
                       <div
                         key={pillar.letter}
@@ -367,11 +349,11 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
-                            <span className="w-6 h-6 rounded-md bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-bold text-xs flex items-center justify-center">
+                            <span className="w-6 h-6 rounded-md bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-bold text-xs flex items-center justify-center font-mono">
                               {pillar.letter}
                             </span>
                             <div>
-                              <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100 truncate">
+                              <h4 className="text-xs font-semibold text-stone-900 dark:text-stone-100 truncate">
                                 {pillar.title}
                               </h4>
                               <p className="text-[10px] text-stone-500 dark:text-stone-400 truncate">
@@ -379,15 +361,15 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                               </p>
                             </div>
                           </div>
-                          <span className={`text-xs font-bold ${statusColor}`}>
+                          <span className="text-xs font-semibold text-stone-900 dark:text-stone-100 font-mono">
                             {pillar.successRate}%
                           </span>
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="w-full h-1.5 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden my-2.5">
+                        <div className="w-full h-1 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden my-2.5">
                           <div
-                            className={`h-full rounded-full ${barColor} transition-all duration-300`}
+                            className="h-full rounded-full bg-stone-800 dark:bg-stone-200 transition-all duration-300"
                             style={{ width: `${pillar.successRate}%` }}
                           />
                         </div>
@@ -397,7 +379,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                           {pillar.subMetrics.map((sub, idx) => (
                             <div key={idx} className="flex items-center justify-between text-stone-600 dark:text-stone-400">
                               <span>{sub.label}</span>
-                              <span className="font-semibold text-stone-900 dark:text-stone-200">
+                              <span className="font-medium text-stone-900 dark:text-stone-200">
                                 {sub.value}
                               </span>
                             </div>
@@ -412,15 +394,15 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
               {/* Strengths & Critical Bottlenecks */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Strengths */}
-                <div className="p-4 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/60">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-300 mb-2 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-stone-800 dark:text-stone-200 mb-2 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-stone-600 dark:text-stone-400" />
                     <span>Key System Strengths</span>
                   </h4>
-                  <ul className="space-y-1.5 text-xs text-stone-700 dark:text-stone-300">
+                  <ul className="space-y-1.5 text-xs text-stone-600 dark:text-stone-400">
                     {analysis.topStrengths.map((str, i) => (
                       <li key={i} className="flex items-start gap-1.5">
-                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
+                        <span className="text-stone-400 font-bold">•</span>
                         <span>{str}</span>
                       </li>
                     ))}
@@ -428,15 +410,15 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                 </div>
 
                 {/* Bottlenecks */}
-                <div className="p-4 rounded-xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-2 flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-stone-800 dark:text-stone-200 mb-2 flex items-center gap-1.5">
+                    <AlertTriangle className="w-4 h-4 text-stone-600 dark:text-stone-400" />
                     <span>Point Leakage Bottlenecks</span>
                   </h4>
-                  <ul className="space-y-1.5 text-xs text-stone-700 dark:text-stone-300">
+                  <ul className="space-y-1.5 text-xs text-stone-600 dark:text-stone-400">
                     {analysis.criticalBottlenecks.map((bot, i) => (
                       <li key={i} className="flex items-start gap-1.5">
-                        <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
+                        <span className="text-stone-400 font-bold">•</span>
                         <span>{bot}</span>
                       </li>
                     ))}
@@ -475,31 +457,31 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
           {activeTab === 'improvements' && (
             <div className="space-y-6">
               {/* Executive Action Blueprint Header */}
-              <div className="p-5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30">
+              <div className="p-5 rounded-2xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
                       Personalized Remediation Plan
                     </span>
                     <h3 className="text-base font-bold text-stone-900 dark:text-stone-100">
                       Next Week Focus: Target Score {analysis.actionBlueprint.weeklyTargetScore} / 6.0
                     </h3>
                   </div>
-                  <div className="px-3 py-1 rounded-full bg-amber-500 text-stone-950 font-bold text-xs shrink-0">
+                  <div className="px-3 py-1 rounded-full bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-semibold text-xs shrink-0">
                     Target: {analysis.actionBlueprint.weeklyTargetScore}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                  <div className="p-3 rounded-xl bg-white/80 dark:bg-stone-900/80 border border-amber-500/20">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Primary Pillar to Fix</span>
-                    <p className="font-bold text-stone-900 dark:text-stone-100 mt-0.5">
+                  <div className="p-3 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+                    <span className="text-[10px] font-medium text-stone-500 dark:text-stone-400 uppercase">Primary Pillar to Fix</span>
+                    <p className="font-semibold text-stone-900 dark:text-stone-100 mt-0.5">
                       {analysis.actionBlueprint.primaryFocusPillar}
                     </p>
                   </div>
-                  <div className="p-3 rounded-xl bg-white/80 dark:bg-stone-900/80 border border-amber-500/20">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Secondary Reinforcement</span>
-                    <p className="font-bold text-stone-900 dark:text-stone-100 mt-0.5">
+                  <div className="p-3 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+                    <span className="text-[10px] font-medium text-stone-500 dark:text-stone-400 uppercase">Secondary Reinforcement</span>
+                    <p className="font-semibold text-stone-900 dark:text-stone-100 mt-0.5">
                       {analysis.actionBlueprint.secondaryFocusPillar}
                     </p>
                   </div>
@@ -508,8 +490,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
 
               {/* Actionable Recommendations List */}
               <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-2">
-                  <ListChecks className="w-4 h-4 text-amber-500" />
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-2">
+                  <ListChecks className="w-4 h-4 text-stone-600 dark:text-stone-400" />
                   <span>Custom Action Protocols Based on Your Data</span>
                 </h4>
 
@@ -520,20 +502,20 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-400 font-bold text-xs flex items-center justify-center shrink-0">
+                        <span className="w-6 h-6 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 font-bold text-xs flex items-center justify-center shrink-0 font-mono">
                           {index + 1}
                         </span>
                         <div>
-                          <h5 className="text-sm font-bold text-stone-900 dark:text-stone-100">
+                          <h5 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                             {rec.title}
                           </h5>
                           <span className="text-[11px] text-stone-500 dark:text-stone-400">
-                            {rec.category} · Priority: <strong className="text-amber-600 dark:text-amber-400">{rec.severity}</strong>
+                            {rec.category} · Priority: <strong className="text-stone-800 dark:text-stone-200">{rec.severity}</strong>
                           </span>
                         </div>
                       </div>
 
-                      <div className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 shrink-0">
+                      <div className="text-[11px] font-medium text-stone-700 dark:text-stone-300 px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shrink-0">
                         {rec.expectedImpact}
                       </div>
                     </div>
@@ -546,13 +528,13 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
 
                     {/* Action steps */}
                     <div className="space-y-2 pt-1">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
                         Hostel Implementation Steps:
                       </span>
                       <div className="space-y-1.5">
                         {rec.concreteSteps.map((step, sIdx) => (
                           <div key={sIdx} className="flex items-start gap-2 text-xs text-stone-700 dark:text-stone-300">
-                            <span className="w-4 h-4 rounded-full bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                            <span className="w-4 h-4 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                               {sIdx + 1}
                             </span>
                             <span className="leading-relaxed">{step}</span>
@@ -566,14 +548,14 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
 
               {/* Daily Checklist Routine */}
               <div className="p-4 rounded-xl bg-stone-900 text-stone-200 border border-stone-800">
-                <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-1.5">
+                <h5 className="text-xs font-semibold uppercase tracking-wider text-stone-300 mb-2 flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5" />
                   <span>The Non-Negotiable Hostel Daily Loop</span>
                 </h5>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {analysis.actionBlueprint.dailyChecklistReminder.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-stone-800/80 border border-stone-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-stone-400 shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -585,7 +567,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
           {/* TAB 3: PRINT / PDF PREVIEW */}
           {activeTab === 'preview' && (
             <div className="space-y-4">
-              <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl text-xs text-amber-800 dark:text-amber-300 flex items-center justify-between">
+              <div className="p-3 bg-stone-100 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 rounded-xl text-xs text-stone-700 dark:text-stone-300 flex items-center justify-between">
                 <span>
                   This preview reflects the exact high-fidelity format that will be exported to your downloadable PDF.
                 </span>
@@ -593,7 +575,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
                   type="button"
                   onClick={handleDownloadPDF}
                   disabled={isExporting}
-                  className="px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center gap-1 shrink-0"
+                  className="px-3 py-1 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 font-medium text-xs flex items-center gap-1 shrink-0"
                 >
                   <FileDown className="w-3 h-3" />
                   <span>Export Now</span>
@@ -614,7 +596,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
         {/* Modal Bottom Actions */}
         <div className="px-5 py-3 border-t border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900 flex items-center justify-between gap-3 shrink-0">
           <div className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-amber-500" />
+            <Shield className="w-3.5 h-3.5 text-stone-500" />
             <span>Reports are generated locally from your verified daily logs.</span>
           </div>
 
@@ -622,7 +604,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={handlePrint}
-              className="px-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold hover:bg-stone-100 dark:hover:bg-stone-750 transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-medium hover:bg-stone-100 dark:hover:bg-stone-750 transition-colors flex items-center gap-1.5"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print</span>
@@ -632,7 +614,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
               type="button"
               onClick={handleDownloadPDF}
               disabled={isExporting}
-              className="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50"
+              className="px-4 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs disabled:opacity-50"
             >
               <FileDown className="w-3.5 h-3.5" />
               <span>{isExporting ? 'Generating PDF...' : 'Download PDF Report'}</span>

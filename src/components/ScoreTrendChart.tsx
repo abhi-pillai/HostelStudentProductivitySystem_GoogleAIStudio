@@ -95,13 +95,13 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
 
   const highestScore = Math.max(...trendData.map((d) => d.score), 0);
 
-  // Custom bar colors based on hostel scorecard standards
+  // Bar colors based on simplistic neutral scale
   const getBarColor = (score: number, hasRecord: boolean) => {
     if (!hasRecord) return '#e7e5e4'; // stone-200
-    if (score >= 6) return '#10b981'; // emerald-500: Excellent
-    if (score >= 5) return '#14b8a6'; // teal-500: Strong
-    if (score >= 4) return '#f59e0b'; // amber-500: Acceptable
-    return '#f43f5e'; // rose-500: Weak/Reset
+    if (score >= 6) return '#1c1917'; // stone-900: Perfect
+    if (score >= 5) return '#57534e'; // stone-600: Strong
+    if (score >= 4) return '#78716c'; // stone-500: Acceptable
+    return '#a8a29e'; // stone-400: Weak
   };
 
   // Custom Tooltip component for Recharts
@@ -109,7 +109,7 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
     if (active && payload && payload.length) {
       const data: DayTrendData = payload[0].payload;
       return (
-        <div className="bg-stone-900/95 text-white p-2.5 rounded-xl shadow-xl border border-stone-700 text-xs backdrop-blur-xs min-w-[140px]">
+        <div className="bg-stone-900/95 text-white p-2.5 rounded-xl shadow-xl border border-stone-800 text-xs backdrop-blur-xs min-w-[140px]">
           <div className="flex items-center justify-between gap-2 border-b border-stone-800 pb-1 mb-1.5">
             <span className="font-semibold text-stone-300">{data.fullDate}</span>
             <span className="text-[10px] text-stone-400 font-mono">
@@ -117,13 +117,13 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
             </span>
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-xl font-black text-amber-400">{data.score}</span>
+            <span className="text-xl font-bold text-stone-100">{data.score}</span>
             <span className="text-xs text-stone-400">/ 6 pts</span>
-            <span className="ml-auto font-bold text-[11px] text-stone-200">{data.verdict}</span>
+            <span className="ml-auto font-medium text-[11px] text-stone-300">{data.verdict}</span>
           </div>
           <div className="mt-1.5 text-[10px] text-stone-400 flex items-center justify-between">
             <span>H.O.S.T.E.L. Loop</span>
-            <span className="font-semibold text-amber-400">
+            <span className="font-semibold text-stone-200">
               {Math.round((data.score / 6) * 100)}%
             </span>
           </div>
@@ -141,11 +141,11 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300 flex items-center justify-center">
             <TrendingUp className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100 uppercase tracking-wider">
+            <h4 className="text-xs font-semibold text-stone-900 dark:text-stone-100 uppercase tracking-wider">
               7-Day Execution Score Trend
             </h4>
             <p className="text-[11px] text-stone-500 dark:text-stone-400">
@@ -158,15 +158,15 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <div className="px-2.5 py-1 rounded-lg bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
             <span className="text-stone-400">7-Day Avg:</span>
-            <span className="font-extrabold text-amber-600 dark:text-amber-400">
+            <span className="font-semibold text-stone-900 dark:text-stone-100">
               {averageScore} / 6
             </span>
           </div>
 
           <div className="px-2.5 py-1 rounded-lg bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
-            <Award className="w-3 h-3 text-emerald-500" />
+            <Award className="w-3 h-3 text-stone-400" />
             <span className="text-stone-400">Peak:</span>
-            <span className="font-extrabold text-stone-900 dark:text-stone-100">
+            <span className="font-semibold text-stone-900 dark:text-stone-100">
               {highestScore}/6
             </span>
           </div>
@@ -205,21 +205,21 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
               axisLine={{ stroke: '#78716c', opacity: 0.2 }}
               tick={{ fontSize: 11, fill: '#a8a29e' }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(245, 158, 11, 0.08)' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(120, 113, 108, 0.08)' }} />
             <ReferenceLine
               y={4}
-              stroke="#f59e0b"
+              stroke="#78716c"
               strokeDasharray="3 3"
               strokeOpacity={0.6}
               label={{
-                value: 'Acceptable (4)',
+                value: 'Pass Target (4)',
                 position: 'insideTopRight',
-                fill: '#d97706',
+                fill: '#78716c',
                 fontSize: 9,
                 fontWeight: 600,
               }}
             />
-            <Bar dataKey="score" radius={[6, 6, 2, 2]} maxBarSize={38} className="cursor-pointer">
+            <Bar dataKey="score" radius={[4, 4, 1, 1]} maxBarSize={38} className="cursor-pointer">
               {trendData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
@@ -236,24 +236,24 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
       <div className="mt-2 pt-2.5 border-t border-stone-200/70 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-stone-500 dark:text-stone-400">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-emerald-500 inline-block" />
-            <span>6: Excellent</span>
+            <span className="w-2.5 h-2.5 rounded-xs bg-stone-900 dark:bg-stone-200 inline-block" />
+            <span>6: Perfect</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-teal-500 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-stone-600 inline-block" />
             <span>5: Strong</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-amber-500 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-stone-500 inline-block" />
             <span>4: Acceptable</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-rose-500 inline-block" />
-            <span>0-3: Weak</span>
+            <span className="w-2.5 h-2.5 rounded-xs bg-stone-400 inline-block" />
+            <span>0-3: Below</span>
           </span>
         </div>
 
-        <span className="text-[10px] text-stone-400 italic">
+        <span className="text-[10px] text-stone-400">
           Click any bar to jump to that day
         </span>
       </div>
