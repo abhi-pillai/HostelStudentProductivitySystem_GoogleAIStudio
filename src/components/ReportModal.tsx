@@ -97,23 +97,23 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
   const studentEmail = currentUser?.email || (isDevBypass ? 'dev.tester@hostelloop.test' : 'guest.student@hostelloop.test');
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-5xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-[#121815]/75 backdrop-blur-xs overflow-y-auto">
+      <div className="relative w-full max-w-5xl bg-[#fcfbfa] dark:bg-[#18221d] border border-[#e4e1d6] dark:border-[#28362e] rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-150">
         
         {/* Top Control Bar */}
-        <div className="px-5 py-4 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3 bg-stone-50 dark:bg-stone-900 shrink-0">
+        <div className="px-5 py-4 border-b border-[#e5e1d7] dark:border-[#28382e] flex items-center justify-between gap-3 bg-[#f5f3ec] dark:bg-[#151d18] shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-[#2d5641]/10 text-[#2d5641] dark:bg-[#7fc09d]/15 dark:text-[#7fc09d] flex items-center justify-center">
               <FileText className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2">
+              <h2 className="text-base font-bold text-[#1b2620] dark:text-[#edf0ec] flex items-center gap-2">
                 <span>Productivity Analysis & Improvement Report</span>
-                <span className="text-[11px] font-normal text-stone-500 dark:text-stone-400">
+                <span className="text-[11px] font-normal text-[#526357] dark:text-[#9bb0a2]">
                   · {formatDateDisplay(analysis.startDate)} – {formatDateDisplay(analysis.endDate)}
                 </span>
               </h2>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-[#526357] dark:text-[#9bb0a2]">
                 Detailed diagnostic audit of your H.O.S.T.E.L execution with actionable remediation plans.
               </p>
             </div>
@@ -126,7 +126,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
               id="btn-download-report-pdf"
               onClick={handleDownloadPDF}
               disabled={isExporting}
-              className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 font-medium text-xs flex items-center gap-1.5 transition-colors shadow-2xs disabled:opacity-50"
+              className="px-3.5 py-2 rounded-xl bg-[#2d5641] hover:bg-[#234534] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] dark:hover:bg-[#90d2af] font-medium text-xs flex items-center gap-1.5 transition-colors shadow-2xs disabled:opacity-50 cursor-pointer"
               title="Download analysis and improvement report as a crisp PDF document"
             >
               <FileDown className="w-3.5 h-3.5" />
@@ -137,7 +137,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={handlePrint}
-              className="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-xs font-medium flex items-center gap-1.5 transition-colors border border-stone-200 dark:border-stone-700"
+              className="p-2 rounded-xl bg-[#fcfbfa] dark:bg-[#1c2720] hover:bg-[#edeae0] dark:hover:bg-[#233229] text-[#344339] dark:text-[#d3ded7] text-xs font-medium flex items-center gap-1.5 transition-colors border border-[#dedad0] dark:border-[#2c3d33] cursor-pointer"
               title="Print report or save via system printer dialog"
             >
               <Printer className="w-4 h-4" />
@@ -147,7 +147,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+              className="p-2 rounded-xl text-[#798b7f] hover:text-[#1b2620] dark:text-[#6e8275] dark:hover:text-[#edf0ec] hover:bg-[#edeae0] dark:hover:bg-[#233229] transition-colors cursor-pointer"
               aria-label="Close report modal"
             >
               <X className="w-4 h-4" />
@@ -156,18 +156,18 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
         </div>
 
         {/* Filter & Sub-Nav Toolbar */}
-        <div className="px-5 py-2.5 bg-stone-100/60 dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div className="px-5 py-2.5 bg-[#f5f3ec]/60 dark:bg-[#151d18]/70 border-b border-[#e5e1d7] dark:border-[#28382e] flex flex-wrap items-center justify-between gap-3 shrink-0">
           {/* Timeframe Tabs */}
-          <div className="flex items-center gap-1 bg-stone-250/70 dark:bg-stone-850 p-1 rounded-xl">
+          <div className="flex items-center gap-1 bg-[#edeae0] dark:bg-[#1c2720] p-1 rounded-xl">
             {(['last7', 'last14', 'last30', 'all'] as ReportTimeframe[]).map((tf) => (
               <button
                 key={tf}
                 type="button"
                 onClick={() => setTimeframe(tf)}
-                className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                className={`px-3 py-1 text-xs font-medium rounded-lg transition-all cursor-pointer ${
                   timeframe === tf
-                    ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-2xs font-semibold'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+                    ? 'bg-[#fcfbfa] dark:bg-[#28382e] text-[#1b2620] dark:text-[#edf0ec] shadow-2xs font-semibold'
+                    : 'text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec]'
                 }`}
               >
                 {timeframeLabels[tf]}
@@ -180,10 +180,10 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('analysis')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'analysis'
-                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
-                  : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
+                  ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] font-semibold shadow-2xs'
+                  : 'text-[#526357] dark:text-[#9bb0a2] hover:bg-[#edeae0] dark:hover:bg-[#233229]'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -193,10 +193,10 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('improvements')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'improvements'
-                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
-                  : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
+                  ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] font-semibold shadow-2xs'
+                  : 'text-[#526357] dark:text-[#9bb0a2] hover:bg-[#edeae0] dark:hover:bg-[#233229]'
               }`}
             >
               <Lightbulb className="w-3.5 h-3.5" />
@@ -206,10 +206,10 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
             <button
               type="button"
               onClick={() => setActiveTab('preview')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'preview'
-                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-semibold'
-                  : 'text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'
+                  ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] font-semibold shadow-2xs'
+                  : 'text-[#526357] dark:text-[#9bb0a2] hover:bg-[#edeae0] dark:hover:bg-[#233229]'
               }`}
             >
               <FileDown className="w-3.5 h-3.5" />
@@ -220,9 +220,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, recor
 
         {/* Success toast after export */}
         {exportSuccess && (
-          <div className="mx-5 mt-3 py-2 px-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 rounded-xl text-emerald-800 dark:text-emerald-300 text-xs font-medium flex items-center justify-between animate-in fade-in duration-200">
+          <div className="mx-5 mt-3 py-2 px-3 bg-[#2d5641]/10 dark:bg-[#7fc09d]/15 border border-[#2d5641]/30 dark:border-[#7fc09d]/30 rounded-xl text-[#244b36] dark:text-[#88d2af] text-xs font-medium flex items-center justify-between animate-in fade-in duration-200">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-[#2d5641] dark:text-[#7fc09d]" />
               <span>PDF report downloaded successfully! Check your browser downloads folder.</span>
             </div>
           </div>

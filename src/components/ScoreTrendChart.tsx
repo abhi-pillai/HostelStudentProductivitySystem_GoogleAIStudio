@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 import { DailyRecord } from '../types';
 import { calculateScore } from '../utils/storage';
-import { TrendingUp, Award, Calendar } from 'lucide-react';
+import { TrendingUp, Award } from 'lucide-react';
 
 interface ScoreTrendChartProps {
   records: Record<string, DailyRecord>;
@@ -78,7 +78,7 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
           }),
           score: 0,
           verdict: 'Not Tracked',
-          verdictColor: 'text-stone-400',
+          verdictColor: 'text-[#798b7f]',
           hasRecord: false,
         });
       }
@@ -95,13 +95,13 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
 
   const highestScore = Math.max(...trendData.map((d) => d.score), 0);
 
-  // Bar colors based on simplistic neutral scale
+  // Bar colors with nature tones
   const getBarColor = (score: number, hasRecord: boolean) => {
-    if (!hasRecord) return '#e7e5e4'; // stone-200
-    if (score >= 6) return '#1c1917'; // stone-900: Perfect
-    if (score >= 5) return '#57534e'; // stone-600: Strong
-    if (score >= 4) return '#78716c'; // stone-500: Acceptable
-    return '#a8a29e'; // stone-400: Weak
+    if (!hasRecord) return '#dedad0'; // unrecorded lichen beige
+    if (score >= 6) return '#deb16d'; // warm golden ochre
+    if (score >= 5) return '#2d5641'; // forest pine
+    if (score >= 4) return '#4e8568'; // moss sage
+    return '#c06541'; // terracotta amber
   };
 
   // Custom Tooltip component for Recharts
@@ -109,21 +109,21 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
     if (active && payload && payload.length) {
       const data: DayTrendData = payload[0].payload;
       return (
-        <div className="bg-stone-900/95 text-white p-2.5 rounded-xl shadow-xl border border-stone-800 text-xs backdrop-blur-xs min-w-[140px]">
-          <div className="flex items-center justify-between gap-2 border-b border-stone-800 pb-1 mb-1.5">
-            <span className="font-semibold text-stone-300">{data.fullDate}</span>
-            <span className="text-[10px] text-stone-400 font-mono">
+        <div className="bg-[#151d18]/95 text-[#edf0ec] p-2.5 rounded-xl shadow-xl border border-[#28362e] text-xs backdrop-blur-xs min-w-[140px]">
+          <div className="flex items-center justify-between gap-2 border-b border-[#28362e] pb-1 mb-1.5">
+            <span className="font-semibold text-[#edf0ec]">{data.fullDate}</span>
+            <span className="text-[10px] text-[#7fc09d] font-mono">
               {data.hasRecord ? 'Recorded' : 'Unrecorded'}
             </span>
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-xl font-bold text-stone-100">{data.score}</span>
-            <span className="text-xs text-stone-400">/ 6 pts</span>
-            <span className="ml-auto font-medium text-[11px] text-stone-300">{data.verdict}</span>
+            <span className="text-xl font-bold text-white font-mono">{data.score}</span>
+            <span className="text-xs text-[#9cb0a2]">/ 6 pts</span>
+            <span className="ml-auto font-medium text-[11px] text-[#deb16d]">{data.verdict}</span>
           </div>
-          <div className="mt-1.5 text-[10px] text-stone-400 flex items-center justify-between">
+          <div className="mt-1.5 text-[10px] text-[#9cb0a2] flex items-center justify-between">
             <span>H.O.S.T.E.L. Loop</span>
-            <span className="font-semibold text-stone-200">
+            <span className="font-semibold text-white">
               {Math.round((data.score / 6) * 100)}%
             </span>
           </div>
@@ -135,20 +135,20 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
 
   return (
     <div
-      className="mt-4 p-4 rounded-xl bg-stone-50/70 dark:bg-stone-850/60 border border-stone-200 dark:border-stone-800"
+      className="mt-4 p-4 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33]"
       id="score-trend-chart-card"
     >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-[#2d5641]/10 text-[#244b36] dark:bg-[#7fc09d]/15 dark:text-[#88d2af] flex items-center justify-center">
             <TrendingUp className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-semibold text-stone-900 dark:text-stone-100 uppercase tracking-wider">
+            <h4 className="text-xs font-semibold text-[#1b2620] dark:text-[#edf0ec] uppercase tracking-wider">
               7-Day Execution Score Trend
             </h4>
-            <p className="text-[11px] text-stone-500 dark:text-stone-400">
+            <p className="text-[11px] text-[#526357] dark:text-[#9bb0a2]">
               Daily H.O.S.T.E.L. total score out of 6 points
             </p>
           </div>
@@ -156,17 +156,17 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
 
         {/* Quick Summary Pill Badges */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <div className="px-2.5 py-1 rounded-lg bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
-            <span className="text-stone-400">7-Day Avg:</span>
-            <span className="font-semibold text-stone-900 dark:text-stone-100">
+          <div className="px-2.5 py-1 rounded-lg bg-[#fcfbfa] dark:bg-[#18221d] border border-[#dedad0] dark:border-[#2b3a31] text-[#344339] dark:text-[#d3ded7] text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
+            <span className="text-[#798b7f] dark:text-[#6e8275]">7-Day Avg:</span>
+            <span className="font-semibold text-[#1b2620] dark:text-[#edf0ec] font-mono">
               {averageScore} / 6
             </span>
           </div>
 
-          <div className="px-2.5 py-1 rounded-lg bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
-            <Award className="w-3 h-3 text-stone-400" />
-            <span className="text-stone-400">Peak:</span>
-            <span className="font-semibold text-stone-900 dark:text-stone-100">
+          <div className="px-2.5 py-1 rounded-lg bg-[#fcfbfa] dark:bg-[#18221d] border border-[#dedad0] dark:border-[#2b3a31] text-[#344339] dark:text-[#d3ded7] text-[11px] flex items-center gap-1.5 font-medium shadow-2xs">
+            <Award className="w-3 h-3 text-[#deb16d]" />
+            <span className="text-[#798b7f] dark:text-[#6e8275]">Peak:</span>
+            <span className="font-semibold text-[#1b2620] dark:text-[#edf0ec] font-mono">
               {highestScore}/6
             </span>
           </div>
@@ -189,32 +189,32 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#78716c"
+              stroke="#526357"
               opacity={0.15}
             />
             <XAxis
               dataKey="displayDay"
               tickLine={false}
-              axisLine={{ stroke: '#78716c', opacity: 0.2 }}
-              tick={{ fontSize: 11, fill: '#a8a29e' }}
+              axisLine={{ stroke: '#526357', opacity: 0.25 }}
+              tick={{ fontSize: 11, fill: '#798b7f' }}
             />
             <YAxis
               domain={[0, 6]}
               ticks={[0, 2, 4, 6]}
               tickLine={false}
-              axisLine={{ stroke: '#78716c', opacity: 0.2 }}
-              tick={{ fontSize: 11, fill: '#a8a29e' }}
+              axisLine={{ stroke: '#526357', opacity: 0.25 }}
+              tick={{ fontSize: 11, fill: '#798b7f' }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(120, 113, 108, 0.08)' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(45, 86, 65, 0.08)' }} />
             <ReferenceLine
               y={4}
-              stroke="#78716c"
+              stroke="#2d5641"
               strokeDasharray="3 3"
               strokeOpacity={0.6}
               label={{
                 value: 'Pass Target (4)',
                 position: 'insideTopRight',
-                fill: '#78716c',
+                fill: '#2d5641',
                 fontSize: 9,
                 fontWeight: 600,
               }}
@@ -233,27 +233,27 @@ export const ScoreTrendChart: React.FC<ScoreTrendChartProps> = ({
       </div>
 
       {/* Legend and Navigation Cue */}
-      <div className="mt-2 pt-2.5 border-t border-stone-200/70 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-stone-500 dark:text-stone-400">
+      <div className="mt-2 pt-2.5 border-t border-[#dedad0] dark:border-[#28382e] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#526357] dark:text-[#9bb0a2]">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-stone-900 dark:bg-stone-200 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-[#deb16d] inline-block" />
             <span>6: Perfect</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-stone-600 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-[#2d5641] dark:bg-[#7fc09d] inline-block" />
             <span>5: Strong</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-stone-500 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-[#4e8568] inline-block" />
             <span>4: Acceptable</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-stone-400 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-[#c06541] inline-block" />
             <span>0-3: Below</span>
           </span>
         </div>
 
-        <span className="text-[10px] text-stone-400">
+        <span className="text-[10px] text-[#798b7f] dark:text-[#6e8275]">
           Click any bar to jump to that day
         </span>
       </div>

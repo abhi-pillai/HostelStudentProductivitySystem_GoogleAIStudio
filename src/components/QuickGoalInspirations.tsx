@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface QuickGoalInspirationsProps {
   currentGoal?: string;
@@ -27,22 +27,22 @@ export const QuickGoalInspirations: React.FC<QuickGoalInspirationsProps> = ({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec] transition-colors"
         >
-          <Sparkles className="w-3.5 h-3.5 text-stone-500" />
+          <Sparkles className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d]" />
           <span>Quick target ideas</span>
           {isOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </button>
 
         {currentGoal && (
-          <span className="text-[10px] text-stone-400 dark:text-stone-500">
+          <span className="text-[10px] text-[#798b7f] dark:text-[#6e8275]">
             Auto-saved
           </span>
         )}
       </div>
 
       {isOpen && (
-        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-2 rounded-lg bg-stone-50 dark:bg-stone-850/80 border border-stone-200 dark:border-stone-800 animate-in fade-in duration-150">
+        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-2 rounded-lg bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#e4e1d6] dark:border-[#28362e] animate-in fade-in duration-150">
           {INSPIRATIONS.map((text, idx) => {
             const isSelected = currentGoal === text;
             return (
@@ -52,13 +52,12 @@ export const QuickGoalInspirations: React.FC<QuickGoalInspirationsProps> = ({
                 onClick={() => onSelectGoal(text)}
                 className={`text-left text-xs p-2 rounded-md transition-all flex items-start gap-1.5 border ${
                   isSelected
-                    ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 border-stone-900 dark:border-stone-100 font-medium'
-                    : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-750'
+                    ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] border-[#2d5641] dark:border-[#7fc09d] font-medium shadow-2xs'
+                    : 'bg-[#fcfbfa] dark:bg-[#18221d] border-[#dedad0] dark:border-[#2b3a31] text-[#344339] dark:text-[#d3ded7] hover:bg-[#edeae0] dark:hover:bg-[#223128]'
                 }`}
               >
-                <span className={`font-bold shrink-0 text-[10px] mt-0.5 ${isSelected ? 'text-white dark:text-stone-900' : 'text-stone-400'}`}>•</span>
+                <span className={`font-bold shrink-0 text-[10px] mt-0.5 ${isSelected ? 'text-white dark:text-[#0f1d15]' : 'text-[#798b7f]'}`}>•</span>
                 <span className="flex-1 leading-snug">{text}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-stone-900 shrink-0" />}
               </button>
             );
           })}

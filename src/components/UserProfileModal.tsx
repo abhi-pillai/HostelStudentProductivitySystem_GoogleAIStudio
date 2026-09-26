@@ -6,7 +6,6 @@ import {
   Flame,
   Calendar,
   Award,
-  CheckCircle2,
   CloudCheck,
   LogOut,
   Sparkles,
@@ -47,42 +46,42 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#121815]/70 backdrop-blur-xs animate-in fade-in"
       id="user-profile-modal-backdrop"
     >
       <div
-        className="bg-white dark:bg-stone-900 rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl border border-stone-200 dark:border-stone-800"
+        className="bg-[#fcfbfa] dark:bg-[#18221d] rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl border border-[#e4e1d6] dark:border-[#28362e]"
         id="user-profile-modal"
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-stone-100 dark:border-stone-800">
+        <div className="flex items-center justify-between pb-3.5 border-b border-[#e5e1d7] dark:border-[#28382e]">
           <div className="flex items-center gap-2">
-            <User className="w-5 h-5 text-stone-700 dark:text-stone-300" />
-            <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-stone-100">
+            <User className="w-5 h-5 text-[#2d5641] dark:text-[#7fc09d]" />
+            <h3 className="text-base sm:text-lg font-bold text-[#1b2620] dark:text-[#edf0ec]">
               Hostel Student Profile & Milestones
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 p-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+            className="text-[#798b7f] dark:text-[#6e8275] hover:text-[#1b2620] dark:hover:text-[#edf0ec] p-1.5 rounded-lg hover:bg-[#edeae0] dark:hover:bg-[#223128] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* User Identity Card */}
-        <div className="mt-4 p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="mt-4 p-4 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             {currentUser?.photoURL ? (
               <img
                 src={currentUser.photoURL}
                 alt={currentUser.displayName || 'Student'}
                 referrerPolicy="no-referrer"
-                className="w-11 h-11 rounded-full object-cover border border-stone-300 dark:border-stone-700 shadow-2xs"
+                className="w-11 h-11 rounded-full object-cover border border-[#2d5641]/30 dark:border-[#7fc09d]/30 shadow-2xs"
               />
             ) : (
-              <div className="w-11 h-11 rounded-xl bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 flex items-center justify-center font-bold text-base shadow-2xs">
+              <div className="w-11 h-11 rounded-xl bg-[#2d5641] text-[#f4f7f4] dark:bg-[#7fc09d] dark:text-[#0f1d15] flex items-center justify-center font-bold text-base shadow-2xs">
                 {currentUser?.displayName
                   ? currentUser.displayName.charAt(0).toUpperCase()
                   : currentUser?.email
@@ -91,21 +90,21 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               </div>
             )}
             <div>
-              <h4 className="text-sm font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-1.5 flex-wrap">
+              <h4 className="text-sm font-semibold text-[#1b2620] dark:text-[#edf0ec] flex items-center gap-1.5 flex-wrap">
                 {currentUser?.displayName || (currentUser ? 'Hostel Scholar' : 'Guest Student')}
                 {isDevBypass && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-stone-700 font-mono font-medium flex items-center gap-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f4f2ea] dark:bg-[#202d25] text-[#344339] dark:text-[#d3ded7] border border-[#dedad0] dark:border-[#2c3d33] font-mono font-medium flex items-center gap-1">
                     <Terminal className="w-2.5 h-2.5" /> Dev Mode
                   </span>
                 )}
                 {currentUser && !isDevBypass && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-stone-700 font-mono font-medium flex items-center gap-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#2d5641]/10 text-[#244b36] dark:bg-[#7fc09d]/15 dark:text-[#88d2af] border border-[#2d5641]/25 dark:border-[#7fc09d]/30 font-mono font-medium flex items-center gap-1">
                     <CloudCheck className="w-2.5 h-2.5" /> Cloud Synced
                   </span>
                 )}
               </h4>
-              <p className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1 mt-0.5">
-                <Mail className="w-3 h-3 text-stone-400" />
+              <p className="text-xs text-[#526357] dark:text-[#9bb0a2] flex items-center gap-1 mt-0.5">
+                <Mail className="w-3 h-3 text-[#798b7f] dark:text-[#6e8275]" />
                 {currentUser?.email || 'Local Storage Session (Sign in to sync across devices)'}
               </p>
             </div>
@@ -119,7 +118,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   signOut();
                   onClose();
                 }}
-                className="px-3 py-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg border border-stone-200 dark:border-stone-700 flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec] hover:bg-[#edeae0] dark:hover:bg-[#223128] rounded-lg border border-[#dedad0] dark:border-[#2c3d33] flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
@@ -131,9 +130,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   onClose();
                   onOpenAuth();
                 }}
-                className="px-3 py-1.5 text-xs font-semibold text-white bg-stone-900 dark:bg-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-stone-200 rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-[#2d5641] hover:bg-[#234534] dark:bg-[#7fc09d] dark:hover:bg-[#90d2af] dark:text-[#0f1d15] rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-stone-300 dark:text-stone-600" />
+                <Sparkles className="w-3.5 h-3.5" />
                 <span>Log In / Sync</span>
               </button>
             )}
@@ -142,29 +141,29 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         {/* Quick Execution Stats Bar */}
         <div className="mt-3.5 grid grid-cols-3 gap-2 text-center">
-          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
-            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
-              <Flame className="w-3.5 h-3.5 text-stone-500" /> Streak
+          <div className="p-2.5 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33]">
+            <div className="flex items-center justify-center gap-1 text-[#c06541] dark:text-[#e88d6a] text-[10px] font-semibold uppercase">
+              <Flame className="w-3.5 h-3.5 fill-current" /> Streak
             </div>
-            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
+            <div className="text-xl font-bold text-[#1b2620] dark:text-[#edf0ec] mt-0.5 font-mono">
               {streak.currentStreak}d
             </div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
-            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
-              <Award className="w-3.5 h-3.5 text-stone-500" /> All-Time Best
+          <div className="p-2.5 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33]">
+            <div className="flex items-center justify-center gap-1 text-[#2d5641] dark:text-[#7fc09d] text-[10px] font-semibold uppercase">
+              <Award className="w-3.5 h-3.5" /> All-Time Best
             </div>
-            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
+            <div className="text-xl font-bold text-[#1b2620] dark:text-[#edf0ec] mt-0.5 font-mono">
               {streak.bestStreak}d
             </div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
-            <div className="flex items-center justify-center gap-1 text-stone-600 dark:text-stone-400 text-[10px] font-semibold uppercase">
-              <Calendar className="w-3.5 h-3.5 text-stone-500" /> Badges Cleared
+          <div className="p-2.5 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33]">
+            <div className="flex items-center justify-center gap-1 text-[#376d75] dark:text-[#6db5c0] text-[10px] font-semibold uppercase">
+              <Calendar className="w-3.5 h-3.5" /> Badges Cleared
             </div>
-            <div className="text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5">
+            <div className="text-xl font-bold text-[#1b2620] dark:text-[#edf0ec] mt-0.5 font-mono">
               {unlockedBadges.length} / {badges.length}
             </div>
           </div>
@@ -172,13 +171,13 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         {/* Generate Report Action Banner */}
         {onOpenReport && (
-          <div className="mt-3.5 p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3">
+          <div className="mt-3.5 p-3 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33] flex items-center justify-between gap-3">
             <div>
-              <h5 className="text-xs font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-stone-500" />
+              <h5 className="text-xs font-semibold text-[#1b2620] dark:text-[#edf0ec] flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d]" />
                 <span>Productivity Analysis & PDF Report</span>
               </h5>
-              <p className="text-[11px] text-stone-500 dark:text-stone-400">
+              <p className="text-[11px] text-[#526357] dark:text-[#9bb0a2]">
                 Detailed diagnostics across all 6 pillars and personalized ways to improve
               </p>
             </div>
@@ -189,7 +188,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onOpenReport();
               }}
-              className="px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 font-semibold text-xs flex items-center gap-1 shrink-0 transition-colors shadow-2xs"
+              className="px-3 py-1.5 rounded-lg bg-[#2d5641] hover:bg-[#234534] text-white dark:bg-[#7fc09d] dark:hover:bg-[#90d2af] dark:text-[#0f1d15] font-semibold text-xs flex items-center gap-1 shrink-0 transition-colors shadow-2xs cursor-pointer"
             >
               <span>Generate PDF</span>
             </button>
@@ -197,14 +196,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         )}
 
         {/* Tab Toggle */}
-        <div className="mt-4 flex items-center gap-1 border-b border-stone-200 dark:border-stone-800 pb-2">
+        <div className="mt-4 flex items-center gap-1 border-b border-[#e5e1d7] dark:border-[#28382e] pb-2">
           <button
             type="button"
             onClick={() => setActiveTab('badges')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'badges'
-                ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-2xs'
-                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
+                ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] shadow-2xs'
+                : 'text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec]'
             }`}
           >
             <Award className="w-3.5 h-3.5" />
@@ -213,10 +212,10 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('overview')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'overview'
-                ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-2xs'
-                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
+                ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] shadow-2xs'
+                : 'text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec]'
             }`}
           >
             <Clock className="w-3.5 h-3.5" />
@@ -230,15 +229,15 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             <Badges badges={badges} />
           ) : (
             <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700">
-                <h5 className="font-bold text-stone-900 dark:text-stone-100 mb-1 flex items-center gap-1.5">
-                  <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <div className="p-3.5 rounded-xl bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33]">
+                <h5 className="font-bold text-[#1b2620] dark:text-[#edf0ec] mb-1 flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-[#deb16d]" />
                   How Milestone Badges Unlock
                 </h5>
-                <p className="text-stone-600 dark:text-stone-400 leading-relaxed">
+                <p className="text-[#526357] dark:text-[#9bb0a2] leading-relaxed">
                   Badges reflect real behavior in your hostel room. Consistency is graded when your daily H.O.S.T.E.L. execution score reaches at least <strong>4 out of 6 points</strong>.
                 </p>
-                <ul className="mt-2 space-y-1 text-stone-600 dark:text-stone-400 list-disc list-inside">
+                <ul className="mt-2 space-y-1 text-[#526357] dark:text-[#9bb0a2] list-disc list-inside">
                   <li><strong>7-Day Consistent Performer:</strong> 7 uninterrupted days of disciplined execution.</li>
                   <li><strong>Early Bird 14-Day:</strong> 14 consecutive mornings waking up with zero phone scrolling.</li>
                   <li><strong>21-Day Habit Master:</strong> Full 3-week rewiring of your study rhythm.</li>
@@ -246,8 +245,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 </ul>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 text-stone-700 dark:text-stone-300">
-                <span className="font-bold text-amber-900 dark:text-amber-300 block mb-0.5">
+              <div className="p-3.5 rounded-xl bg-[#2d5641]/10 dark:bg-[#7fc09d]/10 border border-[#2d5641]/25 dark:border-[#7fc09d]/25 text-[#244b36] dark:text-[#88d2af]">
+                <span className="font-bold text-[#1b2620] dark:text-[#edf0ec] block mb-0.5">
                   Hostel Environmental Tip:
                 </span>
                 Keep your desk clear of clutter before going to bed. When you sit down for your evening block, having all notes and textbook tabs pre-opened reduces initial activation resistance.

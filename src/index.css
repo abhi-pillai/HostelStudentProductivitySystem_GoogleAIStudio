@@ -3,9 +3,66 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Nature Tones - Light Mode (Warm Linen / Moss / Pine / River Stone) */
+    --color-nature-canvas: #f5f4ed;
+    --color-nature-card: #fcfbfa;
+    --color-nature-card-hover: #ffffff;
+    --color-nature-sub: #efece4;
+    --color-nature-sub-border: #dedad0;
+    --color-nature-border: #e3e0d5;
+    --color-nature-text-primary: #1b2620;
+    --color-nature-text-secondary: #526357;
+    --color-nature-text-muted: #798b7f;
+    --color-nature-forest: #2d5641;
+    --color-nature-sage: #4f7963;
+    --color-nature-clay: #bf6643;
+    --color-nature-bark: #3d3127;
   }
+
+  .dark {
+    /* Nature Tones - Dark Mode (Deep Cypress Midnight / Lichen / Soft Sage / Warm Clay) */
+    --color-nature-canvas: #121815;
+    --color-nature-card: #18221d;
+    --color-nature-card-hover: #1d2923;
+    --color-nature-sub: #1f2c25;
+    --color-nature-sub-border: #2c3e34;
+    --color-nature-border: #29382f;
+    --color-nature-text-primary: #edf0ec;
+    --color-nature-text-secondary: #9cb0a2;
+    --color-nature-text-muted: #6e8275;
+    --color-nature-forest: #7fc09d;
+    --color-nature-sage: #94cea9;
+    --color-nature-clay: #e88d6a;
+    --color-nature-bark: #d9c4b2;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-nature-canvas);
+    color: var(--color-nature-text-primary);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Custom Nature Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(82, 107, 92, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(82, 107, 92, 0.45);
 }
 
 @media print {

@@ -255,12 +255,12 @@ export const App: React.FC = () => {
   // Initial auth checking state
   if (loading) {
     return (
-      <div className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-4 text-center">
-        <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-900 flex items-center justify-center font-bold text-sm shadow-md mb-4 animate-pulse">
+      <div className="min-h-screen bg-[#121815] flex flex-col items-center justify-center p-4 text-center">
+        <div className="w-10 h-10 rounded-xl bg-[#2d5641] text-[#f4f7f4] flex items-center justify-center font-bold text-sm shadow-md mb-4 animate-pulse">
           HL
         </div>
-        <div className="flex items-center gap-2 text-stone-300 text-xs font-medium">
-          <Loader2 className="w-4 h-4 animate-spin text-stone-400" />
+        <div className="flex items-center gap-2 text-[#9cb0a2] text-xs font-medium">
+          <Loader2 className="w-4 h-4 animate-spin text-[#7fc09d]" />
           <span>Verifying student session...</span>
         </div>
       </div>
@@ -273,7 +273,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-stone-100/60 dark:bg-stone-950 text-stone-900 dark:text-stone-100 pb-16 font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-[#f5f4ed] dark:bg-[#121815] text-[#1b2620] dark:text-[#edf0ec] pb-16 font-sans transition-colors duration-200">
       {/* Mobile Install Promotion Banner */}
       <PWAInstallBanner />
 
@@ -360,10 +360,10 @@ export const App: React.FC = () => {
         />
 
         {/* Daily Reflection / Diary Notes */}
-        <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl p-5 shadow-2xs mb-6" id="section-reflection">
+        <div className="bg-[#fcfbfa] dark:bg-[#18221d] border border-[#e4e1d6] dark:border-[#28362e] rounded-xl p-5 shadow-2xs mb-6" id="section-reflection">
           <div className="flex items-center gap-2 mb-2">
-            <MessageSquare className="w-4 h-4 text-stone-500 dark:text-stone-400" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
+            <MessageSquare className="w-4 h-4 text-[#4f7963] dark:text-[#88cba8]" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#2d5641] dark:text-[#88cba8]">
               Hostel Daily Reflection & Notes
             </h3>
           </div>
@@ -372,7 +372,7 @@ export const App: React.FC = () => {
             onChange={(e) => handleUpdateRecord({ ...record, dailyNotes: e.target.value })}
             placeholder="How was today's discipline? Any distraction triggers in the hostel room (e.g. friends dropping by, late gaming)? How will you adjust tomorrow?"
             rows={3}
-            className="w-full text-xs p-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-850 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:border-stone-500"
+            className="w-full text-xs p-3 rounded-lg border border-[#e4e1d6] dark:border-[#2b3a30] bg-[#f7f6f0] dark:bg-[#1e2a22] text-[#1b2620] dark:text-[#edf0ec] placeholder-[#819086] dark:placeholder-[#65796c] focus:outline-hidden focus:border-[#4f7963] dark:focus:border-[#88cba8]"
           />
 
           {/* 1-click Quick Reflection Prompts */}
@@ -394,8 +394,8 @@ export const App: React.FC = () => {
         </div>
 
         {/* Hostel Cardinal Rule Reminder Footer */}
-        <div className="p-4 rounded-xl bg-stone-900 text-stone-300 text-xs flex items-start gap-3">
-          <ShieldAlert className="w-5 h-5 text-stone-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-[#22362b] dark:bg-[#15231c] text-[#e6ece7] text-xs flex items-start gap-3 border border-[#2e4739] dark:border-[#25392e]">
+          <ShieldAlert className="w-5 h-5 text-[#88cba8] shrink-0 mt-0.5" />
           <div className="leading-relaxed">
             <span className="font-semibold text-white">The Hostel Student Golden Law: </span>
             Your bed should only be used for sleep. Avoid watching shows in bed, scrolling social media in bed, or studying in bed. Do not aim for perfect days—aim for consistent daily execution of the loop.

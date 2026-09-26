@@ -9,9 +9,7 @@ import {
   AlertCircle,
   Loader2,
   Sparkles,
-  Award,
   CheckCircle2,
-  Calendar,
   Zap,
   Terminal,
   KeyRound,
@@ -36,7 +34,6 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
     signInWithDevBypass,
     authError,
     clearAuthError,
-    isFirebaseConfigured,
   } = useAuth();
 
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -93,8 +90,6 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
       if (mode === 'signup') {
         const res = await signUpWithEmail(email, password, name);
         if (res?.success) {
-          // Account created successfully!
-          // Switch user to sign-in tab with clear banner prompting them to log in
           setMode('signin');
           setSignupSuccessMsg(
             'Account created successfully! Please enter your password to log in and access the system.'
@@ -119,10 +114,8 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
     const demoPass = 'hostelPass123!';
 
     try {
-      // First attempt sign-in
       const signInRes = await signInWithEmail(demoEmail, demoPass);
       if (!signInRes?.success) {
-        // If not found or failed, register first then sign in
         await signUpWithEmail(demoEmail, demoPass, 'Hostel Scholar (Demo)');
         await signInWithEmail(demoEmail, demoPass);
       }
@@ -136,38 +129,38 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
 
   return (
     <div
-      className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-4 sm:p-6"
+      className="min-h-screen bg-[#121815] text-[#edf0ec] flex flex-col items-center justify-center p-4 sm:p-6"
       id="auth-gate-screen"
     >
       {/* Background Subtle Ambience */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-amber-500 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-orange-600 blur-3xl" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-25">
+        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#2d5641] blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#3d7053] blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Main Card */}
-        <div className="bg-stone-850 rounded-2xl p-6 sm:p-8 shadow-2xl border border-stone-700/80">
+        <div className="bg-[#18221d] rounded-2xl p-6 sm:p-8 shadow-2xl border border-[#28362e]">
           {/* Header Brand */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 text-white font-black text-xl shadow-lg mb-3">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2d5641] to-[#4e8568] text-[#f4f7f4] font-black text-xl shadow-lg mb-3">
               HL
             </div>
-            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-stone-100">
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[#edf0ec]">
               H.O.S.T.E.L. Execution Loop
             </h1>
-            <p className="text-xs sm:text-sm text-stone-400 mt-1 font-medium">
+            <p className="text-xs sm:text-sm text-[#9cb0a2] mt-1 font-medium">
               High Output Student Time Execution Loop
             </p>
 
-            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-xs font-semibold">
+            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2d5641]/20 border border-[#2d5641]/40 text-[#7fc09d] text-xs font-semibold">
               <Lock className="w-3.5 h-3.5" />
               <span>Authentication Required to Access System</span>
             </div>
           </div>
 
           {/* Mode Switch Tabs */}
-          <div className="flex rounded-xl bg-stone-900 p-1 mb-5 border border-stone-800">
+          <div className="flex rounded-xl bg-[#121815] p-1 mb-5 border border-[#233328]">
             <button
               type="button"
               id="tab-btn-signin"
@@ -176,10 +169,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                 setSignupSuccessMsg(null);
                 setMode('signin');
               }}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 mode === 'signin'
-                  ? 'bg-amber-500 text-stone-950 shadow-xs'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-[#7fc09d] text-[#0f1d15] shadow-xs'
+                  : 'text-[#9cb0a2] hover:text-[#edf0ec]'
               }`}
             >
               <LogIn className="w-3.5 h-3.5" />
@@ -193,10 +186,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                 setSignupSuccessMsg(null);
                 setMode('signup');
               }}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 mode === 'signup'
-                  ? 'bg-amber-500 text-stone-950 shadow-xs'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-[#7fc09d] text-[#0f1d15] shadow-xs'
+                  : 'text-[#9cb0a2] hover:text-[#edf0ec]'
               }`}
             >
               <UserPlus className="w-3.5 h-3.5" />
@@ -206,16 +199,16 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
 
           {/* Sign Up Success / Transition Banner */}
           {signupSuccessMsg && (
-            <div className="mb-4 p-3 bg-emerald-950/50 border border-emerald-700/60 rounded-xl flex items-start gap-2 text-xs text-emerald-300 animate-in fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="mb-4 p-3 bg-[#2d5641]/20 border border-[#2d5641]/50 rounded-xl flex items-start gap-2 text-xs text-[#88d2af] animate-in fade-in">
+              <CheckCircle2 className="w-4 h-4 text-[#7fc09d] shrink-0 mt-0.5" />
               <div className="flex-1 font-medium">{signupSuccessMsg}</div>
             </div>
           )}
 
           {/* Error Alert */}
           {authError && (
-            <div className="mb-4 p-3 bg-rose-950/50 border border-rose-800/80 rounded-xl flex items-start gap-2 text-xs text-rose-300 animate-in fade-in">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <div className="mb-4 p-3 bg-[#c06541]/15 border border-[#c06541]/40 rounded-xl flex items-start gap-2 text-xs text-[#f09a79] animate-in fade-in">
+              <AlertCircle className="w-4 h-4 text-[#e88d6a] shrink-0 mt-0.5" />
               <div className="flex-1">{authError}</div>
             </div>
           )}
@@ -226,10 +219,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
             id="gate-google-btn"
             onClick={handleGoogleSignIn}
             disabled={submitting}
-            className="w-full py-2.5 px-4 bg-stone-800 hover:bg-stone-750 border border-stone-700 rounded-xl text-xs font-semibold text-stone-200 flex items-center justify-center gap-2.5 shadow-sm transition-all disabled:opacity-60"
+            className="w-full py-2.5 px-4 bg-[#1f2c25] hover:bg-[#25362c] border border-[#2c3e34] rounded-xl text-xs font-semibold text-[#edf0ec] flex items-center justify-center gap-2.5 shadow-sm transition-all disabled:opacity-60 cursor-pointer"
           >
             {submitting ? (
-              <Loader2 className="w-4 h-4 animate-spin text-amber-400" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#7fc09d]" />
             ) : (
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -258,10 +251,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
           {/* Divider */}
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-stone-800"></div>
+              <div className="w-full border-t border-[#28362e]"></div>
             </div>
-            <div className="relative flex justify-center text-[11px] uppercase tracking-wider text-stone-500">
-              <span className="bg-stone-850 px-2 font-medium">or continue with email</span>
+            <div className="relative flex justify-center text-[11px] uppercase tracking-wider text-[#6e8275]">
+              <span className="bg-[#18221d] px-2 font-medium">or continue with email</span>
             </div>
           </div>
 
@@ -269,7 +262,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
           <form onSubmit={handleSubmit} className="space-y-3.5">
             {mode === 'signup' && (
               <div>
-                <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wide mb-1">
+                <label className="block text-[11px] font-bold text-[#d3ded7] uppercase tracking-wide mb-1">
                   Student Name
                 </label>
                 <input
@@ -279,17 +272,17 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Sairuto Pillai"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-stone-700 bg-stone-900 text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#2c3e34] bg-[#121815] text-[#edf0ec] placeholder-[#6e8275] focus:outline-hidden focus:ring-1 focus:ring-[#7fc09d]"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wide mb-1">
+              <label className="block text-[11px] font-bold text-[#d3ded7] uppercase tracking-wide mb-1">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-stone-500 absolute left-3.5 top-3" />
+                <Mail className="w-4 h-4 text-[#6e8275] absolute left-3.5 top-3" />
                 <input
                   type="email"
                   required
@@ -297,17 +290,17 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="student@hostel.edu"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-stone-700 bg-stone-900 text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-[#2c3e34] bg-[#121815] text-[#edf0ec] placeholder-[#6e8275] focus:outline-hidden focus:ring-1 focus:ring-[#7fc09d]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wide mb-1">
+              <label className="block text-[11px] font-bold text-[#d3ded7] uppercase tracking-wide mb-1">
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-stone-500 absolute left-3.5 top-3" />
+                <Lock className="w-4 h-4 text-[#6e8275] absolute left-3.5 top-3" />
                 <input
                   type="password"
                   required
@@ -316,7 +309,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 6 characters"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-stone-700 bg-stone-900 text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-[#2c3e34] bg-[#121815] text-[#edf0ec] placeholder-[#6e8275] focus:outline-hidden focus:ring-1 focus:ring-[#7fc09d]"
                 />
               </div>
             </div>
@@ -325,10 +318,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
               type="submit"
               id="gate-submit-btn"
               disabled={submitting}
-              className="w-full py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-950 font-semibold rounded-xl text-xs flex items-center justify-center gap-2 shadow-2xs transition-all disabled:opacity-60 mt-4 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-[#2d5641] hover:bg-[#3d7053] text-[#f4f7f4] font-semibold rounded-xl text-xs flex items-center justify-center gap-2 shadow-2xs transition-all disabled:opacity-60 mt-4 cursor-pointer"
             >
               {submitting ? (
-                <Loader2 className="w-4 h-4 animate-spin text-stone-950" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#edf0ec]" />
               ) : mode === 'signin' ? (
                 <>
                   <LogIn className="w-4 h-4" />
@@ -344,18 +337,18 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
           </form>
 
           {/* Quick Demo Student Access & Dev/Tester Bypass */}
-          <div className="mt-5 pt-4 border-t border-stone-800 space-y-3">
+          <div className="mt-5 pt-4 border-t border-[#28362e] space-y-3">
             {/* Tester & Dev Bypass Box */}
-            <div className="bg-stone-900 rounded-xl p-3 border border-stone-800">
+            <div className="bg-[#121815] rounded-xl p-3 border border-[#28362e]">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-stone-300">
-                  <Terminal className="w-3.5 h-3.5 text-stone-400" />
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#edf0ec]">
+                  <Terminal className="w-3.5 h-3.5 text-[#7fc09d]" />
                   <span>Dev & Tester Bypass (No Sign-In Required)</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowDevPanel(!showDevPanel)}
-                  className="text-[10px] text-stone-400 hover:text-stone-200 underline font-mono"
+                  className="text-[10px] text-[#7fc09d] hover:underline font-mono cursor-pointer"
                 >
                   {showDevPanel ? 'Hide Codes' : 'Enter Passcode'}
                 </button>
@@ -367,10 +360,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   type="button"
                   id="btn-bypass-developer"
                   onClick={() => handleDevBypassSubmit('DEV123')}
-                  className="py-1.5 px-2.5 rounded-lg bg-stone-800 hover:bg-stone-750 border border-stone-700 text-[11px] font-medium text-stone-250 flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+                  className="py-1.5 px-2.5 rounded-lg bg-[#18221d] hover:bg-[#1f2c25] border border-[#2c3e34] text-[11px] font-medium text-[#edf0ec] flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer"
                   title="Instant bypass as Developer (Code: DEV123)"
                 >
-                  <Code2 className="w-3.5 h-3.5 text-stone-400" />
+                  <Code2 className="w-3.5 h-3.5 text-[#7fc09d]" />
                   <span>Dev Bypass (DEV123)</span>
                 </button>
 
@@ -378,19 +371,19 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                   type="button"
                   id="btn-bypass-tester"
                   onClick={() => handleDevBypassSubmit('TESTER')}
-                  className="py-1.5 px-2.5 rounded-lg bg-stone-800 hover:bg-stone-750 border border-stone-700 text-[11px] font-medium text-stone-250 flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+                  className="py-1.5 px-2.5 rounded-lg bg-[#18221d] hover:bg-[#1f2c25] border border-[#2c3e34] text-[11px] font-medium text-[#edf0ec] flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer"
                   title="Instant bypass as QA Tester (Code: TESTER)"
                 >
-                  <KeyRound className="w-3.5 h-3.5 text-stone-400" />
+                  <KeyRound className="w-3.5 h-3.5 text-[#deb16d]" />
                   <span>Tester Bypass (TESTER)</span>
                 </button>
               </div>
 
               {/* Expandable Manual Passcode Input */}
               {showDevPanel && (
-                <div className="mt-3 pt-2.5 border-t border-stone-800">
-                  <p className="text-[10px] text-stone-400 mb-1.5">
-                    Enter test code: <span className="font-mono text-stone-300">DEV123</span> or <span className="font-mono text-stone-300">TESTER</span>
+                <div className="mt-3 pt-2.5 border-t border-[#28362e]">
+                  <p className="text-[10px] text-[#9cb0a2] mb-1.5">
+                    Enter test code: <span className="font-mono text-[#7fc09d]">DEV123</span> or <span className="font-mono text-[#deb16d]">TESTER</span>
                   </p>
                   <div className="flex gap-1.5">
                     <input
@@ -408,20 +401,20 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
                         }
                       }}
                       placeholder="e.g. DEV123"
-                      className="flex-1 px-2.5 py-1.5 text-xs rounded-lg border border-stone-700 bg-stone-950 text-stone-100 placeholder-stone-500 font-mono uppercase focus:outline-hidden focus:border-stone-500"
+                      className="flex-1 px-2.5 py-1.5 text-xs rounded-lg border border-[#2c3e34] bg-[#0f1712] text-[#edf0ec] placeholder-[#6e8275] font-mono uppercase focus:outline-hidden focus:border-[#7fc09d]"
                     />
                     <button
                       type="button"
                       id="btn-submit-dev-code"
                       onClick={() => handleDevBypassSubmit()}
-                      className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 font-semibold text-xs flex items-center gap-1 shadow-2xs transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-[#2d5641] hover:bg-[#3d7053] text-[#f4f7f4] font-semibold text-xs flex items-center gap-1 shadow-2xs transition-colors cursor-pointer"
                     >
                       <Check className="w-3 h-3 stroke-[2.5]" />
                       <span>Enter</span>
                     </button>
                   </div>
                   {devCodeError && (
-                    <p className="text-[10px] text-rose-400 mt-1 font-medium flex items-center gap-1">
+                    <p className="text-[10px] text-[#f09a79] mt-1 font-medium flex items-center gap-1">
                       <AlertCircle className="w-3 h-3 shrink-0" />
                       <span>{devCodeError}</span>
                     </p>
@@ -436,30 +429,30 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onSuccess }) => {
               id="gate-demo-btn"
               onClick={handleQuickDemoSignIn}
               disabled={submitting}
-              className="w-full py-2 px-3 rounded-xl bg-stone-900 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 text-xs font-medium text-stone-300 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full py-2 px-3 rounded-xl bg-[#18221d] hover:bg-[#1f2c25] border border-[#28362e] hover:border-[#384c3f] text-xs font-medium text-[#edf0ec] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-stone-400" />
+              <Sparkles className="w-3.5 h-3.5 text-[#7fc09d]" />
               <span>Sign in with Demo Account</span>
             </button>
           </div>
         </div>
 
         {/* Feature Lock Teaser Icons */}
-        <div className="mt-5 grid grid-cols-3 gap-2 text-center text-stone-400 text-[11px]">
-          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
-            <Flame className="w-4 h-4 text-stone-400" />
-            <span className="font-medium text-stone-300">Streaks & Badges</span>
-            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
+        <div className="mt-5 grid grid-cols-3 gap-2 text-center text-[#9cb0a2] text-[11px]">
+          <div className="p-2 rounded-xl bg-[#18221d] border border-[#28362e] flex flex-col items-center gap-1">
+            <Flame className="w-4 h-4 text-[#e88d6a]" />
+            <span className="font-medium text-[#edf0ec]">Streaks & Badges</span>
+            <span className="text-[10px] text-[#6e8275] font-mono">Locked</span>
           </div>
-          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
-            <Zap className="w-4 h-4 text-stone-400" />
-            <span className="font-medium text-stone-300">Focus Mode</span>
-            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
+          <div className="p-2 rounded-xl bg-[#18221d] border border-[#28362e] flex flex-col items-center gap-1">
+            <Zap className="w-4 h-4 text-[#7fc09d]" />
+            <span className="font-medium text-[#edf0ec]">Focus Mode</span>
+            <span className="text-[10px] text-[#6e8275] font-mono">Locked</span>
           </div>
-          <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 flex flex-col items-center gap-1">
-            <ShieldCheck className="w-4 h-4 text-stone-400" />
-            <span className="font-medium text-stone-300">Cloud Sync</span>
-            <span className="text-[10px] text-stone-500 font-mono">Locked</span>
+          <div className="p-2 rounded-xl bg-[#18221d] border border-[#28362e] flex flex-col items-center gap-1">
+            <ShieldCheck className="w-4 h-4 text-[#6db5c0]" />
+            <span className="font-medium text-[#edf0ec]">Cloud Sync</span>
+            <span className="text-[10px] text-[#6e8275] font-mono">Locked</span>
           </div>
         </div>
       </div>

@@ -101,12 +101,12 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
   );
 
   return (
-    <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800" id="distraction-logger">
+    <div className="mt-4 pt-4 border-t border-[#e4e1d6] dark:border-[#28362e]" id="distraction-logger">
       <div className="flex items-center justify-between gap-2 mb-2">
-        <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300">
-          <AlertCircle className="w-3.5 h-3.5 text-stone-500 shrink-0" />
+        <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#344339] dark:text-[#d3ded7]">
+          <AlertCircle className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d] shrink-0" />
           <span>Distraction Logger</span>
-          <span className="text-xs text-stone-400 dark:text-stone-500 font-normal ml-1">
+          <span className="text-xs text-[#798b7f] dark:text-[#6e8275] font-normal ml-1">
             (Identify focus leaks)
           </span>
         </div>
@@ -118,8 +118,8 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
           onClick={() => setShowPatterns(!showPatterns)}
           className={`px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors border ${
             showPatterns
-              ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 border-stone-900 dark:border-stone-100'
-              : 'border-stone-200 dark:border-stone-750 bg-stone-50 dark:bg-stone-850 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800'
+              ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] border-[#2d5641] dark:border-[#7fc09d]'
+              : 'border-[#dedad0] dark:border-[#2c3d33] bg-[#f5f3ec] dark:bg-[#1c2720] text-[#344339] dark:text-[#d3ded7] hover:text-[#1b2620] dark:hover:text-[#edf0ec] hover:bg-[#eae6db] dark:hover:bg-[#233229]'
           }`}
         >
           <TrendingUp className="w-3 h-3" />
@@ -140,13 +140,13 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
               onClick={() => toggleDistraction(item.id)}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border ${
                 isSelected
-                  ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 border-stone-900 dark:border-stone-100 font-medium'
-                  : 'bg-stone-50 dark:bg-stone-850 border-stone-200 dark:border-stone-750 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
+                  ? 'bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15] border-[#2d5641] dark:border-[#7fc09d] font-medium shadow-2xs'
+                  : 'bg-[#fcfbfa] dark:bg-[#18221d] border-[#dedad0] dark:border-[#2b3a31] text-[#344339] dark:text-[#d3ded7] hover:bg-[#edeae0] dark:hover:bg-[#223128]'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white dark:text-stone-900' : 'text-stone-400'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white dark:text-[#0f1d15]' : 'text-[#798b7f] dark:text-[#6e8275]'}`} />
               <span>{item.label}</span>
-              {isSelected && <Check className="w-3 h-3 text-white dark:text-stone-900 stroke-[2]" />}
+              {isSelected && <Check className="w-3 h-3 text-white dark:text-[#0f1d15] stroke-[2.5]" />}
             </button>
           );
         })}
@@ -157,13 +157,13 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
         {customSelectedTags.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#2d5641] text-white dark:bg-[#7fc09d] dark:text-[#0f1d15]"
           >
             <span>{tag}</span>
             <button
               type="button"
               onClick={() => removeDistraction(tag)}
-              className="text-stone-300 dark:text-stone-600 hover:text-white dark:hover:text-black p-0.5 rounded"
+              className="text-[#a8d3bc] dark:text-[#234533] hover:text-white dark:hover:text-black p-0.5 rounded"
             >
               <X className="w-3 h-3" />
             </button>
@@ -176,12 +176,12 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
             placeholder="+ Add specific trigger..."
-            className="text-xs px-2.5 py-1 rounded-lg border border-dashed border-stone-300 dark:border-stone-700 bg-transparent text-stone-800 dark:text-stone-200 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-hidden focus:border-stone-500 w-44"
+            className="text-xs px-2.5 py-1 rounded-lg border border-dashed border-[#c5c1b4] dark:border-[#3d5044] bg-transparent text-[#1b2620] dark:text-[#edf0ec] placeholder-[#798b7f] dark:placeholder-[#6e8275] focus:outline-hidden focus:border-[#2d5641] dark:focus:border-[#7fc09d] w-44"
           />
           {customInput.trim() && (
             <button
               type="submit"
-              className="p-1 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-xs font-semibold hover:opacity-90"
+              className="p-1 rounded-lg bg-[#2d5641] dark:bg-[#7fc09d] text-white dark:text-[#0f1d15] text-xs font-semibold hover:opacity-90"
             >
               <Plus className="w-3.5 h-3.5" />
             </button>
@@ -192,39 +192,39 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
       {/* Pattern Tracking Panel */}
       {showPatterns && (
         <div
-          className="mt-3 p-3.5 bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-750 rounded-xl animate-in fade-in"
+          className="mt-3 p-3.5 bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#dedad0] dark:border-[#2c3d33] rounded-xl animate-in fade-in"
           id="distraction-patterns-panel"
         >
           <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-stone-800 dark:text-stone-200">
-              <BarChart2 className="w-3.5 h-3.5 text-stone-500" />
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1b2620] dark:text-[#edf0ec]">
+              <BarChart2 className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d]" />
               <span>Hostel Distraction Patterns (All Time)</span>
             </div>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-[#526357] dark:text-[#9bb0a2]">
               {patternStats.totalLogs} days with tracked triggers
             </span>
           </div>
 
           {patternStats.sorted.length === 0 ? (
-            <p className="text-xs text-stone-500 dark:text-stone-400 py-2">
+            <p className="text-xs text-[#526357] dark:text-[#9bb0a2] py-2">
               No distractions logged yet across your history. As you tag triggers, frequent hostel culprits will appear here to help you adjust your environment.
             </p>
           ) : (
             <div className="space-y-2 mt-2">
               {patternStats.sorted.slice(0, 5).map((item, idx) => (
                 <div key={item.name} className="text-xs">
-                  <div className="flex items-center justify-between text-stone-700 dark:text-stone-300 mb-0.5">
+                  <div className="flex items-center justify-between text-[#344339] dark:text-[#d3ded7] mb-0.5">
                     <span className="font-medium flex items-center gap-1">
-                      <span className="text-[10px] text-stone-400 font-mono">#{idx + 1}</span>
+                      <span className="text-[10px] text-[#798b7f] dark:text-[#6e8275] font-mono">#{idx + 1}</span>
                       <span>{item.name}</span>
                     </span>
-                    <span className="text-xs text-stone-500 dark:text-stone-400">
+                    <span className="text-xs text-[#526357] dark:text-[#9bb0a2]">
                       {item.count} {item.count === 1 ? 'day' : 'days'} ({item.percentage}%)
                     </span>
                   </div>
-                  <div className="w-full bg-stone-200 dark:bg-stone-700 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-[#eae7dd] dark:bg-[#223027] rounded-full h-1.5 overflow-hidden">
                     <div
-                      className="bg-stone-800 dark:bg-stone-200 h-full rounded-full transition-all duration-300"
+                      className="bg-[#2d5641] dark:bg-[#7fc09d] h-full rounded-full transition-all duration-300"
                       style={{ width: `${Math.max(item.percentage, 8)}%` }}
                     />
                   </div>
@@ -234,8 +234,8 @@ export const DistractionLogger: React.FC<DistractionLoggerProps> = ({
           )}
 
           {/* Quick Hostel Action Tip */}
-          <div className="mt-3 pt-2.5 border-t border-stone-200 dark:border-stone-750 text-xs text-stone-600 dark:text-stone-400 flex items-start gap-1.5">
-            <span className="font-semibold text-stone-800 dark:text-stone-200 shrink-0">Hostel Pro-Tip:</span>
+          <div className="mt-3 pt-2.5 border-t border-[#dedad0] dark:border-[#2c3d33] text-xs text-[#526357] dark:text-[#9bb0a2] flex items-start gap-1.5">
+            <span className="font-semibold text-[#1b2620] dark:text-[#edf0ec] shrink-0">Hostel Pro-Tip:</span>
             <span>
               If "Roommates" or "Noise" tops your chart, schedule deep Targeted Work at the library or use noise-dampening earphones with a study timer.
             </span>

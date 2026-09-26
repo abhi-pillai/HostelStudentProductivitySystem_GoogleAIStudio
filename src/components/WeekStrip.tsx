@@ -67,28 +67,28 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
 
   return (
     <div
-      className="bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 rounded-xl p-3.5 sm:p-4 mb-5 shadow-2xs transition-all"
+      className="bg-[#fcfbfa] dark:bg-[#18221d] border border-[#e4e1d6] dark:border-[#28362e] rounded-xl p-3.5 sm:p-4 mb-5 shadow-2xs transition-all"
       id="week-momentum-strip"
     >
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md bg-[#c06541]/10 dark:bg-[#e88d6a]/15 text-[#b25735] dark:text-[#f09a79] flex items-center justify-center shrink-0">
             <Flame className="w-3.5 h-3.5 fill-current" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+              <span className="text-xs font-bold text-[#1b2620] dark:text-[#edf0ec]">
                 Weekly Momentum
               </span>
               {streak && streak.currentStreak > 0 && (
-                <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 font-mono">
+                <span className="text-[11px] font-semibold text-[#b25735] dark:text-[#f09a79] font-mono">
                   {streak.currentStreak}d streak
                 </span>
               )}
             </div>
           </div>
-          <span className="text-xs text-stone-400 dark:text-stone-500 font-normal hidden md:inline">
+          <span className="text-xs text-[#798b7f] dark:text-[#6e8275] font-normal hidden md:inline">
             · Tap any day to log or view
           </span>
         </div>
@@ -98,17 +98,17 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
             <button
               type="button"
               onClick={() => onSelectDate(todayStr)}
-              className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition-all cursor-pointer"
+              className="text-[11px] font-semibold text-[#2d5641] dark:text-[#88d2af] hover:text-[#1e3c2c] dark:hover:text-[#9fe3c1] flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#2d5641]/10 hover:bg-[#2d5641]/15 dark:bg-[#7fc09d]/15 dark:hover:bg-[#7fc09d]/25 border border-[#2d5641]/20 dark:border-[#7fc09d]/30 transition-all cursor-pointer"
             >
               <span>Back to Today</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           )}
 
-          <div className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+          <div className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-md bg-[#f4f2ea] dark:bg-[#1c2720] text-[#344339] dark:text-[#d3ded7]">
             <span>Week Score:</span>
-            <strong className="text-stone-900 dark:text-stone-100 font-bold">{totalScoreThisWeek}/42</strong>
-            <span className="text-stone-400 dark:text-stone-500">({loggedDaysThisWeek}/7 active)</span>
+            <strong className="text-[#1b2620] dark:text-[#edf0ec] font-bold">{totalScoreThisWeek}/42</strong>
+            <span className="text-[#798b7f] dark:text-[#6e8275]">({loggedDaysThisWeek}/7 active)</span>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
 
           // Badging style
           let scoreBadge = (
-            <span className="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-700 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#dedad0] dark:bg-[#2c3d33] inline-block" />
           );
 
           if (day.hasRecord) {
@@ -129,8 +129,8 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
               scoreBadge = (
                 <span className={`text-[10px] font-bold font-mono px-1.5 py-0.2 rounded-full flex items-center gap-0.5 ${
                   isSelected
-                    ? 'bg-amber-400 text-stone-950 shadow-2xs'
-                    : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30'
+                    ? 'bg-[#deb16d] text-[#1b2620] shadow-2xs'
+                    : 'bg-[#deb16d]/20 text-[#9c691c] dark:text-[#f2d08a] border border-[#deb16d]/40'
                 }`}>
                   ★ 6/6
                 </span>
@@ -139,8 +139,8 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
               scoreBadge = (
                 <span className={`text-[10px] font-semibold font-mono px-1.5 py-0.2 rounded-full ${
                   isSelected
-                    ? 'bg-emerald-400 text-stone-950'
-                    : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25'
+                    ? 'bg-[#edf5f0] text-[#1b2620]'
+                    : 'bg-[#2d5641]/15 text-[#244b36] dark:text-[#88d2af] border border-[#2d5641]/25 dark:border-[#7fc09d]/30'
                 }`}>
                   ✓ {day.score}/6
                 </span>
@@ -149,8 +149,8 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
               scoreBadge = (
                 <span className={`text-[10px] font-medium font-mono px-1.5 py-0.2 rounded-full ${
                   isSelected
-                    ? 'bg-stone-700 text-stone-200'
-                    : 'bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400'
+                    ? 'bg-[#24352a] text-[#edf0ec]'
+                    : 'bg-[#dedad0] dark:bg-[#293930] text-[#526357] dark:text-[#9bb0a2]'
                 }`}>
                   {day.score}/6
                 </span>
@@ -166,28 +166,28 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
               title={`${day.weekday}, ${day.month} ${day.dayNumber}: ${day.hasRecord ? `${day.score}/6 points (${day.verdict})` : 'No execution logged'}`}
               className={`flex flex-col items-center justify-between py-2 px-1 sm:px-2 rounded-xl transition-all cursor-pointer text-center relative ${
                 isSelected
-                  ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 shadow-md ring-2 ring-stone-900/15 dark:ring-stone-100/30 scale-[1.02]'
-                  : 'bg-stone-50/70 dark:bg-stone-850/50 hover:bg-stone-100 dark:hover:bg-stone-800/80 border border-stone-200/70 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:scale-[1.01]'
+                  ? 'bg-[#2d5641] text-[#f4f7f4] dark:bg-[#7fc09d] dark:text-[#0f1d15] shadow-md ring-2 ring-[#2d5641]/20 dark:ring-[#7fc09d]/30 scale-[1.02]'
+                  : 'bg-[#f5f3ec] dark:bg-[#1c2720] hover:bg-[#eae6db] dark:hover:bg-[#233229] border border-[#e4e1d6] dark:border-[#29382f] text-[#344339] dark:text-[#d3ded7] hover:scale-[1.01]'
               }`}
             >
               {/* Day Name */}
               <div className="flex items-center gap-1">
                 <span
                   className={`text-[10px] font-medium tracking-wide uppercase ${
-                    isSelected ? 'text-stone-300 dark:text-stone-600' : 'text-stone-400 dark:text-stone-500'
+                    isSelected ? 'text-[#cbe3d5] dark:text-[#183324]' : 'text-[#798b7f] dark:text-[#6e8275]'
                   }`}
                 >
                   {day.weekday}
                 </span>
                 {isToday && (
-                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-amber-400' : 'bg-amber-500'}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-[#deb16d]' : 'bg-[#c06541] dark:bg-[#e88d6a]'}`} />
                 )}
               </div>
 
               {/* Day Number */}
               <span
                 className={`text-base sm:text-lg font-bold font-mono my-0.5 leading-none ${
-                  isSelected ? 'text-white dark:text-stone-900' : 'text-stone-900 dark:text-stone-100'
+                  isSelected ? 'text-white dark:text-[#0f1d15]' : 'text-[#1b2620] dark:text-[#edf0ec]'
                 }`}
               >
                 {day.dayNumber}

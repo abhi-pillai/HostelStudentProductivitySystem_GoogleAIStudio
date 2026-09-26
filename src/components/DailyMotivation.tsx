@@ -80,24 +80,24 @@ export const DailyMotivation: React.FC = () => {
 
   return (
     <div
-      className="bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/20 dark:border-amber-500/25 rounded-xl p-3.5 sm:p-4 mb-5 shadow-2xs transition-all flex items-start justify-between gap-3"
+      className="bg-[#2d5641]/5 dark:bg-[#7fc09d]/10 border border-[#2d5641]/20 dark:border-[#7fc09d]/20 rounded-xl p-3.5 sm:p-4 mb-5 shadow-2xs transition-all flex items-start justify-between gap-3"
       id="daily-hostel-wisdom-card"
     >
       <div className="flex items-start gap-3 min-w-0">
-        <div className="w-7 h-7 rounded-lg bg-amber-500/15 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0 mt-0.5 border border-amber-500/30">
-          <Lightbulb className="w-4 h-4 fill-amber-500/20" />
+        <div className="w-7 h-7 rounded-lg bg-[#2d5641]/15 dark:bg-[#7fc09d]/20 text-[#244b36] dark:text-[#88d2af] flex items-center justify-center shrink-0 mt-0.5 border border-[#2d5641]/30 dark:border-[#7fc09d]/30">
+          <Lightbulb className="w-4 h-4 fill-current" />
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 font-mono">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#244b36] dark:text-[#88d2af] font-mono">
               Hostel Principle #{index + 1}
             </span>
-            <span className="text-[10px] text-stone-400 dark:text-stone-500">·</span>
-            <span className="text-[11px] font-semibold text-stone-800 dark:text-stone-200">
+            <span className="text-[10px] text-[#798b7f] dark:text-[#6e8275]">·</span>
+            <span className="text-[11px] font-semibold text-[#1b2620] dark:text-[#edf0ec]">
               {item.principle}
             </span>
           </div>
-          <p className="text-xs text-stone-700 dark:text-stone-300 mt-1 leading-relaxed italic">
+          <p className="text-xs text-[#2a382f] dark:text-[#d7e2da] mt-1 leading-relaxed italic">
             "{item.quote}"
           </p>
         </div>
@@ -107,17 +107,17 @@ export const DailyMotivation: React.FC = () => {
         <button
           type="button"
           onClick={handleCopy}
-          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/60 transition-colors"
+          className="p-1.5 rounded-lg text-[#526357] hover:text-[#1b2620] dark:text-[#9bb0a2] dark:hover:text-[#edf0ec] hover:bg-[#2d5641]/10 dark:hover:bg-[#7fc09d]/20 transition-colors"
           title={copied ? "Copied to clipboard!" : "Copy principle"}
           aria-label="Copy wisdom quote"
         >
-          {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+          {copied ? <Check className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d]" /> : <Copy className="w-3.5 h-3.5" />}
         </button>
 
         <button
           type="button"
           onClick={handleNext}
-          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/60 transition-colors"
+          className="p-1.5 rounded-lg text-[#526357] hover:text-[#1b2620] dark:text-[#9bb0a2] dark:hover:text-[#edf0ec] hover:bg-[#2d5641]/10 dark:hover:bg-[#7fc09d]/20 transition-colors"
           title="Shuffle next hostel principle"
           aria-label="Next hostel wisdom"
         >

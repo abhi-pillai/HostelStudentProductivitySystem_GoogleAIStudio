@@ -33,16 +33,16 @@ export const QuickReflectionPrompts: React.FC<QuickReflectionPromptsProps> = ({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#526357] dark:text-[#9bb0a2] hover:text-[#1b2620] dark:hover:text-[#edf0ec] transition-colors"
         >
-          <Sparkles className="w-3.5 h-3.5 text-stone-500" />
+          <Sparkles className="w-3.5 h-3.5 text-[#2d5641] dark:text-[#7fc09d]" />
           <span>Hostel Reflection Prompts (1-click insert)</span>
           {isOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="mt-2 flex flex-wrap gap-1.5 p-2 rounded-lg bg-stone-50/70 dark:bg-stone-850/60 border border-stone-200 dark:border-stone-800 animate-in fade-in duration-150">
+        <div className="mt-2 flex flex-wrap gap-1.5 p-2 rounded-lg bg-[#f5f3ec] dark:bg-[#1c2720] border border-[#e4e1d6] dark:border-[#28362e] animate-in fade-in duration-150">
           {HOSTEL_PROMPTS.map((prompt, idx) => {
             const isAdded = lastAppended === prompt;
             return (
@@ -52,15 +52,15 @@ export const QuickReflectionPrompts: React.FC<QuickReflectionPromptsProps> = ({
                 onClick={() => handleSelect(prompt)}
                 className={`text-left text-xs px-2.5 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 ${
                   isAdded
-                    ? 'bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 font-medium'
-                    : 'bg-white dark:bg-stone-850 border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
+                    ? 'bg-[#2d5641] dark:bg-[#7fc09d] border-[#2d5641] dark:border-[#7fc09d] text-white dark:text-[#0f1d15] font-medium'
+                    : 'bg-[#fcfbfa] dark:bg-[#18221d] border-[#dedad0] dark:border-[#2b3a31] text-[#344339] dark:text-[#d3ded7] hover:bg-[#edeae0] dark:hover:bg-[#223128]'
                 }`}
               >
                 <span>{prompt}</span>
                 {isAdded ? (
-                  <Check className="w-3 h-3 text-white dark:text-stone-900 shrink-0" />
+                  <Check className="w-3 h-3 text-white dark:text-[#0f1d15] shrink-0" />
                 ) : (
-                  <span className="text-[10px] text-stone-400 font-mono">+Add</span>
+                  <span className="text-[10px] text-[#798b7f] dark:text-[#6e8275] font-mono">+Add</span>
                 )}
               </button>
             );
